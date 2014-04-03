@@ -9,7 +9,7 @@
 #define ADD_H_
 
 class add{
-public:
+public: 
 	add();
 	Value add(Fraction a, Fraction b);
 	Value add(Fraction a, Expression b);
