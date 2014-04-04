@@ -36,7 +36,47 @@ Value add(Fraction a, NthRoot b) {
 	return Expression(a,b);
 }
 
+Value add(Expression a, Expression b) {
+	return Expression(a,b);
+}
 
+Value add(Expression a, Number b) {
+	return Expression(a,b);
+}
 
+Value add(Expression a, Log b) {
+	return Expression(a,b);
+}
 
+Value add(Expression a, NthRoot b) {
+	return Expression(a,b);
+}
+
+Value add(Number a, Number b){
+	return Number(a+b);
+}
+
+Value add(Number a, Log b) {
+	return Expression(a,b);
+}
+
+Value add(Number a, NthRoot b){
+	return Expression(a,b);
+}
+
+Value add(Log a, Log b){
+	/*int s1=a.getBase();
+	int s2=b.getBase();*/
+	return Expression(a,b);
+}
+
+Value add(Log a, NthRoot b) {
+	return Expression(a,b);
+}
+
+Value add(NthRoot a, NthRoot b) {
+	return expression; //not sure about this one. how could i make
+	                   //sqrt(2) + sqrt(2) = 2sqrt(2)? Would that be handled
+	                   //in the simplify method?
+}
 
