@@ -48,7 +48,7 @@ void MathSys::menu()
 			cin.ignore();
 			getline (cin, data);
 
-			cout << endl << data << endl;
+			cout << endl << "Input:" << endl << data << endl;
 
 			UserIO calculation = UserIO(data);
 			rpnToCalc = calculation.rpn();

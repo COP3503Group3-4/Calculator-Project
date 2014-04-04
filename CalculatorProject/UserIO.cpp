@@ -253,16 +253,25 @@ void UserIO::rpnInput()
 			}
 	}
 
-  //The following code moves all remaning opStacks to the end of the rpnUserIn, after all numbers move
+  //The following code moves all remaining opStacks to the end of the rpnUserIn, after all numbers move
 	while (opStack.size() != 0)
 	{
 		rpnUserIn.push_back(opStack.back());
 		opStack.pop_back();
 	}
 
+	//Print out split output
+	cout << "splitInput vector: " << endl;
+	cout << "{" << splitUserIn[0];
+	for (int i = 1; i < splitUserIn.size(); i++)
+	{
+		cout << ", " << splitUserIn[i];
+	}
+	cout << "}" << endl;
 	//Printing out RPN output
+	cout << "RPN vector: " << endl;
 	cout << "{" << rpnUserIn[0];
-	for (int i = 0; i < rpnUserIn.size(); i++)
+	for (int i = 1; i < rpnUserIn.size(); i++)
 	{
 		cout << ", " << rpnUserIn[i];
 	}
