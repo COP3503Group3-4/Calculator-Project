@@ -1,21 +1,31 @@
+////////////////////////////
+//Benjamin Hayden Duncan
+//Menu.cpp
+//This is a basic menu
+////////////////////////////
+
 #include <string>
 #include <iostream>
 
 using namespace std;
 
-int yup()
+int Menu()
 {
+	//c will hold the user defined choices in the menu
 	int c;
-
+	
+	//for printing out the Menu
 	cout << endl << "Welcome to MathSys."
 		<< endl << "1. Calculation" << endl << "2. View Syntax"
 		<< endl << "3. View Stored Data" << endl << "4. Quit" << endl
 		<< "Please choose an option: ";
-
+		
 	cin >> c;
-
+	
+	//while loop used for menu control
 	while (c != 4)
 	{
+		//Option 1 : Calculation
 		if (c == 1)
 		{
 			string data = "ssssss";
@@ -33,8 +43,12 @@ int yup()
 			cout << endl << "Calculation complete." << endl << "Please choose an option: ";
 			cin >> c;
 		}
+		
+		//Option 2 : Syntax Menu
+		//Move Into
 		if (c == 2)
 		{
+			//print out Syntax Menu
 			cout << endl << "Welcome to View Syntax."
 				<< endl << "1. Addition" << endl << "2. Subtraction"
 				<< endl << "3. Multiplication" << endl << "4. Division" << endl
@@ -42,7 +56,8 @@ int yup()
 				<< "Please choose an option: ";
 
 			cin >> c;
-
+			
+			//While loop used to control the Syntax Menu
 			while (c != 7)
 			{
 				if (c == 1)
@@ -91,6 +106,8 @@ int yup()
 			cout << endl << "Syntax Quit." << endl << endl << "Please choose an option: ";
 			cin >> c;
 		}
+		
+		// will be hanled by ans in future.
 		if (c == 3)
 		{
 			//Needs to call stored data.
@@ -98,5 +115,7 @@ int yup()
 			cin >> c;
 		}
 	}
+	
+	//Defaults to Quit when logic is met.
 	cout << endl << "MathSys Quit.";
 }
