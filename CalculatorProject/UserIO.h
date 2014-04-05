@@ -19,7 +19,7 @@ class UserIO {
 public:
 	UserIO(string userInput);
 	virtual ~UserIO();
-	vector<string> splitInput();
+	vector<string> getSplitInput();
 	vector<string> rpn();
 
 private:
@@ -27,6 +27,8 @@ private:
 	vector<string> splitUserIn;
 	vector<string> rpnUserIn;
 	vector<string> opStack;
+	void splitInput();
+	void rpnInput();
 };
 
 #endif /* USERIO_H_ */
