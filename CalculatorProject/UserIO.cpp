@@ -56,9 +56,9 @@ void UserIO::splitInput()
 					//Adjusting string
 					s2 = s2.substr(ind+1,s2.length()-1);
 				}
-				//Otherwise there may be a preceeding number
+				//Otherwise there may be a preceding number
 				else {
-					//Adding the preceeding number
+					//Adding the preceding number
 					splitUserIn.push_back(s2.substr(0,ind));
 					//Adding the unique char
 					splitUserIn.push_back(s2.substr(ind,1));
@@ -67,7 +67,7 @@ void UserIO::splitInput()
 				}
 				//Will allow ind to become 0 for next loop
 				ind = -1;
-				//Will end the foor loop
+				//Will end the for loop
 				break;
 			}
 		}
@@ -98,7 +98,7 @@ void UserIO::rpnInput()
 //Benjamin Hayden Duncan
 //Shunt.cpp
 //
-//Shunting Yard Algorihm
+//Shunting Yard Algorithm
 //You can't imagine the
 //number of times the
 //debug was accessed
@@ -127,7 +127,7 @@ void UserIO::rpnInput()
 	//Comments may help explain.
 	//This works for all the wikipedia examples.
 
-  //Masssive for loop controls which elements to access from splitUserIn
+  //Massive for loop controls which elements to access from splitUserIn
 	for (int i = 0; i < splitUserIn.size(); i++)
 	{
 	  //The working variables is the accessed element
