@@ -11,7 +11,7 @@ add::add(){
 }
 
 Value add(Fraction a, Fraction b) {
-	int n1 = a.getNumerator() * b.getNumerator;
+	int n1 = a.getNumerator() * b.getDenominator;
 	int n2 = b.getNumerator() * a.getDenominator;
 	int d = a.getDenominator() * b.getDenominator;
 	return Fraction(n1+n2, d);
