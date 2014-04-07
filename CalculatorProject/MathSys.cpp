@@ -52,7 +52,7 @@ void MathSys::menu()
 
 			UserIO calculation = UserIO(data);
 			rpnToCalc = calculation.rpn();
-			lastAnswer = calculate();
+			//lastAnswer = calculate();
 
 			cout << endl << "Calculation complete." << endl << "Please choose an option: ";
 			cin >> c;
@@ -134,15 +134,15 @@ void MathSys::menu()
 	cout << endl << "MathSys Quit.";
 }
 
+/*
 Value MathSys::lastAns() {
 	return lastAnswer;
 }
 
 Value MathSys::calculate() {
 
-	/*
-	 * Created by Cory Anderson
-	 */
+
+	//Created by Cory Anderson
 
 	//vector<string> rpnToCalc
 	Value answer;
@@ -174,3 +174,4 @@ Value MathSys::calculate() {
 
 	return answer;
 }
+*/
