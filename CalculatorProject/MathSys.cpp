@@ -52,6 +52,7 @@ void MathSys::menu()
 
 			UserIO calculation = UserIO(data);
 			rpnToCalc = calculation.rpn();
+			lastAnswer = calculate();
 
 			cout << endl << "Calculation complete." << endl << "Please choose an option: ";
 			cin >> c;
@@ -131,4 +132,45 @@ void MathSys::menu()
 
 	//Defaults to Quit when logic is met.
 	cout << endl << "MathSys Quit.";
+}
+
+Value MathSys::lastAns() {
+	return lastAnswer;
+}
+
+Value MathSys::calculate() {
+
+	/*
+	 * Created by Cory Anderson
+	 */
+
+	//vector<string> rpnToCalc
+	Value answer;
+	string current = rpnToCalc[rpnToCalc.size() - 1];
+	rpnToCalc.pop_back();
+
+	switch(current) {
+		case "+":
+			answer = Add.add(calculate(), calculate());
+			break;
+		case "-":
+			answer = Subtract.subtract(calculate(), calculate());
+			break;
+		case "*":
+			answer = Multiply.multiply(calculate(), calculate());
+			break;
+		case "/":
+			answer = Divide.divide(calculate(), calculate());
+			break;
+		case "t":
+			answer = Root(calculate(), calculate());
+			break;
+		case "_":
+			answer = Log(calculate(), calculate());
+			break;
+		default:
+			answer = RationalNumber(current);
+	}
+
+	return answer;
 }

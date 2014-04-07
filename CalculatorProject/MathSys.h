@@ -12,6 +12,9 @@
 #include <iostream>
 #include <vector>
 #include "UserIO.h"
+#include "Values/Value.h"
+#include "Ops/Add.h"
+#include "Ops/Multiply.h"
 
 using namespace std;
 
@@ -20,8 +23,11 @@ public:
 	MathSys();
 	virtual ~MathSys();
 	void menu();
+	Value lastAns();
 private:
 	vector<string> rpnToCalc;
+	Value lastAnswer;
+	Value calculate();
 };
 
 #endif /* MATHSYS_H_ */
