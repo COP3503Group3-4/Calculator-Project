@@ -146,27 +146,33 @@ Value MathSys::calculate() {
 
 	//vector<string> rpnToCalc
 	Value answer;
+	Value v1;
+	Value v2;
 	string current = rpnToCalc[rpnToCalc.size() - 1];
 	rpnToCalc.pop_back();
 
+	if(current == "+" || current == "-" || current == "*" || current == "/" || current == "t" || current == "_") {
+		v2 = calculate();
+		v1 = calculate();
+	}
 	switch(current) {
 		case "+":
-			answer = Add.add(calculate(), calculate());
+			answer = Add.add(v1,v2);
 			break;
 		case "-":
-			answer = Subtract.subtract(calculate(), calculate());
+			answer = Subtract.subtract(v1,v2);
 			break;
 		case "*":
-			answer = Multiply.multiply(calculate(), calculate());
+			answer = Multiply.multiply(v1,v2);
 			break;
 		case "/":
-			answer = Divide.divide(calculate(), calculate());
+			answer = Divide.divide(v1,v2);
 			break;
 		case "t":
-			answer = Root(calculate(), calculate());
+			answer = Root(v1,v2);
 			break;
 		case "_":
-			answer = Log(calculate(), calculate());
+			answer = Log(v1,v2);
 			break;
 		default:
 			answer = RationalNumber(current);
