@@ -144,7 +144,7 @@ Value MathSys::calculate() {
 
 	//Created by Cory Anderson
 
-	//vector<string> rpnToCalc
+	//vector<string> rpnToCalc declared in header
 	Value answer;
 	Value v1;
 	Value v2;
