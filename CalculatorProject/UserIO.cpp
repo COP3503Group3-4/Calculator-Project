@@ -1,120 +1,121 @@
 /*
- * UserIO.cpp
- *
- *  Created on: Apr 2, 2014
- *      Author: corya_000
- */
+* userio.cpp
+*
+*  created on: apr 2, 2014
+*      author: corya_000
+*/
 
-#include "UserIO.h"
+#include "userio.h"
 
-char uniques [13] = {'+','-','*','/','t','_',':','(',')',' ','r','l','^'};
+char uniques[13] = { '+', '-', '*', '/', 't', '_', ':', '(', ')', ' ', 'r', 'l', '^' };
 
-UserIO::UserIO(string userInput)
+userio::userio(string userinput)
 {
 
-	userIn = userInput;
-	splitInput();
-	rpnInput();
+	userin = userinput;
+	splitinput();
+	rpninput();
 }
 
-UserIO::~UserIO() {
+userio::~userio() {
 
 }
 
-vector<string> UserIO::getSplitInput()
+vector<string> userio::getsplitinput()
 {
-	return splitUserIn;
+	return splituserin;
 }
 
-vector<string> UserIO::rpn()
+vector<string> userio::rpn()
 {
-	return rpnUserIn;
+	return rpnuserin;
 }
 
-void UserIO::splitInput()
+void userio::splitinput()
 /*
- * Created by Cory Anderson
- */
+* created by cory anderson
+*/
 {
-	string s2 = userIn;
+	string s2 = userin;
 	bool space = false;
 	bool log = false;
 	int ind = 0;
 
-	while(ind < s2.length()) {
+	while (ind < s2.length()) {
 		for (int i = 0; i<13; i++) {
-			//Flag for getting rid of space and r
+			//flag for getting rid of space and r
 			if (s2.at(ind) == ' ' || s2.at(ind) == 'r') space = true;
-			//Flag for getting rid of log
+			//flag for getting rid of log
 			if (s2.at(ind) == '_') log = true;
-			//If the char is unique
+			//if the char is unique
 			if (s2.at(ind) == uniques[i]) {
-				//If we are on the first char then just pop it off and adjust
+				//if we are on the first char then just pop it off and adjust
 				if (ind == 0) {
-					//Adding unique char
-					splitUserIn.push_back(s2.substr(0,1));
-					//Adjusting string
-					s2 = s2.substr(ind+1,s2.length()-1);
+					//adding unique char
+					splituserin.push_back(s2.substr(0, 1));
+					//adjusting string
+					s2 = s2.substr(ind + 1, s2.length() - 1);
 				}
-				//Otherwise there may be a preceding number
+				//otherwise there may be a preceding number
 				else {
-					//Adding the preceding number
-					splitUserIn.push_back(s2.substr(0,ind));
-					//Adding the unique char
-					splitUserIn.push_back(s2.substr(ind,1));
-					//Adjusting string
-					s2 = s2.substr(ind+1,s2.length() - ind - 1);
+					//adding the preceding number
+					splituserin.push_back(s2.substr(0, ind));
+					//adding the unique char
+					splituserin.push_back(s2.substr(ind, 1));
+					//adjusting string
+					s2 = s2.substr(ind + 1, s2.length() - ind - 1);
 				}
-				//Will allow ind to become 0 for next loop
+				//will allow ind to become 0 for next loop
 				ind = -1;
-				//Will end the for loop
+				//will end the for loop
 				break;
 			}
 		}
 		ind++;
 		if (space) {
 			space = false;
-			//Getting rid of the space
-			splitUserIn.pop_back();
+			//getting rid of the space
+			splituserin.pop_back();
 		}
 		if (log) {
 			log = false;
-			//Removing "_"
-			splitUserIn.pop_back();
-			//Removing "og"
-			splitUserIn.pop_back();
-			//Removing "l"
-			splitUserIn.pop_back();
-			//Adding back "_" to signify log
-			splitUserIn.push_back("_");
+			//removing "_"
+			splituserin.pop_back();
+			//removing "og"
+			splituserin.pop_back();
+			//removing "l"
+			splituserin.pop_back();
+			//adding back "_" to signify log
+			splituserin.push_back("_");
 		}
 
 	}
-	splitUserIn.push_back(s2);
+	splituserin.push_back(s2);
 }
 
-void UserIO::rpnInput()
+void userio::rpninput()
 ////////////////////////////
-//Benjamin Hayden Duncan
-//Shunt.cpp
+//benjamin hayden duncan
+//shunt.cpp
 //
-//Shunting Yard Algorithm
-//You can't imagine the
+//shunting yard algorithm
+//you can't imagine the
 //number of times the
 //debug was accessed
 ////////////////////////////
 {
-	//Vector containing Order of Operations for reference.
-	string Pemdas [] = {"^", "_", "x", "/", "+", "-", "("};
+	//vector containing order of operations for reference.
+	string pemdas[] = { "^", "_", "rt", "*", "/", "+", "-", "(" };
 
-	//splitUserIn vector, for trial purposes.
-	//vector<string> splitUserIn = { "A", "+", "B", "x", "C", "-", "D" };
-	//vector<string> splitUserIn = { "3", "+", "4", "x", "2", "/", "(", "1", "-", "5", ")", "^", "2", "^", "3" };
+	//splituserin vector, for trial purposes.
+	//vector<string> splituserin = { "a", "+", "b", "x", "c", "-", "d" };
+	//vector<string> splituserin = { "3", "+", "4", "x", "2", "/", "(", "1", "-", "5", ")", "^", "2", "^", "3" };
+	//vector<string> input = {"4", "+","(", "7", "/", "3", "*", "6", ")", "-", "3"};
 
-	//Declared in UserIO.h
-	//vector<string> splitUserIn;
-	//vector<string> rpnUserIn;
-	//vector<string> opopStack;
+	//declared in userio.h
+	//vector<string> splituserin;
+	//vector<string> rpnuserin;
+	//vector<string> opopstack;
 
 	string working;
 	string search;
@@ -123,32 +124,32 @@ void UserIO::rpnInput()
 	int current = 0;
 	int s = 0;
 
-	//Start of some complicated shit.
-	//Comments may help explain.
-	//This works for all the wikipedia examples.
+	//start of some complicated shit.
+	//comments may help explain.
+	//this works for all the wikipedia examples.
 
-  //Massive for loop controls which elements to access from splitUserIn
-	for (int i = 0; i < splitUserIn.size(); i++)
+	//massive for loop controls which elements to access from splituserin
+	for (int i = 0; i < splituserin.size(); i++)
 	{
-	  //The working variables is the accessed element
-		working = splitUserIn.at(i);
+		//the working variables is the accessed element
+		working = splituserin.at(i);
 
-    //Initial if to determine if numeric or operational
-		if (working == "^" || working == "_" || working == "x" || working == "/" || working == "+" || working == "-")
+		//initial if to determine if numeric or operational
+		if (working == "^" || working == "_" || working =="rt" || working == "*" || working == "/" || working == "+" || working == "-")
 		{
-			if (opStack.size() != 0)
+			if (opstack.size() != 0)
 			{
-				lastop = opStack.back();
+				lastop = opstack.back();
 
 				if (lastop == working)
 				{
-					opStack.push_back(working);
+					opstack.push_back(working);
 				}
 				else
 				{
 					while (search != working)
 					{
-						search = Pemdas[s];
+						search = pemdas[s];
 						s++;
 					}
 					current = s;
@@ -156,7 +157,7 @@ void UserIO::rpnInput()
 
 					while (search != lastop)
 					{
-						search = Pemdas[s];
+						search = pemdas[s];
 						s++;
 					}
 					last = s;
@@ -164,32 +165,31 @@ void UserIO::rpnInput()
 
 					if (current < last)
 					{
-						opStack.push_back(working);
+						opstack.push_back(working);
 					}
 					else
 					{
-						rpnUserIn.push_back(lastop);
-						opStack.pop_back();
+						rpnuserin.push_back(lastop);
+						opstack.pop_back();
 
-						lastop = opStack.back();
-						search = Pemdas[s];
+						search = pemdas[s];
 
-						//The following code check to make multiple moves from opStack if the incoming working varaible has less precedence.
+						//the following code check to make multiple moves from opstack if the incoming working varaible has less precedence.
 
-						if (opStack.size() != 0)
+						if (opstack.size() != 0)
 						{
-							lastop = opStack.back();
+							lastop = opstack.back();
 
 							if (lastop == working)
 							{
-								opStack.push_back(working);
+								opstack.push_back(working);
 							}
 							else
 							{
 
 								while (search != working)
 								{
-									search = Pemdas[s];
+									search = pemdas[s];
 									s++;
 								}
 								current = s;
@@ -197,7 +197,7 @@ void UserIO::rpnInput()
 
 								while (search != lastop)
 								{
-									search = Pemdas[s];
+									search = pemdas[s];
 									s++;
 								}
 								last = s;
@@ -205,17 +205,17 @@ void UserIO::rpnInput()
 
 								if (current < last)
 								{
-									opStack.push_back(working);
+									opstack.push_back(working);
 								}
 								else if (current == last)
 								{
-									opStack.push_back(working);
+									opstack.push_back(working);
 								}
 								else
 								{
-									rpnUserIn.push_back(lastop);
-									opStack.pop_back();
-									opStack.push_back(working);
+									rpnuserin.push_back(lastop);
+									opstack.pop_back();
+									opstack.push_back(working);
 
 								}
 
@@ -226,64 +226,62 @@ void UserIO::rpnInput()
 
 			}
 
-			//Default push, handles all number vaies
+			//default push, handles all number vaies
 			else
 			{
-				opStack.push_back(working);
+				opstack.push_back(working);
 			}
 		}
 
-		//Else ifs to account for parenthesis
+		//else ifs to account for parenthesis
 		else if (working == "(")
 		{
-			opStack.push_back(working);
+			opstack.push_back(working);
 		}
 		else if (working == ")")
 		{
-			while (opStack.back() != "(")
+			while (opstack.back() != "(")
 			{
-				rpnUserIn.push_back(opStack.back());
-				opStack.pop_back();
+				rpnuserin.push_back(opstack.back());
+				opstack.pop_back();
 			}
-			opStack.pop_back();
+			opstack.pop_back();
 		}
 		else
-			{
-				rpnUserIn.push_back(working);
-			}
+		{
+			rpnuserin.push_back(working);
+		}
 	}
 
-  //The following code moves all remaining opStacks to the end of the rpnUserIn, after all numbers move
-	while (opStack.size() != 0)
+	//the following code moves all remaining opstacks to the end of the rpnuserin, after all numbers move
+	while (opstack.size() != 0)
 	{
-		rpnUserIn.push_back(opStack.back());
-		opStack.pop_back();
+		rpnuserin.push_back(opstack.back());
+		opstack.pop_back();
 	}
 
-	//Print out split output
-	cout << "splitInput vector: " << endl;
-	cout << "{" << splitUserIn[0];
-	for (int i = 1; i < splitUserIn.size(); i++)
+	//print out split output
+	cout << "splitinput vector: " << endl;
+	cout << "{" << splituserin[0];
+	for (int i = 1; i < splituserin.size(); i++)
 	{
-		cout << ", " << splitUserIn[i];
+		cout << ", " << splituserin[i];
 	}
 	cout << "}" << endl;
-	//Printing out RPN output
-	cout << "RPN vector: " << endl;
-	cout << "{" << rpnUserIn[0];
-	for (int i = 1; i < rpnUserIn.size(); i++)
+	//printing out rpn output
+	cout << "rpn vector: " << endl;
+	cout << "{" << rpnuserin[0];
+	for (int i = 1; i < rpnuserin.size(); i++)
 	{
-		cout << ", " << rpnUserIn[i];
+		cout << ", " << rpnuserin[i];
 	}
 	cout << "}" << endl;
 	/*
-	for (int i = 0; i < opStack.size(); i++)
+	for (int i = 0; i < opstack.size(); i++)
 	{
-		cout << opStack.at(i);
+	cout << opstack.at(i);
 	}
 	*/
 
 	//cout << endl;
 }
-
-
