@@ -1,117 +1,116 @@
 /*
- * multiply.cpp
+ * Add.cpp
  *
- *  Created on: Apr 5, 2014
+ *  Created on: Apr 3, 2014
  *      Author: Kevin
  */
+//test
 
-
-multiply::multiply(){
+add::add(){
 
 }
 
-/*I do not have any understanding of how Expressions will be treated
- * so any function including or returning an expression
- * is probably wrong as of right now
- */
+Value* add::add(Value* a, Value* b) {
+	switch(typeid(Value* a))
+	{
+	case typeid(Fraction*):
+			if(typeid(Value* b) == typeid(Fraction*)){
+				int n1 = a.getNumerator() * b.getDenominator;
+				int n2 = b.getNumerator() * a.getDenominator;
+				int d = a.getDenominator() * b.getDenominator;
+				return Fraction(n1+n2, d);
+				}
+	}
 
-Value multiply(Fraction a, Fraction b) {
-	int n = a.getNumerator() * b.getNumerator;
-	int d = a.getDenominator() * b.getDenominator;
-	return Fraction(n, d);
-}
-
-Value multiply(Fraction a, Expression b) {
+Value add(Fraction a, Expression b) {
 	return Expression(a + b);
 }
 
-Value multiply(Fraction a, Number b)  {
-	int n = a.getNumerator() * b;
+Value add(Fraction a, Number b)  {
+	int n1 = a.getNumerator() * b;
+	int n2 = a.getDenominator() * b;
 	int d = a.getDenominator() * b;
-	return Fraction(n, d);
+	return Fraction(n1+n2, d);
 }
 
-Value multiply(Fraction a, Log b)  {
+Value add(Fraction a, Log b)  {
 	return Expression(a,b);
 }
 
-Value multiply(Fraction a, NthRoot b) {
+Value add(Fraction a, NthRoot b) {
 	return Expression(a,b);
 }
 
-Value multiply(Expression a, Expression b) {
+Value add(Expression a, Expression b) {
 	return Expression(a,b);
 }
 
-Value multiply(Expression a, Number b) {
+Value add(Expression a, Number b) {
 	return Expression(a,b);
 }
 
-Value multiply(Expression a, Log b) {
+Value add(Expression a, Log b) {
 	return Expression(a,b);
 }
 
-Value multiply(Expression a, NthRoot b) {
+Value add(Expression a, NthRoot b) {
 	return Expression(a,b);
 }
 
-Value multiply(Number a, Number b){
-	return Number(a*b);
+Value add(Number a, Number b){
+	return Number(a+b);
 }
 
-Value multiply(Number a, Log b) {
+Value add(Number a, Log b) {
 	return Expression(a,b);
 }
 
-Value multiply(Number a, NthRoot b){
+Value add(Number a, NthRoot b){
 	return Expression(a,b);
 }
 
-Value multiply(Log a, Log b){  //Not sure how to do this one
+Value add(Log a, Log b){
 	/*int s1=a.getBase();
 	int s2=b.getBase();*/
 	return Expression(a,b);
 }
 
-Value multiply(Log a, NthRoot b) {
+Value add(Log a, NthRoot b) {
 	return Expression(a,b);
 }
 
-Value multiply(NthRoot a, NthRoot b) {
+Value add(NthRoot a, NthRoot b) {
 	return expression; //not sure about this one. how could i make
 	                   //sqrt(2) + sqrt(2) = 2sqrt(2)? Would that be handled
 	                   //in the simplify method?
 }
 
 
-
-///////////////////////////////////////////////////////////
-/*
- * Version 2(Pointers)
- */
+///////////////////////////////////////////////////////////////////////
 
 /*
- * multiply.cpp
+ * Add.cpp
  *
  *  Created on: Apr 7, 2014
  *      Author: Kevin
  */
 
-#include "multiply.h"
+#include "Add.h"
 #include <typeinfo>
 
-multiply::multiply() {}
+add::add() {}
 /*
  * Version 2(Value pointer)
  */
-Value* multiply::multiply(Value* a, Value* b){
+Value* add::add(Value* a, Value* b){
 switch(typeid(Value* a))
 	{
 	case typeid(Fraction*):
 		if(typeid(Value* b) == typeid(Fraction*)){
-			int n = a.getNumerator() * b.getNumerator;
+			int n1 = a.getNumerator() * b.getDenominator;
+			int n2 = b.getNumerator() * a.getDenominator;
 			int d = a.getDenominator() * b.getDenominator;
-			return Fraction(n , d);
+			return Fraction(n1+n2, d);
 		}
 
 		else if (typeid(Value* b) == typeid(Expression*))
@@ -119,47 +118,49 @@ switch(typeid(Value* a))
 
 		else if (typeid(Value* b) == typeid(Number*))
 		{
-			int n = a.getNumerator() * b;
+			int n1 = a.getNumerator() * b;
+			int n2 = a.getDenominator() * b;
 			int d = a.getDenominator() * b;
-			return Fraction(n, d);
+			return Fraction(n1+n2, d);
 		}
 
 		else if (typeid(Value* b) == typeid(Log*))
-			return Expression(a,b);
+		  {return Expression(a,b);}
 
 		else if (typeid(Value* b) == typeid(NthRoot*))
-			return Expression(a,b);
+		   {return Expression(a,b);}
 		break;
 
 	case typeid(Expression*):
 		if(typeid(Value* b) == typeid(Fraction*))
 				    return Expression(a , b);
 
-		else if (typeid(Value* b) == typeid(Expression*))
-			return Expression(a , b);
+				else if (typeid(Value* b) == typeid(Expression*))
+					return Expression(a , b);
 
-		else if (typeid(Value* b) == typeid(Number*))
-			return Expression(a , b);
+				else if (typeid(Value* b) == typeid(Number*))
+					return Expression(a , b);
 
-		else if (typeid(Value* b) == typeid(Log*))
-			return Expression(a , b);
+				else if (typeid(Value* b) == typeid(Log*))
+					return Expression(a,b);
 
-		else if (typeid(Value* b) == typeid(NthRoot*))
-		    return Expression(a,b);
-		break;
+				else if (typeid(Value* b) == typeid(NthRoot*))
+				    return Expression(a,b);
+				break;
 
 	 case typeid(Number*):
 		if(typeid(Value* b) == typeid(Fraction*)) {
-			int n = a.getNumerator() * b;
-			int d = a.getDenominator() * b;
-			return Fraction(n, d);
+			int n1 = b.getNumerator() * a;
+			int n2 = b.getDenominator() * a;
+			int d = b.getDenominator() * a;
+			return Fraction(n1+n2, d);
 		}
 
 		else if (typeid(Value* b) == typeid(Expression*))
 			return Expression(a,b);
 
 		else if (typeid(Value* b) == typeid(Number*)) {
-	   	  return Number(a * b);
+	   	  return Number(a + b);
 		  }
 
 		else if (typeid(Value* b) == typeid(Log*))
