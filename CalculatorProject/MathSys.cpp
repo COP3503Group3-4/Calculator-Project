@@ -135,19 +135,19 @@ void MathSys::menu()
 }
 
 /*
-Value MathSys::lastAns() {
+Value* MathSys::lastAns() {
 	return lastAnswer;
 }
 
-Value MathSys::calculate() {
+Value* MathSys::calculate() {
 
 
 	//Created by Cory Anderson
 
 	//vector<string> rpnToCalc declared in header
-	Value answer;
-	Value v1;
-	Value v2;
+	Value* answer;
+	Value* v1;
+	Value* v2;
 	string current = rpnToCalc[rpnToCalc.size() - 1];
 	rpnToCalc.pop_back();
 
@@ -169,13 +169,13 @@ Value MathSys::calculate() {
 			answer = Divide.divide(v1,v2);
 			break;
 		case "t":
-			answer = Root(v1,v2);
+			answer = new Root(v1,v2);
 			break;
 		case "_":
-			answer = Log(v1,v2);
+			answer = new Log(v1,v2);
 			break;
 		default:
-			answer = RationalNumber(current);
+			answer = new RationalNumber(current);
 	}
 
 	return answer;

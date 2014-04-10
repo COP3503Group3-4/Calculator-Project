@@ -25,8 +25,8 @@ public:
 	//Value lastAns();
 private:
 	vector<string> rpnToCalc;
-	//Value lastAnswer;
-	//Value calculate();
+	//Value* lastAnswer;
+	//Value* calculate();
 };
 
 #endif /* MATHSYS_H_ */

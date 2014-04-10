@@ -29,6 +29,11 @@ private:
 	vector<string> opStack;
 	void splitInput();
 	void rpnInput();
+	void rpnInput2();
+	bool lessPrecedent(string op1, string op2);
+	bool isOp(string token);
+	void printRPN();
+	void printSplit();
 };
 
 #endif /* USERIO_H_ */
