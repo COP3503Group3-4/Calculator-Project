@@ -16,7 +16,7 @@ Value* divide::divide(Value* a, Value* b){
 switch(typeid(Value* a))
 	{
 	case typeid(*Fraction):
-		if(typeid(Value* b) == typeid(*Fraction))
+		if(typeid(Value* b) == typeid(Fraction*))
 		       /*{int n1 = a.getNumerator() * b.getDenominator;
 			int n2 = b.getNumerator() * a.getDenominator;
 			int d = a.getDenominator() * b.getDenominator;
