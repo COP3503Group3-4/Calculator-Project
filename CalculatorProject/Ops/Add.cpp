@@ -10,12 +10,17 @@ add::add(){
 
 }
 
-Value add(Fraction a, Fraction b) {
-	int n1 = a.getNumerator() * b.getDenominator;
-	int n2 = b.getNumerator() * a.getDenominator;
-	int d = a.getDenominator() * b.getDenominator;
-	return Fraction(n1+n2, d);
-}
+Value* add::add(Value* a, Value* b) {
+	switch(typeid(Value* a))
+	{
+	case typeid(Fraction*):
+			if(typeid(Value* b) == typeid(Fraction*)){
+				int n1 = a.getNumerator() * b.getDenominator;
+				int n2 = b.getNumerator() * a.getDenominator;
+				int d = a.getDenominator() * b.getDenominator;
+				return Fraction(n1+n2, d);
+				}
+	}
 
 Value add(Fraction a, Expression b) {
 	return Expression(a + b);
