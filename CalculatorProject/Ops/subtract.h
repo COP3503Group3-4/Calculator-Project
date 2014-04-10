@@ -55,7 +55,7 @@ public:
  * Version 2(Value Pointer):
  */
 
-	*Value subtract(*Value a, *Value b);
+	Value* subtract(Value* a, Value* b);
 
 
 
