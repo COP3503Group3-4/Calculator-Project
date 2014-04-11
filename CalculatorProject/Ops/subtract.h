@@ -19,13 +19,16 @@
 #ifndef SUBTRACT_H_
 #define SUBTRACT_H_
 
+#include <Value.h>
+
 class subtract {
 public:
 	subtract();
-
+	Value* subtract(Value* a, Value* b);
 /*
  * Version 1(Overloading):
  */
+	/*
 	Value subtract(Fraction a, Fraction b);
 	Value subtract(Fraction a, Expression b);
 	Value subtract(Expression a, Fraction b);
@@ -50,15 +53,10 @@ public:
 	Value subtract(Log a, Log b);
 	Value subtract(Log a, NthRoot b);
 	Value subtract(NthRoot a, Log b);
-
+	 */
 /*
  * Version 2(Value Pointer):
  */
-
-	Value* subtract(Value* a, Value* b);
-
-
-
 
 };
 
