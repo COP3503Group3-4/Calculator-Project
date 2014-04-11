@@ -48,11 +48,13 @@ void UserIO::splitInput()
 
 	while (ind < s2.length()) {
 		for (int i = 0; i<18; i++) {
-			//Flag for getting rid of space and r
+			//Flag for getting rid of the character
 			if (s2.at(ind) == ' ' || s2.at(ind) == 'r' || s2.at(ind) == 'i' || s2.at(ind) == 'q') space = true;
 			//Flag for getting rid of log
 			if (s2.at(ind) == '_') log = true;
+			//Flag for pi
 			if(s2.at(ind) == 'p') pi = true;
+			//Flag for converting sq in sqrt to 2
 			if(s2.at(ind) == 'q') sqrt = true;
 			//If the char is unique
 			if (s2.at(ind) == uniques[i]) {
@@ -86,6 +88,7 @@ void UserIO::splitInput()
 		}
 		if(pi) {
 			pi = false;
+			//Getting rid of p, adding pi
 			splitUserIn.pop_back();
 			splitUserIn.push_back("pi");
 		}
@@ -102,44 +105,15 @@ void UserIO::splitInput()
 		}
 		if(sqrt){
 			sqrt = false;
+			//Getting rid of sq
 			splitUserIn.pop_back();
+			//Adding 2
 			splitUserIn.push_back("2");
+			//sqrt(x) will result in 2rtx
 		}
 
 	}
 	if(s2.length() > 0) splitUserIn.push_back(s2);
-}
-
-bool UserIO::isOp(string token)
-{
-	string ops [] = { "^", "t", "*", "/", "+", "-", " "};
-	for (int i = 0; i < 7; i++) {
-		if (token == ops[i])
-		{
-			return true;
-		}
-	}
-		return false;
-}
-bool UserIO::lessPrecedent(string op1, string op2)
-{
-	//If stack op is less precedent than token op, will be adding token op to stack
-	int pre1;
-	int pre2;
-	string pemdas [] = {"-", "+", "/", "*", "t", "_", "^"};
-	for (int i = 0; i < 7; i++) {
-		if (op1 == pemdas[i]) pre1 = i;
-		if (op2 == pemdas[i]) pre2 = i;
-	}
-	if (pre1 > 3) {
-		return false;
-	}
-	else if((pre1 / 2 - pre2 / 2) > 0) {
-		return false;
-	}
-	else {
-		return true;
-	}
 }
 
 void UserIO::printRPN()
