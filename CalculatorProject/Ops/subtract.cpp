@@ -297,7 +297,7 @@ switch(typeid(Value* a))
 								   {return Expression(a,b);}
 								break;
 	 }
-
+	return 0;
 }
 
 
