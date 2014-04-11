@@ -9,7 +9,7 @@
 
 using namespace std;
 
-char uniques[13] = { '+', '-', '*', '/', 't', '_', ':', '(', ')', ' ', 'r', 'l', '^' };
+char uniques[18] = { '+', '-', '*', '/', 't', '_', ':', '(', ')', ' ', 'r', 's', 'l', '^', 'i', 'p', 'e', 'q'};
 
 UserIO::UserIO(string userInput)
 {
@@ -42,14 +42,18 @@ void UserIO::splitInput()
 	string s2 = userIn;
 	bool space = false;
 	bool log = false;
+	bool pi = false;
+	bool sqrt = false;
 	int ind = 0;
 
 	while (ind < s2.length()) {
-		for (int i = 0; i<13; i++) {
+		for (int i = 0; i<18; i++) {
 			//Flag for getting rid of space and r
-			if (s2.at(ind) == ' ' || s2.at(ind) == 'r') space = true;
+			if (s2.at(ind) == ' ' || s2.at(ind) == 'r' || s2.at(ind) == 'i' || s2.at(ind) == 'q') space = true;
 			//Flag for getting rid of log
 			if (s2.at(ind) == '_') log = true;
+			if(s2.at(ind) == 'p') pi = true;
+			if(s2.at(ind) == 'q') sqrt = true;
 			//If the char is unique
 			if (s2.at(ind) == uniques[i]) {
 				//If we are on the first char then just pop it off and adjust
@@ -80,6 +84,11 @@ void UserIO::splitInput()
 			//Getting rid of the space
 			splitUserIn.pop_back();
 		}
+		if(pi) {
+			pi = false;
+			splitUserIn.pop_back();
+			splitUserIn.push_back("pi");
+		}
 		if (log) {
 			log = false;
 			//Removing "_"
@@ -91,9 +100,14 @@ void UserIO::splitInput()
 			//Adding back "_" to signify log
 			splitUserIn.push_back("_");
 		}
+		if(sqrt){
+			sqrt = false;
+			splitUserIn.pop_back();
+			splitUserIn.push_back("2");
+		}
 
 	}
-	splitUserIn.push_back(s2);
+	if(s2.length() > 0) splitUserIn.push_back(s2);
 }
 
 void UserIO::rpnInput2()
@@ -227,7 +241,7 @@ void UserIO::rpnInput()
 ////////////////////////////
 {
 	//vector containing order of operations for reference.
-	string pemdas[] = { "^", "_", "rt", "sqrt", "*", "/", "+", "-", "(" };
+	string pemdas[] = { "^", "_", "t", "sqrt", "*", "/", "+", "-", "(" };
 
 	string working;
 	string search;
@@ -247,7 +261,7 @@ void UserIO::rpnInput()
 		working = splitUserIn.at(i);
 
 		//initial if to determine if numeric or operational
-		if (working == "^" || working == "_" || working =="rt" || working =="sqrt" || working == "*" || working == "/" || working == "+" || working == "-")
+		if (working == "^" || working == "_" || working =="t" || working =="sqrt" || working == "*" || working == "/" || working == "+" || working == "-")
 		{
 			if (opStack.size() != 0)
 			{

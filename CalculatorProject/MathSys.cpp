@@ -175,7 +175,15 @@ Value* MathSys::calculate() {
 			answer = new Log(v1,v2);
 			break;
 		default:
-			answer = new RationalNumber(current);
+			if (current == "e") {
+				answer = new IrrationalNumber("e");
+			}
+			else if (current == "pi") {
+				answer = new IrrationalNumber("pi");
+			}
+			else {
+				answer = new RationalNumber(current);
+			}
 	}
 
 	return answer;
