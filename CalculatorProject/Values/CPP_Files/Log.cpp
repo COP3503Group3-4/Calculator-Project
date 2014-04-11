@@ -35,6 +35,7 @@ Value* Log::simplifyLog(Value* a, Value* b){
     RationalNumber* rN2 = dynamic_cast<RationalNumber*>(b);
     IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(a);
     IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
+    vector<Value*>;
 
     if( f1 && f2 ){
 
@@ -72,17 +73,6 @@ void Log::printInfo(){
     insideValue->printInfo();
 }
 
-void Log::simplifyLogRN(int a, int b, int i){
-    int index = i;
-    int num1 = a;
-    int num2 = b;
-    int tempNum;
-
-    if( index == num1 ){
-        Value* log1 = new Log();
-    }
-    if( num1 % index == 0){
-        tempNum = num1/index;
-    }
+Value* Log::logFactor(vector<Value*>, int index1, int index2){
 
 }

@@ -14,6 +14,7 @@ class Log : public Value
         virtual ~Log();
         Value* simplifyLog(Value* a, Value* b);
         void simplifyLogRN(int a, int b, int i);
+        Value* logFactor(vector<Value*>, int index1, int index2);
         Value* getNum1();
         Value* getNum2();
         int getBaseValue();
