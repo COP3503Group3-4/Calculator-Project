@@ -20,7 +20,7 @@ Value* SquareRoot::simplify(){
     RationalNumber* rN1 = dynamic_cast<RationalNumber*>(insideRoot);
     Expression* ex1 = dynamic_cast<Expression*>(insideRoot);
     IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(insideRoot);
-    IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(insideRoot);
+    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(insideRoot);
 
     if(f1){
 
@@ -37,9 +37,9 @@ Value* SquareRoot::simplify(){
     if(iRN1){
 
     }
-    if(iRF1){
+//    if(iRF1){
 
-    }
+  //  }
 
 
 }

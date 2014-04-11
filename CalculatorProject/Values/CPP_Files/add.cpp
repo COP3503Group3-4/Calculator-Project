@@ -1,12 +1,11 @@
-#include <add.h>
-#include <Value.h>
-#include <Fraction.h>
-#include <RationalFraction.h>
-#include <Log.h>
-#include <Expression.h>
-#include <Number.h>
-#include <RationalNumber.h>
-#include <IrrationalNumber.h>
+#include "add.h"
+#include "Fraction.h"
+#include "RationalFraction.h"
+#include "Log.h"
+#include "Expression.h"
+#include "Number.h"
+#include "RationalNumber.h"
+#include "IrrationalNumber.h"
 #include <sstream>
 add::add()
 {
@@ -19,7 +18,6 @@ add::~add()
 }
 
 Value* add::addFractions(Value* a, Value* b) {
-    //Test Push to ensure it works
     ostringstream combined;
     RationalFraction* f1 = dynamic_cast<RationalFraction*>(a);
     RationalFraction* f2 = dynamic_cast<RationalFraction*>(b);
@@ -31,8 +29,8 @@ Value* add::addFractions(Value* a, Value* b) {
     Expression* ex2 = dynamic_cast<Expression*>(b);
     IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(a);
     IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
-    IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
-    IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
+    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
+    //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
     if(f1 && f2){
         int n1 = f1->getNumerator() * f2->getDenominator();
         cout<<"N1: "<<n1<<endl;

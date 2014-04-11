@@ -1,5 +1,6 @@
 #ifndef IRRATIONALNUMBER_H
 #define IRRATIONALNUMBER_H
+#include <Value.h>
 
 #include <Number.h>
 

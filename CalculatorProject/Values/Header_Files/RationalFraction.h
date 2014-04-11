@@ -2,6 +2,8 @@
 #define RATIONALFRACTION_H
 #include "Fraction.h"
 #include "RationalNumber.h"
+#include <Value.h>
+
 class RationalFraction: public Fraction
 {
     public:

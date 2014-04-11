@@ -1,5 +1,4 @@
 #include "RationalNumber.h"
-#include <Number.h>
 
 
 RationalNumber::RationalNumber()

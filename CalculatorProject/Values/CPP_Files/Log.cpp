@@ -1,5 +1,4 @@
 #include "Log.h"
-#include <Value.h>
 #include <RationalFraction.h>
 #include <RationalNumber.h>
 #include <IrrationalNumber.h>

@@ -1,6 +1,8 @@
 #ifndef ADD_H
 #define ADD_H
 
+#include <Value.h>
+
 class add
 {
     public:
