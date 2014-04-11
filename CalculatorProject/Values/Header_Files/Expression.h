@@ -3,23 +3,26 @@
 
 #include <Value.h>
 #include <string>
+#include <vector>
+#include <sstream>
+#include <typeinfo>
 class Expression : public Value
 {
     public:
         Expression();
-        Expression(Value* a, Value* b, char op);
+        //Vals will hold n values, ops will hold n-1 ops
+        //Ex: pi + 3e + 2
+        //Vals: pi, 3, e, 2
+        //Ops: +,*,+
+        Expression(vector<Value*> vals, vector<string> ops);
         virtual ~Expression();
-        string contained;
-        int getNumerator();
-        int getDenominator();
-        int simplifyNumerator(int n, int d, int index);
-        int simplifyDenominator(int n, int d);
         Value* simplify();
-        Value* getNum1();
-        Value* getNum2();
         void printInfo();
+        bool getValue(string typeName, Value* v);
     protected:
     private:
+        vector<string> ops;
+        vector<Value*> values;
 };
 
 #endif // EXPRESSION_H
