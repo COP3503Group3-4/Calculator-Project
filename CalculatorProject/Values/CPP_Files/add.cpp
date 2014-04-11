@@ -14,7 +14,7 @@ add::add()
 
 add::~add()
 {
-    //dtor
+    //d
 }
 
 Value* add::addFractions(Value* a, Value* b) {
