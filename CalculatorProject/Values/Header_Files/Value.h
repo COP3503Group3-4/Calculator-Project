@@ -2,8 +2,19 @@
 #define VALUE_H
 
 #include <iostream>
-
 #include <string>
+
+#include <Expression.h>
+#include <Fraction.h>
+#include <IrrationalFraction.h>
+#include <IrrationalNumber.h>
+#include <Log.h>
+#include <NthRoot.h>
+#include <Number.h>
+#include <RationalFraction.h>
+#include <RationalNumber.h>
+#include <SquareRoot.h>
+
 using namespace std;
 
 class Value
