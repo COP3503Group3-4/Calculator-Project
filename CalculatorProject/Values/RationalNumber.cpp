@@ -1,5 +1,5 @@
 #include "RationalNumber.h"
-
+#include <stdlib.h>
 
 RationalNumber::RationalNumber()
 {
@@ -8,6 +8,10 @@ RationalNumber::RationalNumber()
 
 RationalNumber::RationalNumber(int n1){
     num = n1;
+}
+RationalNumber::RationalNumber(string s)
+{
+	num = atoi(s.c_str());
 }
 RationalNumber::~RationalNumber()
 {

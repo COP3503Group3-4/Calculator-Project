@@ -15,7 +15,15 @@ Expression::~Expression()
 }
 
 Value* Expression::simplify(){
+	return 0;
+}
 
+Value* Expression::getNum1() {
+	return 0;
+}
+
+Value* Expression::getNum2() {
+	return 0;
 }
 
 void Expression::printInfo(){

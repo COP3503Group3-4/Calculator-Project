@@ -9,7 +9,7 @@ class RationalNumber : public Number
     public:
         RationalNumber();
         RationalNumber(int n1);
-        int num;
+        RationalNumber(string s);
         virtual ~RationalNumber();
         Value* getNum1();
         Value* getNum2();
@@ -18,6 +18,7 @@ class RationalNumber : public Number
         void printInfo();
     protected:
     private:
+        int num;
 };
 
 #endif // RATIONALNUMBER_H

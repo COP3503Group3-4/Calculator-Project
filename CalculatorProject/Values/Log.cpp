@@ -1,11 +1,4 @@
-#include "Log.h"
-#include <RationalFraction.h>
-#include <RationalNumber.h>
-#include <IrrationalNumber.h>
-#include <IrrationalFraction.h>
-#include <NthRoot.h>
-#include <SquareRoot.h>
-
+#include <Log.h>
 
 Log::Log(Value* b, Value* insideVal)
 {
@@ -35,7 +28,7 @@ Value* Log::simplifyLog(Value* a, Value* b){
     RationalNumber* rN2 = dynamic_cast<RationalNumber*>(b);
     IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(a);
     IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
-    vector<Value*>;
+    vector<Value*> x;
 
     if( f1 && f2 ){
 
@@ -53,7 +46,7 @@ Value* Log::simplifyLog(Value* a, Value* b){
         else{
             int num1 = rN2->getNumValue();
             int i = 2;
-            simplifyLogRN(num1,0,i);
+            //simplifyLogRN(num1,0,i);
         }
     }
 }

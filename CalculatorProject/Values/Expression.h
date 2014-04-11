@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <typeinfo>
+
 class Expression : public Value
 {
     public:
@@ -17,6 +18,8 @@ class Expression : public Value
         Expression(vector<Value*> vals, vector<string> ops);
         virtual ~Expression();
         Value* simplify();
+        Value* getNum1();
+        Value* getNum2();
         void printInfo();
         bool getValue(string typeName, Value* v);
     protected:

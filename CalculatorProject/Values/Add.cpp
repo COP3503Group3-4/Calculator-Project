@@ -1,23 +1,17 @@
-#include "add.h"
-#include "Fraction.h"
-#include "RationalFraction.h"
-#include "Log.h"
-#include "Expression.h"
-#include "Number.h"
-#include "RationalNumber.h"
-#include "IrrationalNumber.h"
+#include <Add.h>
 #include <sstream>
-add::add()
+
+Add::Add()
 {
 
 }
 
-add::~add()
+Add::~Add()
 {
     //d
 }
 
-Value* add::addFractions(Value* a, Value* b) {
+Value* Add::addVals(Value* a, Value* b) {
     ostringstream combined;
     RationalFraction* f1 = dynamic_cast<RationalFraction*>(a);
     RationalFraction* f2 = dynamic_cast<RationalFraction*>(b);
@@ -97,7 +91,7 @@ Value* add::addFractions(Value* a, Value* b) {
         int num2 = rN2->getNumValue();
         int numAdded = num1 + num2;
         Value* summedNum = new RationalNumber(numAdded);
-        cout<<numAdded<<endl;
+        //cout<<numAdded<<endl;
         return summedNum;
     }
     if((f1 && rN1) || (f1 && rN2) || (f2 && rN1) || (f2 && rN2) ){
@@ -190,7 +184,12 @@ Value* add::addFractions(Value* a, Value* b) {
     }*/
    if(iRN1 && iRN2){
         if(iRN1->getIRNumValue() == iRN2->getIRNumValue()){
-            Value* exp1 = new Expression(iRN1, iRN2, '+');
+        	vector<Value*> vals;
+        	vector<string> ops;
+        	vals.push_back(iRN1);
+        	vals.push_back(iRN2);
+        	ops.push_back("+");
+            Value* exp1 = new Expression(vals, ops);
             return exp1;
         }
    }
@@ -218,10 +217,10 @@ Value* add::addFractions(Value* a, Value* b) {
             }
         }
    }*/
-
+   return 0;
 }
 
-bool add::isEqual(Value* a, Value* b){
+bool Add::isEqual(Value* a, Value* b){
     RationalNumber* rNIV1 = dynamic_cast<RationalNumber*>(a);
     RationalNumber* rNIV2 = dynamic_cast<RationalNumber*>(b);
     RationalFraction* rFIV1 = dynamic_cast<RationalFraction*>(a);
