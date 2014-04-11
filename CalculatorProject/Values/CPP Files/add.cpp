@@ -1,12 +1,12 @@
-#include "add.h"
-#include "Value.h"
-#include "Fraction.h"
-#include "RationalFraction.h"
-#include "Log.h"
-#include "Expression.h"
-#include "Number.h"
-#include "RationalNumber.h"
-#include "IrrationalNumber.h"
+#include <add.h>
+#include <Value.h>
+#include <Fraction.h>
+#include <RationalFraction.h>
+#include <Log.h>
+#include <Expression.h>
+#include <Number.h>
+#include <RationalNumber.h>
+#include <IrrationalNumber.h>
 #include <sstream>
 add::add()
 {
