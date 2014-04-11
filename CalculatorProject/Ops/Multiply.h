@@ -35,15 +35,5 @@ public:
 };
 
 
-////////////////////////////////
-/*
- *
- * Version 2
- * Value* divide(Value* a, Value* b);
- */
-
-Value* multiply(Value* a, Value* b);
-
-
 
 #endif /* MULTIPLY_H_ */
