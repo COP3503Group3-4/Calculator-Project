@@ -365,6 +365,10 @@ void UserIO::rpnInput()
 		}
 
 		//else ifs to account for parenthesis
+		else if (working == ":")
+		{
+			
+		}
 		else if (working == "(")
 		{
 			opStack.push_back(working);
