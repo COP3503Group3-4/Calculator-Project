@@ -13,11 +13,10 @@ char uniques[13] = { '+', '-', '*', '/', 't', '_', ':', '(', ')', ' ', 'r', 'l',
 
 UserIO::UserIO(string userInput)
 {
-
 	userIn = userInput;
 	splitInput();
 	printSplit();
-	rpnInput2();
+	rpnInput();
 	printRPN();
 }
 
@@ -162,11 +161,14 @@ void UserIO::rpnInput2()
 }
 bool UserIO::isOp(string token)
 {
-	string ops [] = { "^", "t", "*", "/", "+", "-"};
-	for(int i = 0; i < 7; i++) {
-		if(token == ops[i]) return true;
+	string ops [] = { "^", "t", "*", "/", "+", "-", " "};
+	for (int i = 0; i < 7; i++) {
+		if (token == ops[i])
+		{
+			return true;
+		}
 	}
-	return false;
+		return false;
 }
 bool UserIO::lessPrecedent(string op1, string op2)
 {
@@ -225,7 +227,7 @@ void UserIO::rpnInput()
 ////////////////////////////
 {
 	//vector containing order of operations for reference.
-	string pemdas[] = { "^", "_", "t", "*", "/", "+", "-", "(" };
+	string pemdas[] = { "^", "_", "rt", "sqrt", "*", "/", "+", "-", "(" };
 
 	string working;
 	string search;
@@ -245,7 +247,7 @@ void UserIO::rpnInput()
 		working = splitUserIn.at(i);
 
 		//initial if to determine if numeric or operational
-		if (working == "^" || working == "_" || working =="rt" || working == "*" || working == "/" || working == "+" || working == "-")
+		if (working == "^" || working == "_" || working =="rt" || working =="sqrt" || working == "*" || working == "/" || working == "+" || working == "-")
 		{
 			if (opStack.size() != 0)
 			{
@@ -331,6 +333,11 @@ void UserIO::rpnInput()
 
 							}
 						}
+						else
+						{
+							opStack.push_back(working);
+						}
+
 					}
 				}
 
@@ -344,6 +351,10 @@ void UserIO::rpnInput()
 		}
 
 		//else ifs to account for parenthesis
+		else if (working == ":")
+		{
+
+		}
 		else if (working == "(")
 		{
 			opStack.push_back(working);

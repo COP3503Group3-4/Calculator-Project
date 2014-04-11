@@ -131,6 +131,7 @@ void MathSys::menu()
 	}
 
 	//Defaults to Quit when logic is met.
+
 	cout << endl << "MathSys Quit.";
 }
 
