@@ -95,7 +95,7 @@ Value add(NthRoot a, NthRoot b) {
  *      Author: Kevin
  */
 
-#include "Add->h"
+#include "Add.h"
 #include <typeinfo>
 
 add::add() {}
