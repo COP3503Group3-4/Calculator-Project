@@ -15,9 +15,9 @@ UserIO::UserIO(string userInput)
 {
 	userIn = userInput;
 	splitInput();
-	printSplit();
+	//printSplit();
 	rpnInput();
-	printRPN();
+	//printRPN();
 }
 
 UserIO::~UserIO() {
