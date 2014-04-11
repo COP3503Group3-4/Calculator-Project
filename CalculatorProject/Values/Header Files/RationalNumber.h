@@ -1,7 +1,6 @@
 #ifndef RATIONALNUMBER_H
 #define RATIONALNUMBER_H
 
-#include <Number.h>
 
 
 class RationalNumber : public Number

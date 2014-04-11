@@ -1,4 +1,7 @@
+#include <Value.h>
 #include "NthRoot.h"
+
+
 
 NthRoot::NthRoot()
 {

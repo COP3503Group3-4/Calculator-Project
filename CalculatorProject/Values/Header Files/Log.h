@@ -1,13 +1,6 @@
 #ifndef LOG_H
 #define LOG_H
 
-#include <Value.h>
-#include <RationalFraction.h>
-#include <RationalNumber.h>
-#include <IrrationalNumber.h>
-#include <IrrationalFraction.h>
-#include <NthRoot.h>
-#include <SquareRoot.h>
 class Log : public Value
 {
     public:

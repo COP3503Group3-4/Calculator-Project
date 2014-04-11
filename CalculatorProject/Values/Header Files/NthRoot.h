@@ -1,7 +1,6 @@
 #ifndef NTHROOT_H
 #define NTHROOT_H
 
-#include <Value.h>
 
 
 class NthRoot : public Value

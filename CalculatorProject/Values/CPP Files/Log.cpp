@@ -1,4 +1,12 @@
 #include "Log.h"
+#include <Value.h>
+#include <RationalFraction.h>
+#include <RationalNumber.h>
+#include <IrrationalNumber.h>
+#include <IrrationalFraction.h>
+#include <NthRoot.h>
+#include <SquareRoot.h>
+
 
 Log::Log(Value* b, Value* insideVal)
 {

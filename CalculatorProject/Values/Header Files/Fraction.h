@@ -1,6 +1,6 @@
 #ifndef FRACTION_H
 #define FRACTION_H
-#include "Value.h"
+
 #include <string>
 
 class Fraction: public Value
