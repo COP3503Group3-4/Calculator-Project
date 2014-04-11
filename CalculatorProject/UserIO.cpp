@@ -110,69 +110,6 @@ void UserIO::splitInput()
 	if(s2.length() > 0) splitUserIn.push_back(s2);
 }
 
-void UserIO::rpnInput2()
-{
-	bool logFlag = false;
-	string current;
-	int ind = 0;
-	while (ind < splitUserIn.size()) {
-		current = splitUserIn[ind];
-		if (isOp(current)) {
-			if(opStack.size() > 0) {
-				if(logFlag) {
-					opStack.push_back(current);
-				}
-				else if(lessPrecedent(opStack[opStack.size() - 1], current)) {
-					opStack.push_back(current);
-				}
-				else {
-					while(!lessPrecedent(opStack[opStack.size()-1], current)) {
-						if (opStack.size() == 1) {
-							rpnUserIn.push_back(opStack[opStack.size() - 1]);
-							opStack.pop_back();
-							break;
-						}
-						else {
-							rpnUserIn.push_back(opStack[opStack.size() - 1]);
-							opStack.pop_back();
-						}
-					}
-					opStack.push_back(current);
-				}
-			}
-			else {
-				opStack.push_back(current);
-			}
-		}
-		else {
-			if(current == ")") {
-				while(opStack[opStack.size() - 1] != "(") {
-					rpnUserIn.push_back(opStack[opStack.size() - 1]);
-					opStack.pop_back();
-				}
-				opStack.pop_back();
-			}
-			else if (current == "(") {
-				opStack.push_back(current);
-			}
-			else if (current == "_") {
-				opStack.push_back(current);
-				logFlag = true;
-			}
-			else if (current == ":") {
-				if(logFlag) logFlag = false;
-			}
-			else {
-				rpnUserIn.push_back(current);
-			}
-		}
-		ind++;
-	}
-	while(opStack.size() > 0) {
-		rpnUserIn.push_back(opStack[opStack.size() - 1]);
-		opStack.pop_back();
-	}
-}
 bool UserIO::isOp(string token)
 {
 	string ops [] = { "^", "t", "*", "/", "+", "-", " "};
