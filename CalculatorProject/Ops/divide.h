@@ -16,7 +16,7 @@ public:
 	/*
 	 * Version 2(Value Pointer):
 	 */
-*Value divide(*Value a, *Value b);
+Value* divide(Value* a, Value* b);
 
 };
 

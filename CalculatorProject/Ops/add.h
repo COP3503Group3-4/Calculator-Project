@@ -35,5 +35,13 @@ public:
 };
 
 
+//////////////////////////////////
+/*
+ * Version2
+ *
+ */
+
+Value* add(Value* a, Value* b);
+
 
 #endif /* ADD_H_ */
