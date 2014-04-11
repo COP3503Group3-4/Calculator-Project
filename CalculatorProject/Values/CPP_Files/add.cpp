@@ -19,6 +19,7 @@ add::~add()
 }
 
 Value* add::addFractions(Value* a, Value* b) {
+    //Test Push to ensure it works
     ostringstream combined;
     RationalFraction* f1 = dynamic_cast<RationalFraction*>(a);
     RationalFraction* f2 = dynamic_cast<RationalFraction*>(b);
