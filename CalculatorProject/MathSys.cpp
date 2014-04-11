@@ -52,7 +52,10 @@ void MathSys::menu()
 
 			UserIO calculation = UserIO(data);
 			rpnToCalc = calculation.rpn();
-			//lastAnswer = calculate();
+			lastAnswer = calculate();
+			cout << "= ";
+			lastAnswer->printInfo();
+			cout << endl;
 
 			cout << endl << "Calculation complete." << endl << "Please choose an option: ";
 			cin >> c;
@@ -134,7 +137,7 @@ void MathSys::menu()
 	cout << endl << "MathSys Quit.";
 }
 
-/*
+
 Value* MathSys::lastAns() {
 	return lastAnswer;
 }
@@ -154,24 +157,25 @@ Value* MathSys::calculate() {
 	if(current == "+" || current == "-" || current == "*" || current == "/" || current == "t" || current == "_") {
 		v2 = calculate();
 		v1 = calculate();
+		Ops op = Ops(v1,v2);
 	}
-	switch(current) {
-		case "+":
-			answer = Add.add(v1,v2);
+	switch(current.at(0)) {
+		case '+':
+			answer = Ops::add(v1,v2);
 			break;
-		case "-":
-			answer = Subtract.subtract(v1,v2);
+		case '-':
+			//answer = Ops::subtract(v1,v2);
 			break;
-		case "*":
-			answer = Multiply.multiply(v1,v2);
+		case '*':
+			//answer = Ops::multiply(v1,v2);
 			break;
-		case "/":
-			answer = Divide.divide(v1,v2);
+		case '/':
+			//answer = Ops::divide(v1,v2);
 			break;
-		case "t":
-			answer = new Root(v1,v2);
+		case 't':
+			answer = new NthRoot(v1,v2);
 			break;
-		case "_":
+		case '_':
 			answer = new Log(v1,v2);
 			break;
 		default:
@@ -188,4 +192,3 @@ Value* MathSys::calculate() {
 
 	return answer;
 }
-*/
