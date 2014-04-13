@@ -273,33 +273,3 @@ Value* Multiply::multiply(Value* a, Value* b) {
     //Multiplying roots is going to be a huge bitch. I will have to figure ut how to do this sometime tonight or tomorrow i guess.
    // I am completely open to suggestions though.
 }
-
-bool Multiply::isEqual(Value* a, Value* b){
-    RationalNumber* rnTestA = dynamic_cast<RationalNumber*>(a);
-    RationalNumber* rnTestB = dynamic_cast<RationalNumber*>(b);
-    RationalFraction* rfTestA = dynamic_cast<RationalFraction*>(a);
-    RationalFraction* rfTestB = dynamic_cast<RationalFraction*>(b);
-    Log* logTestA = dynamic_cast<Log*>(a);
-    Log* logTestB = dynamic_cast<Log*>(b);
-    Expression* exTestA = dynamic_cast<Expression*>(a);
-    Expression* exTestB = dynamic_cast<Expression*>(b);
-    IrrationalNumber* inTestA = dynamic_cast<IrrationalNumber*>(a);
-    IrrationalNumber* inTestB = dynamic_cast<IrrationalNumber*>(b);
-    //IrrationalFraction* irfTestA = dynamic_cast<IrrationalFraction*>(a);
-    //IrrationalFraction* irfTestB = dynamic_cast<IrrationalFraction*>(b);
-
-    //This typechecks whatever to see if they're equivalent.
-    if(rnTestA && rnTestB){
-        Value* num1 = new RationalNumber();
-        Value* num2 = new RationalNumber();
-        num1 = a;
-        num2 = b;
-        if(num1->getNum1() == num2->getNum1()){
-            return true;
-        }
-        //If both of the numbers we're testing are Rational Numbers, we execute this.
-        //If both values stored by num1 and num2 are equivalent, return true.
-    }
-    else{ return false; }
-}
-

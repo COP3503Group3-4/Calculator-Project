@@ -170,7 +170,7 @@ Value* MathSys::calculate() {
 				answer = Add::add(v1,v2);
 				break;
 			case '-':
-				//answer = Ops::subtract(v1,v2);
+				answer = Subtract::subtract(v1,v2);
 				break;
 			case '*':
 				answer = Multiply::multiply(v1,v2);

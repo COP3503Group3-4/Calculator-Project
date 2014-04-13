@@ -15,6 +15,7 @@
 #include <Value.h>
 #include <Add.h>
 #include <Multiply.h>
+#include <Subtract.h>
 
 using namespace std;
 
