@@ -365,5 +365,4 @@ void UserIO::rpnInput()
 		opStack.pop_back();
 	}
 
-	printRPN();
 }
