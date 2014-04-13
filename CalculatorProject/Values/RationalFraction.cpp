@@ -19,12 +19,12 @@ RationalFraction::~RationalFraction()
 {
 }
 int RationalFraction::getDenominator(){
-    cout<<"Initial Denominator: "<<denom<<endl;
+    //cout<<"Initial Denominator: "<<denom<<endl;
     return denom;
 }
 
 int RationalFraction::getNumerator(){
-    cout<<"Initial Numerator: "<<numer<<endl;
+    //cout<<"Initial Numerator: "<<numer<<endl;
     return numer;
 }
 
@@ -39,13 +39,13 @@ int RationalFraction::simplifyNum(int n, int d, int index){
         }
     }*/
     if(i >= numerator){
-        cout<<numerator<<endl;;
+        //cout<<numerator<<endl;;
         return numerator;
     }
     else if(numerator % i == 0 && denominator % i == 0){
         newnum = numerator/i;
         newden = denominator/i;
-        cout<<newnum<<endl;
+        //cout<<newnum<<endl;
         return simplifyNum(newnum, newden, i);
     }
     else{
@@ -68,13 +68,13 @@ int RationalFraction::simplifyDen(int n, int d, int index){
         }
     }*/
     if(i > denominator){
-        cout<<denominator<<endl;
+        //cout<<denominator<<endl;
         return denominator;
     }
     else if(numerator % i == 0 && denominator % i == 0){
         tempDen = denominator/i;
         tempNum = numerator/i;
-        cout<<tempDen<<endl;
+        //cout<<tempDen<<endl;
         return simplifyDen(tempNum, tempDen, i);
     }
     else{
@@ -97,12 +97,20 @@ Value* RationalFraction::simplify(){
     int index = 2;
     int newNum = simplifyNum(numer, denom, index);
     int newDen = simplifyDen(numer, denom, index);
-    cout<<newNum<<'/'<<newDen<<endl;
-    Value* simpRTF = new RationalFraction(newNum,newDen);
-    return simpRTF;
+    if (newDen == 1) {
+    	Value* simpNum = new RationalNumber(newNum);
+    	return simpNum;
+    }
+    else {
+        //cout<<newNum<<'/'<<newDen<<endl;
+        Value* simpRTF = new RationalFraction(newNum,newDen);
+        //numer = newNum;
+        //denom = newDen;
+        return simpRTF;
+    }
 }
 
 void RationalFraction::printInfo(){
-
+	cout << "(" << numer << "/" << denom << ")";
 }
 

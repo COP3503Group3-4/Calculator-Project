@@ -27,7 +27,6 @@ public:
 	Subtract();
 	static Value* subtract(Value* a, Value* b);
 	virtual ~Subtract();
-	static bool isEqual(Value* a, Value* b);
     protected:
     private:
 };

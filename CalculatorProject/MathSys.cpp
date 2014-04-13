@@ -176,7 +176,7 @@ Value* MathSys::calculate() {
 				answer = Multiply::multiply(v1,v2);
 				break;
 			case '/':
-				//answer = Ops::divide(v1,v2);
+				answer = Divide::divide(v1,v2);
 				break;
 			case 't':
 				answer = new NthRoot(v1,v2);

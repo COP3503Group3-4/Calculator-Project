@@ -16,6 +16,7 @@
 #include <Add.h>
 #include <Multiply.h>
 #include <Subtract.h>
+#include <Divide.h>
 
 using namespace std;
 
