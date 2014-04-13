@@ -9,6 +9,7 @@
 #define OPS_H_
 
 #include <Add.h>
+#include <Multiply.h>
 #include <Value.h>
 
 class Ops {
@@ -20,7 +21,7 @@ public:
 	Value* add();
 	static Value* subtract(Value* v1, Value* v2);
 	Value* subtract();
-	static Value* multiply(Value* v1, Value* v2);
+	static Value* multiply(Value* val1, Value* val2);
 	Value* multiply();
 	static Value* divide(Value* v1, Value* v2);
 	Value* divide();

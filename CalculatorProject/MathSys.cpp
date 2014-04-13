@@ -5,7 +5,8 @@
  *      Author: corya_000
  */
 
-#include "MathSys.h"
+#include <MathSys.h>
+
 using namespace std;
 
 MathSys::MathSys() {
@@ -167,6 +168,7 @@ Value* MathSys::calculate() {
 		switch(current.at(0)) {
 			case '+':
 				answer = Ops::add(v1,v2);
+				answer = Ops::multiply(v1,v2);
 				break;
 			case '-':
 				//answer = Ops::subtract(v1,v2);

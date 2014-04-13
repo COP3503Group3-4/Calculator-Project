@@ -16,6 +16,8 @@ class Expression : public Value
         //Vals: pi, 3, e, 2
         //Ops: +,*,+
         Expression(vector<Value*> vals, vector<string> ops);
+        Expression(Value* v1, Value* v2, string op);
+        Expression(Value* v1, Value* v2, char op);
         virtual ~Expression();
         Value* simplify();
         Value* getNum1();

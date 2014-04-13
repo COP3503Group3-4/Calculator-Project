@@ -4,9 +4,26 @@ Expression::Expression()
 {
 }
 
-Expression::Expression(vector<Value*> vals, vector<string> ops){
+Expression::Expression(vector<Value*> vals, vector<string> ops)
+{
 	this->ops = ops;
 	values = vals;
+}
+Expression::Expression(Value* v1, Value* v2, string op)
+{
+	values.push_back(v1);
+	values.push_back(v2);
+	ops.push_back(op);
+}
+Expression::Expression(Value* v1, Value* v2, char op)
+{
+	values.push_back(v1);
+	values.push_back(v2);
+	stringstream ss;
+	string s;
+	ss << op;
+	ss >> s;
+	ops.push_back(s);
 }
 
 Expression::~Expression()

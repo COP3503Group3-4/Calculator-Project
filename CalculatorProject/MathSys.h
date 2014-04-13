@@ -12,11 +12,8 @@
 #include <iostream>
 #include <vector>
 #include <UserIO.h>
-#include <Ops.h>
 #include <Value.h>
-
-//#include "Ops/Add.h"
-//#include "Ops/Multiply.h"
+#include <Ops.h>
 
 using namespace std;
 

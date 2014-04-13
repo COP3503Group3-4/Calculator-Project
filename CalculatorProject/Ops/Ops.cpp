@@ -23,13 +23,13 @@ Ops::~Ops() {
 
 Value* Ops::add(Value* val1, Value* val2)
 {
-	Add a1 = Add();
-	return a1.addVals(val1,val2);
+	Add a = Add();
+	return a.addVals(val1,val2);
 }
 Value* Ops::add()
 {
-	Add a1 = Add();
-	return a1.addVals(v1,v2);
+	Add a = Add();
+	return a.addVals(v1,v2);
 }
 
 Value* subtract(Value* val1, Value* val2)
@@ -42,11 +42,13 @@ Value* Ops::subtract() {
 
 Value* multiply(Value* val1, Value* val2)
 {
-	return 0;
+	Multiply m = Multiply();
+	return m.multiplyVals(val1, val2);
 }
 Value* Ops::multiply()
 {
-	return 0;
+	Multiply m = Multiply();
+	return m.multiplyVals(v1,v2);
 }
 
 Value* divide(Value* val1, Value* val2)

@@ -1,14 +1,5 @@
-#include <add.h>
-#include <Fraction.h>
-#include <RationalFraction.h>
-#include <Log.h>
-#include <Expression.h>
-#include <Number.h>
-#include <RationalNumber.h>
-#include <IrrationalNumber.h>
-#include <SquareRoot.h>
-#include <NthRoot.h>
-#include <sstream>
+#include <Add.h>
+
 Add::Add()
 {
 
