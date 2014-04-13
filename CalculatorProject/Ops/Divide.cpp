@@ -34,6 +34,7 @@ Value* Divide::divide(Value* a, Value* b){
 		int n = n1 * d2;
 		int d = d1 * n2;
         Value* f3 = new RationalFraction(n,d);
+		f3 = f3->simplify();
         return f3;
     }
     /*
@@ -109,6 +110,7 @@ Value* Divide::divide(Value* a, Value* b){
             int d2 = rN1->getNumValue();
             int d = d1 *d2;
             Value* f3 = new RationalFraction(n1,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( f1 && rN2 ){
@@ -117,6 +119,7 @@ Value* Divide::divide(Value* a, Value* b){
             int d2 = rN2->getNumValue();
             int d = d1 *d2;
             Value* f3 = new RationalFraction(n1,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( f2 && rN1 ){
@@ -125,6 +128,7 @@ Value* Divide::divide(Value* a, Value* b){
             int d2 = rN1->getNumValue();
             int d = d1 *d2;
             Value* f3 = new RationalFraction(n1,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( f2 && rN2 ){
@@ -133,6 +137,7 @@ Value* Divide::divide(Value* a, Value* b){
             int d2 = rN2->getNumValue();
             int d = d1 *d2;
             Value* f3 = new RationalFraction(n1,d);
+			f3 = f3->simplify();
             return f3;
         }
 	}
@@ -144,6 +149,7 @@ Value* Divide::divide(Value* a, Value* b){
             int n = n1 * n2;
             int d = f1->getNumerator();
             Value* f3 = new RationalFraction(n,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( rN2 && f1 ){
@@ -152,6 +158,7 @@ Value* Divide::divide(Value* a, Value* b){
             int n = n1 * n2;
             int d = f1->getNumerator();
             Value* f3 = new RationalFraction(n,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( rN1 && f2 ){
@@ -160,6 +167,7 @@ Value* Divide::divide(Value* a, Value* b){
             int n = n1 * n2;
             int d = f2->getNumerator();
             Value* f3 = new RationalFraction(n,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( rN2 && f2 ){
@@ -168,6 +176,7 @@ Value* Divide::divide(Value* a, Value* b){
             int n = n1 * n2;
             int d = f2->getNumerator();
             Value* f3 = new RationalFraction(n,d);
+			f3 = f3->simplify();
             return f3;
         }
     }
