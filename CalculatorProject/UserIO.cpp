@@ -9,15 +9,16 @@
 
 using namespace std;
 
-char uniques[18] = { '+', '-', '*', '/', 't', '_', ':', '(', ')', ' ', 'r', 's', 'l', '^', 'i', 'p', 'e', 'q'};
+char uniques[19] = { '+', '-', '*', '/', 't', '_', ':', '(', ')', ' ', 'r', 's', 'l', '^', 'i', 'p', 'e', 'q', 'a'};
 
-UserIO::UserIO(string userInput)
+UserIO::UserIO(string userInput, Value* lastAnswer)
 {
 	userIn = userInput;
+	lastAns = lastAnswer;
 	splitInput();
-	//printSplit();
+	printSplit();
 	rpnInput();
-	//printRPN();
+	printRPN();
 }
 
 UserIO::~UserIO() {
@@ -39,40 +40,45 @@ void UserIO::splitInput()
 * created by Cory Anderson
 */
 {
-	string s2 = userIn;
+	string rawUserIn = userIn;
 	bool space = false;
 	bool log = false;
 	bool pi = false;
 	bool sqrt = false;
+	bool ans = false;
+	bool negative = false;
+	vector<int> negativeInds;
 	int ind = 0;
 
-	while (ind < s2.length()) {
-		for (int i = 0; i<18; i++) {
-			//Flag for getting rid of the character
-			if (s2.at(ind) == ' ' || s2.at(ind) == 'r' || s2.at(ind) == 'i' || s2.at(ind) == 'q') space = true;
-			//Flag for getting rid of log
-			if (s2.at(ind) == '_') log = true;
-			//Flag for pi
-			if(s2.at(ind) == 'p') pi = true;
-			//Flag for converting sq in sqrt to 2
-			if(s2.at(ind) == 'q') sqrt = true;
+	while (ind < rawUserIn.length()) {
+		//Flag for getting rid of the character
+		if (rawUserIn.at(ind) == ' ' || rawUserIn.at(ind) == 'r' || rawUserIn.at(ind) == 'i' || rawUserIn.at(ind) == 'q') space = true;
+		//Flag for getting rid of log
+		if (rawUserIn.at(ind) == '_') log = true;
+		//Flag for pi
+		if(rawUserIn.at(ind) == 'p') pi = true;
+		//Flag for converting sq in sqrt to 2
+		if(rawUserIn.at(ind) == 'q') sqrt = true;
+		if(rawUserIn.at(ind) == 'a') ans = true;
+		if(rawUserIn.at(ind) == '-') negative = true;
+		for (int i = 0; i < 19; i++) {
 			//If the char is unique
-			if (s2.at(ind) == uniques[i]) {
-				//If we are on the first char then just pop it off and adjust
+			if (rawUserIn.at(ind) == uniques[i]) {
+				//If we are on the first char in the string then just pop it off and adjust
 				if (ind == 0) {
 					//Adding unique char
-					splitUserIn.push_back(s2.substr(0, 1));
+					splitUserIn.push_back(rawUserIn.substr(0, 1));
 					//Adjusting string
-					s2 = s2.substr(ind + 1, s2.length() - 1);
+					rawUserIn = rawUserIn.substr(ind + 1, rawUserIn.length() - 1);
 				}
 				//otherwise there may be a preceding number
 				else {
 					//Adding the preceding number
-					splitUserIn.push_back(s2.substr(0, ind));
+					splitUserIn.push_back(rawUserIn.substr(0, ind));
 					//Adding the unique char
-					splitUserIn.push_back(s2.substr(ind, 1));
+					splitUserIn.push_back(rawUserIn.substr(ind, 1));
 					//Adjusting string
-					s2 = s2.substr(ind + 1, s2.length() - ind - 1);
+					rawUserIn = rawUserIn.substr(ind + 1, rawUserIn.length() - ind - 1);
 				}
 				//Will allow ind to become 0 for next loop
 				ind = -1;
@@ -111,9 +117,44 @@ void UserIO::splitInput()
 			splitUserIn.push_back("2");
 			//sqrt(x) will result in 2rtx
 		}
+		if (ans) {
+			ans = false;
+			//Need to get rid of n and s in string
+			rawUserIn = rawUserIn.substr(2, rawUserIn.length() - 2);
+			//Getting rid of 'a'
+			splitUserIn.pop_back();
+			//Adding the last answer onto the beginning of the input string
+			//Essentially, "ans" is replaced with the print out of the lastAnswer in parentheses
+			string s = "(";
+			//Won't work until Value gets an abstract toString method.
+			//s.append(lastAns->toString);
+			s.append(")");
+			s.append(rawUserIn);
+			rawUserIn = s;
+		}
+		if (negative) {
+			negative = false;
+			bool neg2 = true;
+			for (int i = 0; i < 19; i++) {
+				if(rawUserIn.at(0) == uniques[i]) {
+					neg2 = false;
+					break;
+				}
+			}
+			//Getting rid of the "-"
+			if (neg2) {
+				splitUserIn.pop_back();
+				negativeInds.push_back(splitUserIn.size());
+			}
+		}
 
 	}
-	if(s2.length() > 0) splitUserIn.push_back(s2);
+	if(rawUserIn.length() > 0) splitUserIn.push_back(rawUserIn);
+	for (int i = 0; i < negativeInds.size(); i++) {
+		string s = "-";
+		s.append(splitUserIn[negativeInds[i]]);
+		splitUserIn[negativeInds[i]] = s;
+	}
 }
 
 void UserIO::printRPN()

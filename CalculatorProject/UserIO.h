@@ -12,12 +12,13 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <Value.h>
 
 using namespace std;
 
 class UserIO {
 public:
-	UserIO(string userInput);
+	UserIO(string userInput, Value* lastAnswer);
 	virtual ~UserIO();
 	vector<string> getSplitInput();
 	vector<string> rpn();
@@ -34,6 +35,7 @@ private:
 	bool isOp(string token);
 	void printRPN();
 	void printSplit();
+	Value* lastAns;
 };
 
 #endif /* USERIO_H_ */

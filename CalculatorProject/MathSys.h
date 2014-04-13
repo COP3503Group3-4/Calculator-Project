@@ -13,7 +13,7 @@
 #include <vector>
 #include "UserIO.h"
 #include "Ops.h"
-#include <value.h>
+#include <Value.h>
 
 //#include "Ops/Add.h"
 //#include "Ops/Multiply.h"

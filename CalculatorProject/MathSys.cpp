@@ -9,6 +9,7 @@
 using namespace std;
 
 MathSys::MathSys() {
+	lastAnswer = 0;
 	menu();
 }
 
@@ -50,7 +51,7 @@ void MathSys::menu()
 
 			cout << endl << "Input:" << endl << data << endl;
 
-			UserIO calculation = UserIO(data);
+			UserIO calculation = UserIO(data, lastAnswer);
 			rpnToCalc = calculation.rpn();
 			lastAnswer = calculate();
 			cout << "= ";
@@ -154,40 +155,59 @@ Value* MathSys::calculate() {
 	string current = rpnToCalc[rpnToCalc.size() - 1];
 	rpnToCalc.pop_back();
 
-	if(current == "+" || current == "-" || current == "*" || current == "/" || current == "t" || current == "_") {
-		v2 = calculate();
-		v1 = calculate();
-		Ops op = Ops(v1,v2);
+	if (current.length() == 1) {
+		if(current == "+" || current == "-" || current == "*" || current == "/" || current == "t" || current == "_") {
+				v2 = calculate();
+				v1 = calculate();
+		}
+		if (current == "~") {
+			v1 = new RationalNumber("0");
+			v2 = calculate();
+		}
+		switch(current.at(0)) {
+			case '+':
+				answer = Ops::add(v1,v2);
+				break;
+			case '-':
+				//answer = Ops::subtract(v1,v2);
+				break;
+			case '*':
+				//answer = Ops::multiply(v1,v2);
+				break;
+			case '/':
+				//answer = Ops::divide(v1,v2);
+				break;
+			case 't':
+				answer = new NthRoot(v1,v2);
+				break;
+			case '_':
+				answer = new Log(v1,v2);
+				break;
+			case '~':
+				//answer = Ops::subtract(v1,v2);
+				break;
+			default:
+				if (current == "e") {
+					answer = new IrrationalNumber("e");
+				}
+				else if (current == "pi") {
+					answer = new IrrationalNumber("pi");
+				}
+				else {
+					answer = new RationalNumber(current);
+				}
+		}
 	}
-	switch(current.at(0)) {
-		case '+':
-			answer = Ops::add(v1,v2);
-			break;
-		case '-':
-			//answer = Ops::subtract(v1,v2);
-			break;
-		case '*':
-			//answer = Ops::multiply(v1,v2);
-			break;
-		case '/':
-			//answer = Ops::divide(v1,v2);
-			break;
-		case 't':
-			answer = new NthRoot(v1,v2);
-			break;
-		case '_':
-			answer = new Log(v1,v2);
-			break;
-		default:
-			if (current == "e") {
-				answer = new IrrationalNumber("e");
-			}
-			else if (current == "pi") {
-				answer = new IrrationalNumber("pi");
-			}
-			else {
-				answer = new RationalNumber(current);
-			}
+	else {
+		if (current == "e") {
+			answer = new IrrationalNumber("e");
+		}
+		else if (current == "pi") {
+			answer = new IrrationalNumber("pi");
+		}
+		else {
+			answer = new RationalNumber(current);
+		}
 	}
 
 	return answer;
