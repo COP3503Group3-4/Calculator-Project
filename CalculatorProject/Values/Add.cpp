@@ -1,6 +1,14 @@
-#include <Add.h>
+#include <add.h>
+#include <Fraction.h>
+#include <RationalFraction.h>
+#include <Log.h>
+#include <Expression.h>
+#include <Number.h>
+#include <RationalNumber.h>
+#include <IrrationalNumber.h>
+#include <SquareRoot.h>
+#include <NthRoot.h>
 #include <sstream>
-
 Add::Add()
 {
 
@@ -8,11 +16,10 @@ Add::Add()
 
 Add::~Add()
 {
-    //d
+    //dtor
 }
 
 Value* Add::addVals(Value* a, Value* b) {
-    ostringstream combined;
     RationalFraction* f1 = dynamic_cast<RationalFraction*>(a);
     RationalFraction* f2 = dynamic_cast<RationalFraction*>(b);
     Log* l1 = dynamic_cast<Log*>(a);
@@ -25,6 +32,9 @@ Value* Add::addVals(Value* a, Value* b) {
     IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
     //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
     //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
+    SquareRoot* sqr1 = dynamic_cast<SquareRoot*>(a);
+    SquareRoot* sqr2 = dynamic_cast<SquareRoot*>(b);
+
     if(f1 && f2){
         int n1 = f1->getNumerator() * f2->getDenominator();
         cout<<"N1: "<<n1<<endl;
@@ -91,7 +101,7 @@ Value* Add::addVals(Value* a, Value* b) {
         int num2 = rN2->getNumValue();
         int numAdded = num1 + num2;
         Value* summedNum = new RationalNumber(numAdded);
-        //cout<<numAdded<<endl;
+        cout<<numAdded<<endl;
         return summedNum;
     }
     if((f1 && rN1) || (f1 && rN2) || (f2 && rN1) || (f2 && rN2) ){
@@ -217,23 +227,23 @@ Value* Add::addVals(Value* a, Value* b) {
             }
         }
    }*/
-   return 0;
+
 }
 
 bool Add::isEqual(Value* a, Value* b){
-    RationalNumber* rNIV1 = dynamic_cast<RationalNumber*>(a);
-    RationalNumber* rNIV2 = dynamic_cast<RationalNumber*>(b);
-    RationalFraction* rFIV1 = dynamic_cast<RationalFraction*>(a);
-    RationalFraction* rFIV2 = dynamic_cast<RationalFraction*>(b);
-    Log* lIVE1 = dynamic_cast<Log*>(a);
-    Log* lIVE2 = dynamic_cast<Log*>(b);
-    Expression* exE1 = dynamic_cast<Expression*>(a);
-    Expression* exE2 = dynamic_cast<Expression*>(b);
-    IrrationalNumber* iRNE1 = dynamic_cast<IrrationalNumber*>(a);
-    IrrationalNumber* iRNE2 = dynamic_cast<IrrationalNumber*>(b);
-    //IrrationalFraction* iRFE1 = dynamic_cast<IrrationalFraction*>(a);
-    //IrrationalFraction* iRFE2 = dynamic_cast<IrrationalFraction*>(b);
-    if(rNIV1 && rNIV2){
+    RationalNumber* rnTestA = dynamic_cast<RationalNumber*>(a);
+    RationalNumber* rnTestB = dynamic_cast<RationalNumber*>(b);
+    RationalFraction* rfTestA = dynamic_cast<RationalFraction*>(a);
+    RationalFraction* rfTestB = dynamic_cast<RationalFraction*>(b);
+    Log* logTestA = dynamic_cast<Log*>(a);
+    Log* logTestB = dynamic_cast<Log*>(b);
+    Expression* exTestA = dynamic_cast<Expression*>(a);
+    Expression* exTestB = dynamic_cast<Expression*>(b);
+    IrrationalNumber* inTestA = dynamic_cast<IrrationalNumber*>(a);
+    IrrationalNumber* inTestB = dynamic_cast<IrrationalNumber*>(b);
+    //IrrationalFraction* irfTestA = dynamic_cast<IrrationalFraction*>(a);
+    //IrrationalFraction* irfTestB = dynamic_cast<IrrationalFraction*>(b);
+    if(rnTestA && rnTestB){
         Value* num1 = new RationalNumber();
         Value* num2 = new RationalNumber();
         num1 = a;
