@@ -16,7 +16,7 @@ class Add
 {
     public:
         Add();
-        static Value* addVals(Value* a, Value* b);
+        static Value* add(Value* a, Value* b);
         virtual ~Add();
         static bool isEqual(Value* a, Value* b);
     protected:

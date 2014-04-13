@@ -167,14 +167,13 @@ Value* MathSys::calculate() {
 		}
 		switch(current.at(0)) {
 			case '+':
-				answer = Ops::add(v1,v2);
-				answer = Ops::multiply(v1,v2);
+				answer = Add::add(v1,v2);
 				break;
 			case '-':
 				//answer = Ops::subtract(v1,v2);
 				break;
 			case '*':
-				//answer = Ops::multiply(v1,v2);
+				answer = Multiply::multiply(v1,v2);
 				break;
 			case '/':
 				//answer = Ops::divide(v1,v2);

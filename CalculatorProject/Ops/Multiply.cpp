@@ -13,7 +13,7 @@ Multiply::~Multiply()
 
 }
 
-Value* Multiply::multiplyVals(Value* a, Value* b) {
+Value* Multiply::multiply(Value* a, Value* b) {
     ostringstream combined;
     RationalFraction* f1 = dynamic_cast<RationalFraction*>(a);
     RationalFraction* f2 = dynamic_cast<RationalFraction*>(b);
@@ -31,9 +31,9 @@ Value* Multiply::multiplyVals(Value* a, Value* b) {
     //Type Checks the Initial Values passed into the function
     if(f1 && f2){
         int n = f1->getNumerator() * f2->getNumerator();
-        cout<<"N: "<<n<<endl;
+        //cout<<"N: "<<n<<endl;
         int d = f1->getDenominator() * f2->getDenominator();
-        cout<<"D: "<<d<<endl;
+        //cout<<"D: "<<d<<endl;
         Value* f2 = new RationalFraction(n,d);
         return f2;
 
@@ -92,14 +92,14 @@ Value* Multiply::multiplyVals(Value* a, Value* b) {
                 if( rNIV1 && rNIV2 ){
                     int value1 = rNIV1->getNumValue();
                     int value2 = rNIV2->getNumValue();
-                    cout<<value1<<endl;
-                    cout<<value2<<endl;
+                    //cout<<value1<<endl;
+                    //cout<<value2<<endl;
                     int finalVal = value1*value2;
-                    cout<<finalVal<<endl;
+                    //cout<<finalVal<<endl;
                     Value* finalRNIV = new RationalNumber(finalVal);
                     Value* logSimp = new Log(lB1, finalRNIV);
                     logSimp->printInfo();
-                    cout<<endl;
+                    //cout<<endl;
                     return logSimp;
                     //Since we determined that the inside values are both rational numbers, they will be
                     //returned and multiplied together. A new log object will be created which has the same
@@ -122,7 +122,7 @@ Value* Multiply::multiplyVals(Value* a, Value* b) {
         int num2 = rN2->getNumValue();
         int numMultiplied = num1 * num2;
         Value* productNum = new RationalNumber(numMultiplied);
-        cout<<numMultiplied<<endl;
+        //cout<<numMultiplied<<endl;
         return productNum;
     }
     //If both of the values to be multiplied are Rational Numbers, all we need to do is get their values,
@@ -145,9 +145,9 @@ Value* Multiply::multiplyVals(Value* a, Value* b) {
             int numerFN = rN2->getNumValue();
             RationalFraction* fN2 = new RationalFraction(numerFN,1);
             int n = f1->getNumerator() * fN2->getNumerator();
-            cout<<"N: "<<n<<endl;
+            //cout<<"N: "<<n<<endl;
             int d = f1->getDenominator() * fN2->getDenominator();
-            cout<<"d: "<<d<<endl;
+            //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n,d);
             return f3;
         }
@@ -155,9 +155,9 @@ Value* Multiply::multiplyVals(Value* a, Value* b) {
             int numerFN = rN1->getNumValue();
             RationalFraction* fN2 = new RationalFraction(numerFN,1);
             int n = f2->getNumerator() * fN2->getNumerator();
-            cout<<"N: "<<n<<endl;
+            //cout<<"N: "<<n<<endl;
             int d = f2->getDenominator() * fN2->getDenominator();
-            cout<<"d: "<<d<<endl;
+            //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n,d);
             return f3;
         }
@@ -165,9 +165,9 @@ Value* Multiply::multiplyVals(Value* a, Value* b) {
             int numerFN = rN2->getNumValue();
             RationalFraction* fN2 = new RationalFraction(numerFN,1);
             int n = f2->getNumerator() * fN2->getNumerator();
-            cout<<"N: "<<n<<endl;
+            //cout<<"N: "<<n<<endl;
             int d = f2->getDenominator() * fN2->getDenominator();
-            cout<<"d: "<<d<<endl;
+            //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n,d);
             return f3;
         }
@@ -272,8 +272,6 @@ Value* Multiply::multiplyVals(Value* a, Value* b) {
 
     //Multiplying roots is going to be a huge bitch. I will have to figure ut how to do this sometime tonight or tomorrow i guess.
    // I am completely open to suggestions though.
-
-   return 0;
 }
 
 bool Multiply::isEqual(Value* a, Value* b){

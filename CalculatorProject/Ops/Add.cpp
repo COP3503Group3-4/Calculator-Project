@@ -10,7 +10,7 @@ Add::~Add()
     //dtor
 }
 
-Value* Add::addVals(Value* a, Value* b) {
+Value* Add::add(Value* a, Value* b) {
     RationalFraction* f1 = dynamic_cast<RationalFraction*>(a);
     RationalFraction* f2 = dynamic_cast<RationalFraction*>(b);
     Log* l1 = dynamic_cast<Log*>(a);
@@ -28,11 +28,11 @@ Value* Add::addVals(Value* a, Value* b) {
 
     if(f1 && f2){
         int n1 = f1->getNumerator() * f2->getDenominator();
-        cout<<"N1: "<<n1<<endl;
+        //cout<<"N1: "<<n1<<endl;
         int n2 = f2->getNumerator() * f1->getDenominator();
-        cout<<"N2: "<<n2<<endl;
+        //cout<<"N2: "<<n2<<endl;
         int d = f1->getDenominator() * f2->getDenominator();
-        cout<<"D: "<<d<<endl;
+        //cout<<"D: "<<d<<endl;
         Value* f3 = new RationalFraction(n1+n2,d);
         return f3;
     }
@@ -70,14 +70,14 @@ Value* Add::addVals(Value* a, Value* b) {
                 if( rNIV1 && rNIV2 ){
                     int value1 = rNIV1->getNumValue();
                     int value2 = rNIV2->getNumValue();
-                    cout<<value1<<endl;
-                    cout<<value2<<endl;
+                    //cout<<value1<<endl;
+                    //cout<<value2<<endl;
                     int finalVal = value1*value2;
-                    cout<<finalVal<<endl;
+                    //cout<<finalVal<<endl;
                     Value* finalRNIV = new RationalNumber(finalVal);
                     Value* logSimp = new Log(lB1, finalRNIV);
                     logSimp->printInfo();
-                    cout<<endl;
+                    //cout<<endl;
                     return logSimp;
                 }
             }
@@ -92,7 +92,7 @@ Value* Add::addVals(Value* a, Value* b) {
         int num2 = rN2->getNumValue();
         int numAdded = num1 + num2;
         Value* summedNum = new RationalNumber(numAdded);
-        cout<<numAdded<<endl;
+        //cout<<numAdded<<endl;
         return summedNum;
     }
     if((f1 && rN1) || (f1 && rN2) || (f2 && rN1) || (f2 && rN2) ){
@@ -109,11 +109,11 @@ Value* Add::addVals(Value* a, Value* b) {
             int numerFN = rN2->getNumValue();
             RationalFraction* fN2 = new RationalFraction(numerFN,1);
             int n1 = f1->getNumerator() * fN2->getDenominator();
-            cout<<"N1: "<<n1<<endl;
+            //cout<<"N1: "<<n1<<endl;
             int n2 = fN2->getNumerator() * f1->getDenominator();
-            cout<<"N2: "<<n2<<endl;
+            //cout<<"N2: "<<n2<<endl;
             int d = f1->getDenominator() * fN2->getDenominator();
-            cout<<"d: "<<d<<endl;
+            //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n1+n2,d);
             return f3;
         }
@@ -121,11 +121,11 @@ Value* Add::addVals(Value* a, Value* b) {
             int numerFN = rN1->getNumValue();
             RationalFraction* fN2 = new RationalFraction(numerFN,1);
             int n1 = f2->getNumerator() * fN2->getDenominator();
-            cout<<"N1: "<<n1<<endl;
+            //cout<<"N1: "<<n1<<endl;
             int n2 = fN2->getNumerator() * f2->getDenominator();
-            cout<<"N2: "<<n2<<endl;
+            //cout<<"N2: "<<n2<<endl;
             int d = f2->getDenominator() * fN2->getDenominator();
-            cout<<"d: "<<d<<endl;
+            //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n1+n2,d);
             return f3;
         }
@@ -133,11 +133,11 @@ Value* Add::addVals(Value* a, Value* b) {
             int numerFN = rN2->getNumValue();
             RationalFraction* fN2 = new RationalFraction(numerFN,1);
             int n1 = f2->getNumerator() * fN2->getDenominator();
-            cout<<"N1: "<<n1<<endl;
+            //cout<<"N1: "<<n1<<endl;
             int n2 = fN2->getNumerator() * f2->getDenominator();
-            cout<<"N2: "<<n2<<endl;
+            //cout<<"N2: "<<n2<<endl;
             int d = f2->getDenominator() * fN2->getDenominator();
-            cout<<"d: "<<d<<endl;
+            //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n1+n2,d);
             return f3;
         }

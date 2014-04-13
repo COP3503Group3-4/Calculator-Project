@@ -13,7 +13,8 @@
 #include <vector>
 #include <UserIO.h>
 #include <Value.h>
-#include <Ops.h>
+#include <Add.h>
+#include <Multiply.h>
 
 using namespace std;
 
