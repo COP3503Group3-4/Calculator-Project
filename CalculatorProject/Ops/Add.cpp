@@ -267,30 +267,48 @@ Value* Add::add(Value* a, Value* b) {
    //removing common factors or something. Or I'll have to add to this. I don't know. There is a getIRNumValue method
    //and if they're equivalent, add the coefficients.
 
-   /*if( ex1 || ex2 ){
+   if( ex1 || ex2 ){
         if(ex1 && ex2){
-            Value* exp1 = new Expression(ex1, ex2, '+');
-            return exp1;
+            ex1->add(ex2);
+            return ex1;
         }
         if((ex1 && f1) || (ex1 && f2) || (ex2 && f1) || (ex2 && f2)){
             if(ex1 && f1){
-                Value* exp1 = new Expression(ex1, f1, '+');
-                return exp1;
+                ex1->add(f1);
+                return ex1;
             }
             if(ex1 && f2){
-                Value* exp1 = new Expression(ex1, f2, '+');
-                return exp1;
+                ex1->add(f2);
+                return ex1;
             }
             if(ex2 && f1){
-                Value* exp1 = new Expression(ex2, f1, '+');
-                return exp1;
+                ex2->add(f1);
+                return ex2;
             }
             if(ex2 && f2){
-                Value* exp1 = new Expression(ex2, f2, '+');
-                return exp1;
+                ex2->add(f2);
+                return ex2;
             }
         }
-   }*/
+        if((ex1 && rN1) || (ex1 && rN2) || (ex2 && rN1) || (ex2 && rN2)) {
+			if(ex1 && rN1){
+				ex1->add(f1);
+				return ex1;
+			}
+			if(ex1 && rN2){
+				ex1->add(f2);
+				return ex1;
+			}
+			if(ex2 && rN1){
+				ex2->add(f1);
+				return ex2;
+			}
+			if(ex2 && rN2){
+				ex2->add(f2);
+				return ex2;
+			}
+        }
+   }
 
    if(sqrA && sqrB){
         Value* sqrAInside = sqrA->getNum2();
