@@ -206,6 +206,7 @@ void UserIO::rpnInput()
 	int currentTwo = 0;
 	int current = 0;
 	int s = 0;
+	bool repeat();
 
 	//Start of some complicated shit.
 	//Comments may help explain.
@@ -235,6 +236,7 @@ void UserIO::rpnInput()
 						search = pemdas[s];
 						s++;
 					}
+					search = "0";
 					current = s;
 					s = 0;
 
@@ -243,6 +245,7 @@ void UserIO::rpnInput()
 						search = pemdas[s];
 						s++;
 					}
+					search = "0";
 					last = s;
 					s = 0;
 
@@ -251,6 +254,7 @@ void UserIO::rpnInput()
 						searchTwo = pemdasTwo[s];
 						s++;
 					}
+					searchTwo = "0";
 					currentTwo = s;
 					s = 0;
 
@@ -259,8 +263,10 @@ void UserIO::rpnInput()
 						searchTwo = pemdasTwo[s];
 						s++;
 					}
+					searchTwo = "0";
 					lastTwo = s;
 					s = 0;
+
 
 					if (current < last && current != lastTwo)
 					{
@@ -285,12 +291,12 @@ void UserIO::rpnInput()
 							}
 							else
 							{
-
 								while (search != working)
 								{
 									search = pemdas[s];
 									s++;
 								}
+								search = "0";
 								current = s;
 								s = 0;
 
@@ -299,6 +305,7 @@ void UserIO::rpnInput()
 									search = pemdas[s];
 									s++;
 								}
+								search = "0";
 								last = s;
 								s = 0;
 
@@ -307,6 +314,7 @@ void UserIO::rpnInput()
 									searchTwo = pemdasTwo[s];
 									s++;
 								}
+								searchTwo = "0";
 								currentTwo = s;
 								s = 0;
 
@@ -315,16 +323,12 @@ void UserIO::rpnInput()
 									searchTwo = pemdasTwo[s];
 									s++;
 								}
+								searchTwo = "0";
 								lastTwo = s;
 								s = 0;
 
-								if (current < last)
+								if (current < last && current != lastTwo)
 								{
-									if (current == lastTwo)
-									{
-										rpnUserIn.push_back(lastop);
-										opStack.pop_back();
-									}
 									opStack.push_back(working);
 								}
 								else if (current == last)
