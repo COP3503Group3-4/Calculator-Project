@@ -40,6 +40,7 @@ class Expression : public Value
     private:
         vector<string> ops;
         vector<Value*> values;
+        bool pieEx;
 };
 
 #endif // EXPRESSION_H

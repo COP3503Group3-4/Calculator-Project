@@ -113,7 +113,6 @@ string Expression::toString(){
 }
 
 bool Expression::getValue(string typeName, Value* v, int* ind)
-//Have to make sure that negative rational numbers are still added
 {
 	//Iterate through the values contained in the expression
 	for (int i = 0; i < values.size(); i++) {
