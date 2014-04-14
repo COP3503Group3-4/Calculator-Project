@@ -365,6 +365,11 @@ void UserIO::rpnInput()
 		}
 		else if (working == "(")
 		{
+			if (opStack.back() == "-")
+			{
+				opStack.pop_back();
+				opStack.push_back("~");
+			}
 			opStack.push_back(working);
 		}
 		else if (working == ")")
