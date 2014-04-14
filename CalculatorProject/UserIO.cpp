@@ -365,10 +365,13 @@ void UserIO::rpnInput()
 		}
 		else if (working == "(")
 		{
-			if (opStack.back() == "-")
+			if (opStack.size() != 0)
 			{
-				opStack.pop_back();
-				opStack.push_back("~");
+				if (opStack.back() == "-")
+				{
+					opStack.pop_back();
+					opStack.push_back("~");
+				}
 			}
 			opStack.push_back(working);
 		}
@@ -379,7 +382,10 @@ void UserIO::rpnInput()
 				rpnUserIn.push_back(opStack.back());
 				opStack.pop_back();
 			}
-			opStack.pop_back();
+			if (opStack.size() != 0)
+			{
+				opStack.pop_back();
+			}
 		}
 		else
 		{
