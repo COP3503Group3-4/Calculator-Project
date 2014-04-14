@@ -43,47 +43,95 @@ Expression::~Expression()
 }
 
 Value* Expression::simplify(){
-	minusToPlus();
-	string lastOp = ops[ops.size() - 1];
-	RationalNumber* rN1 = dynamic_cast<RationalNumber*>(values[values.size()-1]);
-    RationalFraction* f1 = dynamic_cast<RationalFraction*>(values[values.size()-1]);
-    Log* l1 = dynamic_cast<Log*>(values[values.size()-1]);
-    Expression* ex1 = dynamic_cast<Expression*>(values[values.size()-1]);
-    IrrationalNumber* iN1 = dynamic_cast<IrrationalNumber*>(values[values.size()-1]);
-    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(values[i+1]);
-    //exponent
+	string lastOp = ops[ops.size()-1];
+	RationalNumber* rN2 = dynamic_cast<RationalNumber*>(values[values.size()-1]);
+    RationalFraction* f2 = dynamic_cast<RationalFraction*>(values[values.size()-1]);
+    Log* l2 = dynamic_cast<Log*>(values[values.size()-1]);
+    Expression* ex2 = dynamic_cast<Expression*>(values[values.size()-1]);
+    IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(values[values.size()-1]);
+    //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(values[values.size()-1]);
 
-    int* ind;
-    Value* v1;
+    if (lastOp == "+") {
+    	if(rN2) {
+    		//getRationals
+    	}
+    	else if(f2) {
 
-    if (lastOp == "+" || lastOp == "-") {
-		if(rN1 || f1) {
-			if (getRational(v1,ind)) {
-				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v1);
-			    RationalFraction* f2 = dynamic_cast<RationalFraction*>(v1);
-			    if(rN2) {
-			    	values[*ind] = Add::add(values[values.size()-1],rN2);
-			    }
-			    if(f2) {
-			    	values[*ind] = Add::add(values[values.size()-1],f2);
-			    }
-			}
-		}
-		if(iN1) {
-			IrrationalNumber* iN2;
-			if(getIrrational(iN2, ind, iN1->storedVal)) {
-				values[*ind] = Add::add(iN1, iN2);
-			}
-		}
-		if(ex1) {
-			ex1->minusToPlus();
-			//Need to add all of the items within ex1 to this expression
-		}
+    	}
+    	else if(l2) {
+
+    	}
+    	else if(ex2) {
+
+    	}
+    	else if(iRN2) {
+
+    	}
+    	else {
+
+    	}
     }
-    if (lastOp == "*") {
+    if(lastOp == "-") {
+    	if(rN2) {
 
+    	}
+    	else if(f2) {
+
+    	}
+    	else if(l2) {
+
+    	}
+    	else if(ex2) {
+
+    	}
+    	else if(iRN2) {
+
+    	}
+    	else {
+
+    	}
     }
-    simplifyOps();
+    if(lastOp == "*") {
+    	if(rN2) {
+
+    	}
+    	else if(f2) {
+
+    	}
+    	else if(l2) {
+
+    	}
+    	else if(ex2) {
+
+    	}
+    	else if(iRN2) {
+
+    	}
+    	else {
+
+    	}
+    }
+    if(lastOp == "/") {
+    	if(rN2) {
+
+    	}
+    	else if(f2) {
+
+    	}
+    	else if(l2) {
+
+    	}
+    	else if(ex2) {
+
+    	}
+    	else if(iRN2) {
+
+    	}
+    	else {
+
+    	}
+    }
+
 }
 
 Value* Expression::getNum1() {
@@ -293,12 +341,14 @@ void Expression::simplifyOps()
 				values[i+1] = new RationalFraction(x, f1->getDenominator());
 				delete f1;
 		    }
+		    //If log coeff is negative
 		    if (l1) {
-		    	//Cannot implement until log constant is implemented
+		    	//Multiply it by -1 and swap the op
 		    }
-		    if (ex1) {
+		    if (ex1 && ops[i] == "-") {
 		    	ex1->makeNegative();
 		    	ex1->simplifyOps();
+
 		    	ex1 = 0;
 		    }
 		    if (iRN1) {
