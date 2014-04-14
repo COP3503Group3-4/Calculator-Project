@@ -90,7 +90,7 @@ Value* Exponentiate::takeNthRoot(Value* base, int root)
 
 
 //helper function to be called later
-int Exponentiate::exp (int base, int exp)
+int Exponentiate::pow (int base, int exp)
 { if(exp >= 1) {return base * (exp (base,exp - 1));}
    else return 1; }
 
@@ -99,18 +99,18 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 {
 
 	    ostringstream combined;
-	    RationalFraction* f1 = dynamic_cast<RationalFraction*>(a);
-	    RationalFraction* f2 = dynamic_cast<RationalFraction*>(b);
-	    Log* l1 = dynamic_cast<Log*>(a);
-	    Log* l2 = dynamic_cast<Log*>(b);
-	    RationalNumber* rN1 = dynamic_cast<RationalNumber*>(a);
-	    RationalNumber* rN2 = dynamic_cast<RationalNumber*>(b);
-	    Expression* ex1 = dynamic_cast<Expression*>(a);
-	    Expression* ex2 = dynamic_cast<Expression*>(b);
-	    IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(a);
-	    IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
-	    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
-	    //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
+	    RationalFraction* f1 = dynamic_cast<RationalFraction*>(base);
+	    RationalFraction* f2 = dynamic_cast<RationalFraction*>(exp);
+	    Log* l1 = dynamic_cast<Log*>(base);
+	    Log* l2 = dynamic_cast<Log*>(exp);
+	    RationalNumber* rN1 = dynamic_cast<RationalNumber*>(base);
+	    RationalNumber* rN2 = dynamic_cast<RationalNumber*>(exp);
+	    Expression* ex1 = dynamic_cast<Expression*>(base);
+	    Expression* ex2 = dynamic_cast<Expression*>(exp);
+	    IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(base);
+	    IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(exp);
+	    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(base);
+	    //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(exp);
 
 	    if(f1 && rN2) {
 	        int exp = rN2->getNumValue();
