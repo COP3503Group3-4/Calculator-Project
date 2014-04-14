@@ -9,7 +9,7 @@
 
 using namespace std;
 
-char uniques[19] = { '+', '-', '*', '/', 't', '_', ':', '(', ')', ' ', 'r', 's', 'l', '^', 'i', 'p', 'e', 'q', 'a'};
+char uniques[19] = { '+', '-', '*', '/', 't', '_', ':', '(', ')', ' ', 'r', 's', 'l', '^', 'i', 'q', 'a', 'p', 'e'};
 
 UserIO::UserIO(string userInput, Value* lastAnswer)
 {
@@ -135,7 +135,8 @@ void UserIO::splitInput()
 		if (negative) {
 			negative = false;
 			bool neg2 = true;
-			for (int i = 0; i < 19; i++) {
+			//Exclude pi and e
+			for (int i = 0; i < 17; i++) {
 				if(rawUserIn.at(0) == uniques[i]) {
 					neg2 = false;
 					break;

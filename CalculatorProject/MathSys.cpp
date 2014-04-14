@@ -206,6 +206,12 @@ Value* MathSys::calculate() {
 		else if (current == "pi") {
 			answer = new IrrationalNumber("pi");
 		}
+		else if (current == "-pi") {
+			//answer = new IrrationalNumber(-1,"pi");
+		}
+		else if (current == "-e") {
+			//answer = new IrrationalNumber(-1,"pi");
+		}
 		else {
 			answer = new RationalNumber(current);
 		}
