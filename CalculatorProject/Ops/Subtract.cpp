@@ -249,32 +249,26 @@ Subtract::~Subtract() {}
             return exp1;
         }
    }
-   /*if( ex1 || ex2 ){
+  if( ex1 || ex2 ){
         if(ex1 && ex2){
-            Value* exp1 = new Expression(ex1, ex2, '-');
+            ex1->subtract(ex2);
+			return ex1->simplify();
             return exp1;
         }
-        if((ex1 && f1) || (ex1 && f2) || (ex2 && f1) || (ex2 && f2)){
-            if(ex1 && f1){
-                Value* exp1 = new Expression(ex1, f1, '-');
-                return exp1;
+        if((ex1 && f2) || (ex2 && f1)){
             }
             if(ex1 && f2){
-                Value* exp1 = new Expression(ex1, f2, '-');
-                return exp1;
+                ex1->subtract(f2);
+			return ex1->simplify();
+            return exp1;
             }
             if(ex2 && f1){
-                Value* exp1 = new Expression(ex2, f1, '-');
-                return exp1;
-            }
-            if(ex2 && f2){
-                Value* exp1 = new Expression(ex2, f2, '-');
-                return exp1;
-            }
+                ex2->subtract(f1);
+				return ex2->simplify();
+				return exp2;
+				
         }
-   }*/
-
-
+   }
 }
 
  bool Subtract::isEqual(Value* a, Value* b){
