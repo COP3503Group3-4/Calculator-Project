@@ -23,7 +23,7 @@ Value* Exponentiate::simplifyNumerator(int a, int b, int c){
 Value* Exponentiate::simplifyDenominator(int a, int b, int c){
 //waiting for Damian's function definition for simplifyNumerator for NthRoot
     }
-
+/*
 //helper method to take the Nthroot of a rational vaule
 Value* Exponentiate::takeNthRoot(Value* base, int root)
 { 	 RationalFraction* f = dynamic_cast<RationalFraction*>(insideRoot);
@@ -74,7 +74,7 @@ Value* Exponentiate::takeNthRoot(Value* base, int root)
     	     }
 
      if(rN && rt){
-             int inside = rN->getNumValue();
+             int inside = rN1->getNumValue();
              if (pow(inside, 1/root) == floor(pow(inside, 1/root))){
                  int simpRoot = pow(inside, 1/root);
                  Value* rootSim = new RationalNumber(simpRoot);
@@ -88,9 +88,9 @@ Value* Exponentiate::takeNthRoot(Value* base, int root)
          }
      }
 
-
+*/
 //helper function to be called later
-int Exponentiate::expo (int base, int exp)
+int Exponentiate::expo(int base, int exp)
 { if(exp >= 1) {return base * (expo (base,exp - 1));}
    else return 1; }
 
@@ -152,17 +152,17 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 
 	        }
 
-	     if(rN1 && f2) {
+	/*     if(rN1 && f2) {
 	    	 int base0 = rN1->getNumValue();
 	    	 int n2 = f2->getNumerator();
 	    	 int d2 = f2->getDenominator();
 	    	 int base = expo(base0, n2);
-	    	 RationalNumber* rN = dynamic_cast<RationalNumber*>(base);
-	    	 return takeNthRoot(rN, d2);
+	    	 Value* v = new RationalNumber(base);
+	    	 return takeNthRoot(v, d2);
 
 
 	     }
-
+*/
 }
 
 
