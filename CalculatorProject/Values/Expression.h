@@ -23,12 +23,15 @@ class Expression : public Value
         Value* simplify();
         Value* getNum1();
         Value* getNum2();
+        void add(Value* v);
+        void subtract(Value* v);
+        void multiply(Value* v);
+        void divide(Value* v);
         void printInfo();
         string toString();
         bool getValue(string typeName, Value* v, int* i);
         void minusToPlus();
         void makeNegative();
-        void integrate();
         void foil();
         void popOff(int ind, Value* vPtr);
         void popOff(int ind);

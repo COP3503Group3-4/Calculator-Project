@@ -43,95 +43,7 @@ Expression::~Expression()
 }
 
 Value* Expression::simplify(){
-	string lastOp = ops[ops.size()-1];
-	RationalNumber* rN2 = dynamic_cast<RationalNumber*>(values[values.size()-1]);
-    RationalFraction* f2 = dynamic_cast<RationalFraction*>(values[values.size()-1]);
-    Log* l2 = dynamic_cast<Log*>(values[values.size()-1]);
-    Expression* ex2 = dynamic_cast<Expression*>(values[values.size()-1]);
-    IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(values[values.size()-1]);
-    //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(values[values.size()-1]);
-
-    if (lastOp == "+") {
-    	if(rN2) {
-    		//getRationals
-    	}
-    	else if(f2) {
-
-    	}
-    	else if(l2) {
-
-    	}
-    	else if(ex2) {
-
-    	}
-    	else if(iRN2) {
-
-    	}
-    	else {
-
-    	}
-    }
-    if(lastOp == "-") {
-    	if(rN2) {
-
-    	}
-    	else if(f2) {
-
-    	}
-    	else if(l2) {
-
-    	}
-    	else if(ex2) {
-
-    	}
-    	else if(iRN2) {
-
-    	}
-    	else {
-
-    	}
-    }
-    if(lastOp == "*") {
-    	if(rN2) {
-
-    	}
-    	else if(f2) {
-
-    	}
-    	else if(l2) {
-
-    	}
-    	else if(ex2) {
-
-    	}
-    	else if(iRN2) {
-
-    	}
-    	else {
-
-    	}
-    }
-    if(lastOp == "/") {
-    	if(rN2) {
-
-    	}
-    	else if(f2) {
-
-    	}
-    	else if(l2) {
-
-    	}
-    	else if(ex2) {
-
-    	}
-    	else if(iRN2) {
-
-    	}
-    	else {
-
-    	}
-    }
-
+	return 0;
 }
 
 Value* Expression::getNum1() {
@@ -177,10 +89,52 @@ bool Expression::getValue(string typeName, Value* v, int* ind)
 	return false;
 }
 bool Expression::getRational(Value* v, int* ind) {
-	for(int i = 0; i < values.size(); i++) {
-	    if(typeid(values[i]) == typeid(RationalNumber*) || typeid(values[i]) == typeid(RationalFraction*)) {
-	    	v = values[i];
-	    	ind = new int(i);
+	//Check first
+	RationalNumber* rN;
+	RationalFraction* f;
+	if(ops[0] == "+") {
+		rN = dynamic_cast<RationalNumber*>(values[0]);
+	    f = dynamic_cast<RationalFraction*>(values[0]);
+	    if (rN) {
+	    	ind = 0;
+	    	v = rN;
+	    	return true;
+	    }
+	    if (f) {
+	    	ind = new int(0);
+	    	v = f;
+	    	return true;
+	    }
+	}
+	//Check middle
+	for(int i = 1; i < values.size() - 1; i++) {
+		if(ops[i-1] == "+" && ops[i] == "+") {
+			rN = dynamic_cast<RationalNumber*>(values[i]);
+		    f = dynamic_cast<RationalFraction*>(values[i]);
+		    if (rN) {
+		    	ind = new int(i);
+		    	v = rN;
+		    	return true;
+		    }
+		    if (f) {
+		    	ind = new int(i);
+		    	v = f;
+		    	return true;
+		    }
+		}
+	}
+	//Check last
+	if(ops[ops.size()-1] == "+") {
+		rN = dynamic_cast<RationalNumber*>(values[values.size()-1]);
+	    f = dynamic_cast<RationalFraction*>(values[values.size()-1]);
+	    if (rN) {
+	    	ind = new int(values.size()-1);
+	    	v = rN;
+	    	return true;
+	    }
+	    if (f) {
+	    	ind = new int(values.size()-1);
+	    	v = f;
 	    	return true;
 	    }
 	}
@@ -360,4 +314,49 @@ void Expression::simplifyOps()
 
 		    //}
 	}
+}
+
+void Expression::add(Value* v)
+{
+	RationalNumber* rN1 = dynamic_cast<RationalNumber*>(v);
+    RationalFraction* f1 = dynamic_cast<RationalFraction*>(v);
+    Log* l1 = dynamic_cast<Log*>(v);
+    Expression* ex1 = dynamic_cast<Expression*>(v);
+    IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(v);
+    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(v);
+
+    Value* v2;
+    int* ind;
+
+    if(rN1) {
+    	if(getRational(v2, ind)) {
+    		RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v2);
+    		RationalFraction* f2 = dynamic_cast<RationalFraction*>(v2);
+    		if (rN2) values[*ind] = Add::add(rN1,rN2); delete rN2;
+    		if (f2) values[*ind] = Add::add(rN1,f2); delete f2;
+    		delete rN1;
+    	}
+    }
+    if (f1) {
+    	if(getRational(v2, ind)) {
+    		RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v2);
+    		RationalFraction* f2 = dynamic_cast<RationalFraction*>(v2);
+    		if (rN2) values[*ind] = Add::add(f1,rN2); delete rN2;
+    		if (f2) values[*ind] = Add::add(f1,f2); delete f2;
+    		delete f1;
+    	}
+    }
+
+}
+void Expression::subtract(Value* v)
+{
+
+}
+void Expression::multiply(Value* v)
+{
+
+}
+void Expression::divide(Value* v)
+{
+
 }
