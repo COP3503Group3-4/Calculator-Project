@@ -36,6 +36,7 @@ Subtract::~Subtract() {}
         int d = f1->getDenominator() * f2->getDenominator();
         //cout<<"D: "<<d<<endl;
         Value* f3 = new RationalFraction(n1-n2,d);
+		f3 = f3->simplify();
         return f3;
     }
     if(l1 && l2){
@@ -105,6 +106,7 @@ Subtract::~Subtract() {}
             int n2 = fN2->getNumerator() * f1->getDenominator();
             int d = f1->getDenominator() * fN2->getDenominator();
             Value* f3 = new RationalFraction(n1-n2,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( f1 && rN2 ){
@@ -117,6 +119,7 @@ Subtract::~Subtract() {}
             int d = f1->getDenominator() * fN2->getDenominator();
             //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n1-n2,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( f2 && rN1 ){
@@ -129,6 +132,7 @@ Subtract::~Subtract() {}
             int d = f2->getDenominator() * fN2->getDenominator();
             //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n1-n2,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( f2 && rN2 ){
@@ -141,6 +145,7 @@ Subtract::~Subtract() {}
             int d = f2->getDenominator() * fN2->getDenominator();
             //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n1-n2,d);
+			f3 = f3->simplify();
             return f3;
         }
     }
@@ -153,6 +158,7 @@ Subtract::~Subtract() {}
             int n2 = fN2->getNumerator() * f1->getDenominator();
             int d = f1->getDenominator() * fN2->getDenominator();
             Value* f3 = new RationalFraction(n1-n2,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( rN2 && f1 ){
@@ -165,6 +171,7 @@ Subtract::~Subtract() {}
             int d = f1->getDenominator() * fN2->getDenominator();
             //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n1-n2,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( rN1 && f2 ){
@@ -177,6 +184,7 @@ Subtract::~Subtract() {}
             int d = f2->getDenominator() * fN2->getDenominator();
             //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n1-n2,d);
+			f3 = f3->simplify();
             return f3;
         }
         if( rN2 && f2 ){
@@ -189,6 +197,7 @@ Subtract::~Subtract() {}
             int d = f2->getDenominator() * fN2->getDenominator();
             //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n1-n2,d);
+			f3 = f3->simplify();
             return f3;
         }
     }
