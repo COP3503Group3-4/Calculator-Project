@@ -31,6 +31,8 @@ class Log : public Value
         int baseNum;
         int insideNum;
         void printInfo();
+        string toString();
+
     protected:
     private:
 };

@@ -113,4 +113,15 @@ Value* RationalFraction::simplify(){
 void RationalFraction::printInfo(){
 	cout << "(" << numer << "/" << denom << ")";
 }
+string RationalFraction::toString(){
+	ostringstream c;
+	c << numer;
+	string s = c.str();
+	c.str("");
+	c.clear();
+	s.append("/");
+	c << denom;
+	s.append(c.str());
+	return s;
+}
 

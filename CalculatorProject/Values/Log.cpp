@@ -28,10 +28,13 @@ Value* Log::simplifyLog(Value* a, Value* b){
     RationalNumber* rN2 = dynamic_cast<RationalNumber*>(b);
     IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(a);
     IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
-    vector<Value*> x;
+    vector<Value*> logValues;
 
     if( f1 && f2 ){
-
+        if((f1->getNumerator() && f1->getDenominator()) == (f2->getNumerator() && f2->getDenominator())){
+            Value* rNSimp = new RationalNumber(1);
+            return rNSimp;
+        }
     }
     if( (f1 && rN1) || (f1 && rN2) || (f2 && rN1) || (f2 && rN2) ){
         if (f1 && rN1){
@@ -46,7 +49,6 @@ Value* Log::simplifyLog(Value* a, Value* b){
         else{
             int num1 = rN2->getNumValue();
             int i = 2;
-            //simplifyLogRN(num1,0,i);
         }
     }
 }
@@ -64,6 +66,19 @@ void Log::printInfo(){
     base->printInfo();
     cout<<":";
     insideValue->printInfo();
+}
+string Log::toString(){
+	ostringstream c;
+	string s = "log_";
+	c << base;
+	s.append(c.str());
+	c.str("");
+	c.clear();
+	s.append(":");
+	c << insideValue;
+	s.append(c.str());
+
+	return s;
 }
 
 Value* Log::logFactor(vector<Value*>, int index1, int index2){

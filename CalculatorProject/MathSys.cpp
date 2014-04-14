@@ -185,7 +185,7 @@ Value* MathSys::calculate() {
 				answer = new Log(v1,v2);
 				break;
 			case '~':
-				//answer = Ops::subtract(v1,v2);
+				answer = Subtract::subtract(v1,v2);
 				break;
 			default:
 				if (current == "e") {

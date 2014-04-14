@@ -20,6 +20,7 @@ class RationalFraction: public Fraction
         int simplifyNum(int n, int d, int i);
         int simplifyDen(int n, int d, int i);
         void printInfo();
+        string toString();
     protected:
     private:
 

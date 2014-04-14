@@ -35,3 +35,6 @@ Value* NthRoot::simplify(){
 void NthRoot::printInfo(){
 
 }
+string NthRoot::toString(){
+
+}

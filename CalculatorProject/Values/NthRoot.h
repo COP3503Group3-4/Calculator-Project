@@ -14,6 +14,7 @@ class NthRoot : public Value {
         Value* getNum2();
         Value* simplify();
         void printInfo();
+        string toString();
         Value* rootNum;
         Value* insideRoot;
     protected:

@@ -14,6 +14,7 @@ public:
     virtual Value* getNum2() = 0;
     virtual Value* simplify() = 0;
     virtual void printInfo() = 0;
+    virtual string toString() = 0;
 
 protected:
 

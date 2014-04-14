@@ -16,6 +16,7 @@ class RationalNumber : public Number
         Value* simplify();
         int getNumValue();
         void printInfo();
+        string toString();
     protected:
     private:
         int num;

@@ -31,3 +31,6 @@ string IrrationalNumber::getIRNumValue(){
 void IrrationalNumber::printInfo(){
     cout<<storedVal;
 }
+string IrrationalNumber::toString(){
+	return storedVal;
+}

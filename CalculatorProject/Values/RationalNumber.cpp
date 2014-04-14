@@ -1,5 +1,6 @@
 #include "RationalNumber.h"
 #include <stdlib.h>
+#include <sstream>
 
 RationalNumber::RationalNumber()
 {
@@ -36,5 +37,11 @@ Value* RationalNumber::simplify(){
 
 void RationalNumber::printInfo(){
     cout<<num;
+}
+string RationalNumber::toString(){
+	ostringstream c;
+	c << num;
+	string s = c.str();
+	return s;
 }
 

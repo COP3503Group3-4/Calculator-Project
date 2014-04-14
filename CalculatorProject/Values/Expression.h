@@ -23,6 +23,7 @@ class Expression : public Value
         Value* getNum1();
         Value* getNum2();
         void printInfo();
+        string toString();
         bool getValue(string typeName, Value* v);
     protected:
     private:

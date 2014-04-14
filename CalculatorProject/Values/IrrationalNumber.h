@@ -17,6 +17,8 @@ class IrrationalNumber : public Number
         Value* simplify();
         string getIRNumValue();
         void printInfo();
+        string toString();
+
     protected:
     private:
 };

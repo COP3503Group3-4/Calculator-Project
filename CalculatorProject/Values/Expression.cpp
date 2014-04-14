@@ -52,6 +52,15 @@ void Expression::printInfo(){
 	}
 }
 
+string Expression::toString(){
+	string s = values[0]->toString();
+	for (int i = 0; i < ops.size(); i++) {
+		s.append(ops[i]);
+		s.append(values[i+1]->toString());
+	}
+	return s;
+}
+
 bool Expression::getValue(string typeName, Value* v)
 //Have to make sure that negative rational numbers are still added
 {
