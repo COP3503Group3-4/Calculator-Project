@@ -135,7 +135,7 @@ void UserIO::splitInput()
 		if (negative) {
 			negative = false;
 			bool neg2 = true;
-			//Exclude pi and e
+			//Excludes pi and e by being 17
 			for (int i = 0; i < 17; i++) {
 				if(rawUserIn.at(0) == uniques[i]) {
 					neg2 = false;
