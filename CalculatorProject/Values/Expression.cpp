@@ -79,7 +79,7 @@ bool Expression::getValue(string typeName, Value* v, int* ind)
 		if(typeid(values[i]).name() == typeName) {
 			//Give the value to v
 			v = values[i];
-			ind = i;
+			ind = new int(i);
 			//Return true
 			return true;
 		}
@@ -218,7 +218,10 @@ Value* Expression::add(Value* v)
     	int* ind = new int(-1);
     	if (getValue(typeid(RationalNumber*).name(), rN2, ind)) {
     		if(!(rN2->getNumValue() + rN1->getNumValue()) == 0) {
-    			values[ind] = new RationalNumber(rN2->getNumValue() + rN1->getNumValue());
+    			int x = rN2->getNumValue() + rN1->getNumValue();1
+    			delete rN2;
+    			delete rN1;
+    			values[*ind] = new RationalNumber(x);
     		}
     		else {
     			popOff(*ind);
