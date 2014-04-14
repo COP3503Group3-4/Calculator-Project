@@ -4,8 +4,6 @@
 #include <Value.h>
 #include <string>
 #include <vector>
-#include <sstream>
-#include <typeinfo>
 #include <IrrationalNumber.h>
 
 class Expression : public Value
@@ -16,7 +14,6 @@ class Expression : public Value
         //Ex: pi + 3e + 2
         //Vals: pi, 3, e, 2
         //Ops: +,*,+
-        Expression(vector<Value*> vals, vector<string> ops);
         Expression(Value* v1, Value* v2, string op);
         Expression(Value* v1, Value* v2, char op);
         virtual ~Expression();
@@ -42,8 +39,8 @@ class Expression : public Value
     protected:
     private:
         vector<string> ops;
-        vector<Value*> values;
-        bool pieEx;
+        vector<Value*> adds;
+        vector<Value*> mults;
 };
 
 #endif // EXPRESSION_H

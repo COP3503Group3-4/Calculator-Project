@@ -1,4 +1,5 @@
 #include <Log.h>
+#include <sstream>
 
 Log::Log(Value* b, Value* insideVal)
 {

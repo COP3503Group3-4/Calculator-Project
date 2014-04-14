@@ -245,12 +245,7 @@ Subtract::~Subtract() {}
     }*/
    if(iRN1 && iRN2){
         if(iRN1->getIRNumValue() == iRN2->getIRNumValue()){
-        	vector<Value*> vals;
-        	vector<string> ops;
-        	vals.push_back(iRN1);
-        	vals.push_back(iRN2);
-        	ops.push_back("-");
-            Value* exp1 = new Expression(vals, ops);
+            Value* exp1 = new Expression(iRN1->simplify(),iRN2->simplify(), '-');
             return exp1;
         }
    }
