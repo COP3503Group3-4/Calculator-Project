@@ -8,7 +8,15 @@ class IrrationalFraction : public Fraction
 {
     public:
         IrrationalFraction();
+        IrrationalFraction(Value* a, Value* b);
         virtual ~IrrationalFraction();
+        Value* getNum1();
+        Value* getNum2();
+        Value* simplify();
+        void printInfo();
+        string toString();
+        Value* numerator;
+        Value* denominator;
     protected:
     private:
 };

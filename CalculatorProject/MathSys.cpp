@@ -14,6 +14,7 @@
 #include <Subtract.h>
 #include <Divide.h>
 #include <Exponentiate.h>
+#include <SquareRoot.h>
 
 using namespace std;
 
@@ -62,11 +63,15 @@ void MathSys::menu()
 			cout << endl << "Input:" << endl << data << endl;
 
 			UserIO calculation = UserIO(data, lastAnswer);
+
 			rpnToCalc = calculation.rpn();
 			delete lastAnswer;
 			lastAnswer = calculate();
 			cout << "= ";
 			lastAnswer->printInfo();
+			Value* v = lastAnswer->simplify();
+			cout << endl;
+			v->printInfo();
 			cout << endl;
 
 			cout << endl << "Calculation complete." << endl
@@ -173,6 +178,7 @@ Value* MathSys::calculate() {
 	Value* answer;
 	Value* v1;
 	Value* v2;
+	RationalNumber* n;
 	string current = rpnToCalc[rpnToCalc.size() - 1];
 	rpnToCalc.pop_back();
 
@@ -180,6 +186,7 @@ Value* MathSys::calculate() {
 		if(current == "+" || current == "-" || current == "*" || current == "/" || current == "t" || current == "_" || current == "^") {
 				v2 = calculate();
 				v1 = calculate();
+				n = dynamic_cast<RationalNumber*>(v1);
 		}
 		if (current == "~") {
 			v1 = new RationalNumber("0");
@@ -199,7 +206,10 @@ Value* MathSys::calculate() {
 				answer = Divide::divide(v1,v2);
 				break;
 			case 't':
-				answer = new NthRoot(v1,v2);
+				if(n->getNumValue() == 2) {
+					answer = new SquareRoot(v2);
+				}
+				else answer = new NthRoot(v1,v2);
 				break;
 			case '^':
 				answer = Exponentiate::exponentiate(v1, v2);
