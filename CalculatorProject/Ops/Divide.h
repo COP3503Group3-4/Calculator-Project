@@ -25,6 +25,7 @@ class Divide
         Divide();
         static Value* divide(Value* a, Value* b);
         virtual ~Divide();
+        static bool isEqual(Value* a, Value* b);
     protected:
     private:
 };

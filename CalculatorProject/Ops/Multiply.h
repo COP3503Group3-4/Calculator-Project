@@ -17,6 +17,7 @@ class Multiply
         Multiply();
         static Value* multiply(Value* a, Value* b);
         virtual ~Multiply();
+        static bool isEqual(Value* a, Value* b);
     protected:
     private:
 };

@@ -271,8 +271,8 @@ bool Add::isEqual(Value* a, Value* b){
     	    }
     	}
     else if(inTestA && inTestB) {
-    	Value* num1 = new RationalFraction();
-    	Value* num2 = new RationalFraction();
+    	Value* num1 = new IrrationalNumber();
+    	Value* num2 = new IrrationalNumber();
     	num1 = a;
     	num2 = b;
     	if(num1->getNum1() == num2->getNum1()){
