@@ -194,7 +194,7 @@ void UserIO::rpnInput()
 ////////////////////////////
 {
 	//vector containing order of operations for reference.
-	string pemdas[] = { "^", "_", "t", "sqrt", "*", "/", "+", "-", "(" };
+	string pemdas[] = { "^", "_", "t", "*", "/", "+", "-", "(" };
 
 	string working;
 	string search;
@@ -214,7 +214,7 @@ void UserIO::rpnInput()
 		working = splitUserIn.at(i);
 
 		//initial if to determine if numeric or operational
-		if (working == "^" || working == "_" || working =="t" || working =="sqrt" || working == "*" || working == "/" || working == "+" || working == "-")
+		if (working == "^" || working == "_" || working =="t" || working == "*" || working == "/" || working == "+" || working == "-")
 		{
 			if (opStack.size() != 0)
 			{
@@ -223,6 +223,33 @@ void UserIO::rpnInput()
 				if (lastop == working)
 				{
 					opStack.push_back(working);
+				}
+				else if ((working == "_" || "t") && (lastop == "_" || "t"))
+				{
+					rpnUserIn.push_back(opStack.back());
+					if(opStack.size() >= 1)
+					{
+						opStack.pop_back();
+						opStack.push_back(working);
+					}
+				}
+				else if ((working == "*" || "/") && (lastop == "*" || "/"))
+				{
+					rpnUserIn.push_back(opStack.back());
+					if(opStack.size() >= 1)
+					{
+						opStack.pop_back();
+						opStack.push_back(working);
+					}
+				}
+				else if ((working == "+" || "-") && (lastop == "+" || "-"))
+				{
+					rpnUserIn.push_back(opStack.back());
+					if(opStack.size() >= 1)
+					{
+						opStack.pop_back();
+						opStack.push_back(working);
+					}
 				}
 				else
 				{
