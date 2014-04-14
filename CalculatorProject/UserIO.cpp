@@ -127,7 +127,7 @@ void UserIO::splitInput()
 			//Essentially, "ans" is replaced with the print out of the lastAnswer in parentheses
 			string s = "(";
 			//Won't work until Value gets an abstract toString method.
-			//s.append(lastAns->toString);
+			s.append(lastAns->toString());
 			s.append(")");
 			s.append(rawUserIn);
 			rawUserIn = s;
