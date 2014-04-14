@@ -26,7 +26,12 @@ class Expression : public Value
         void divide(Value* v);
         void printInfo();
         string toString();
+        bool hasValue(string typeName);
         bool getValue(string typeName, Value* v, int* i);
+        Value* getA(int i);
+        Value* getM(int i);
+        int sizeA();
+        int sizeM();
         void minusToPlus();
         void makeNegative();
         void foil();

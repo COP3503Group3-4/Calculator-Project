@@ -8,6 +8,7 @@
 #include <Number.h>
 #include <RationalNumber.h>
 #include <Add.h>
+#include <Subtract.h>
 #include <sstream>
 #include <typeinfo>
 
@@ -86,8 +87,20 @@ void Expression::printInfo(){
 
 string Expression::toString(){
 	string s = adds[0]->toString();
+	if (mults.size() > 0) s.append(mults[0]->toString());
+	for (int i = 1; i < mults.size(); i++) {
+		s.append("*");
+		s.append(mults[i]->toString());
+	}
+	if(adds.size() > 0 && mults.size() > 0) {
+		s.append(" + ");
+		s.append(adds[0]->toString());
+	}
+	else if (adds.size() > 0 && !mults.size() > 0){
+		s.append(adds[0]->toString());
+	}
 	for (int i = 0; i < ops.size(); i++) {
-		s.append(ops[i]);
+		s.append(" + ");
 		s.append(adds[i+1]->toString());
 	}
 	return s;
@@ -108,6 +121,22 @@ bool Expression::getValue(string typeName, Value* v, int* ind)
 	}
 	//Method returns false if Value with provided typeID isn't found in the expression
 	return false;
+}
+Value* Expression::getA(int i)
+{
+	return adds[i];
+}
+Value* Expression::getM(int i)
+{
+	return mults[i]
+;}
+int Expression::sizeA()
+{
+	return adds.size();
+}
+int Expression::sizeM()
+{
+	return mults.size();
 }
 bool Expression::getRational(Value* v, int* ind) {
 	//Check first
@@ -336,42 +365,113 @@ void Expression::simplifyOps()
 		    //}
 	}
 }
-
+bool Expression::hasValue(string typeName)
+{
+	for(int i = 0; i < adds.size(); i++) {
+		if (typeid(adds[i]).name() == typeName) return true;
+	}
+	return false;
+}
 void Expression::add(Value* v)
 {
-	RationalNumber* rN1 = dynamic_cast<RationalNumber*>(v);
-    RationalFraction* f1 = dynamic_cast<RationalFraction*>(v);
-    Log* l1 = dynamic_cast<Log*>(v);
-    Expression* ex1 = dynamic_cast<Expression*>(v);
-    IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(v);
-    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(v);
+	minusToPlus();
+	if (hasValue(typeid(v).name())) {
+		RationalNumber* rN1 = dynamic_cast<RationalNumber*>(v);
+		RationalFraction* f1 = dynamic_cast<RationalFraction*>(v);
+		Log* l1 = dynamic_cast<Log*>(v);
+		Expression* ex1 = dynamic_cast<Expression*>(v);
+		IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(v);
+		//IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(v);
 
-    Value* v2;
-    int* ind;
+		Value* v2;
+		int* ind;
 
-    if(rN1) {
-    	if(getRational(v2, ind)) {
-    		RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v2);
-    		RationalFraction* f2 = dynamic_cast<RationalFraction*>(v2);
-    		if (rN2) adds[*ind] = Add::add(rN1,rN2); delete rN2;
-    		if (f2) adds[*ind] = Add::add(rN1,f2); delete f2;
-    		delete rN1;
-    	}
-    }
-    if (f1) {
-    	if(getRational(v2, ind)) {
-    		RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v2);
-    		RationalFraction* f2 = dynamic_cast<RationalFraction*>(v2);
-    		if (rN2) adds[*ind] = Add::add(f1,rN2); delete rN2;
-    		if (f2) adds[*ind] = Add::add(f1,f2); delete f2;
-    		delete f1;
-    	}
-    }
+		if(rN1) {
+			if(getRational(v2, ind)) {
+				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v2);
+				RationalFraction* f2 = dynamic_cast<RationalFraction*>(v2);
+				if (rN2) adds[*ind] = Add::add(rN1,rN2); delete rN2;
+				if (f2) adds[*ind] = Add::add(rN1,f2); delete f2;
+				delete rN1;
+			}
+		}
+		if (f1) {
+			if(getRational(v2, ind)) {
+				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v2);
+				RationalFraction* f2 = dynamic_cast<RationalFraction*>(v2);
+				if (rN2) adds[*ind] = Add::add(f1,rN2); delete rN2;
+				if (f2) adds[*ind] = Add::add(f1,f2); delete f2;
+				delete f1;
+			}
+		}
+		if(iRN1) {
+			IrrationalNumber* iRN2;
+			if(getIrrational(iRN2, ind, iRN2->getIRNumValue())) {
+				adds[*ind] = Add::add(iRN1,iRN2);
+			}
+			else {
+				adds.push_back(v);
+				ops.push_back("+");
+			}
+			delete iRN1;
+		}
+		if(ex1) {
+			ex1->minusToPlus();
 
+		}
+	}
+	else {
+		adds.push_back(v);
+		ops.push_back("+");
+	}
 }
 void Expression::subtract(Value* v)
 {
+	if (hasValue(typeid(v).name())) {
+		RationalNumber* rN1 = dynamic_cast<RationalNumber*>(v);
+		RationalFraction* f1 = dynamic_cast<RationalFraction*>(v);
+		Log* l1 = dynamic_cast<Log*>(v);
+		Expression* ex1 = dynamic_cast<Expression*>(v);
+		IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(v);
+		//IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(v);
 
+		Value* v2;
+		int* ind;
+
+		if(rN1) {
+			if(getRational(v2, ind)) {
+				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v2);
+				RationalFraction* f2 = dynamic_cast<RationalFraction*>(v2);
+				if (rN2) adds[*ind] = Subtract::subtract(rN1,rN2); delete rN2;
+				if (f2) adds[*ind] = Subtract::subtract(rN1,f2); delete f2;
+				delete rN1;
+			}
+		}
+		if (f1) {
+			if(getRational(v2, ind)) {
+				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v2);
+				RationalFraction* f2 = dynamic_cast<RationalFraction*>(v2);
+				if (rN2) adds[*ind] = Subtract::subtract(f1,rN2); delete rN2;
+				if (f2) adds[*ind] = Subtract::subtract(f1,f2); delete f2;
+				delete f1;
+			}
+		}
+		if(iRN1) {
+			IrrationalNumber* iRN2;
+			if(getIrrational(iRN2, ind, iRN2->getIRNumValue())) {
+				adds[*ind] = Subtract::subtract(iRN1,iRN2);
+			}
+			else {
+				adds.push_back(v);
+				ops.push_back("-");
+			}
+			delete iRN1;
+		}
+	}
+	else {
+		adds.push_back(v);
+		ops.push_back("-");
+	}
 }
 void Expression::multiply(Value* v)
 {
