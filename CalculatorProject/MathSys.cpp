@@ -54,6 +54,7 @@ void MathSys::menu()
 
 			UserIO calculation = UserIO(data, lastAnswer);
 			rpnToCalc = calculation.rpn();
+			delete lastAnswer;
 			lastAnswer = calculate();
 			cout << "= ";
 			lastAnswer->printInfo();

@@ -20,11 +20,21 @@ class Expression : public Value
         Expression(Value* v1, Value* v2, char op);
         virtual ~Expression();
         Value* simplify();
+        Value* simplify(int ind);
         Value* getNum1();
         Value* getNum2();
         void printInfo();
         string toString();
-        bool getValue(string typeName, Value* v);
+        bool getValue(string typeName, Value* v, int* i);
+        void minusToPlus();
+        void makeNegative();
+        void integrate();
+        void foil();
+        void popOff(int ind, Value* vPtr);
+        void popOff(int ind);
+        Value* add(Value* v1);
+        void simplifyOps();
+
     protected:
     private:
         vector<string> ops;

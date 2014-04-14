@@ -5,7 +5,7 @@
  *      Author: guorui
  */
 
-#include <divide.h>
+#include <Divide.h>
 #include <typeinfo>
 
 Divide::Divide() {}
