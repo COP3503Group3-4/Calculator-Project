@@ -9,6 +9,7 @@ class NthRoot : public Value {
     public:
         NthRoot();
         NthRoot(Value* a, Value* b);
+        NthRoot(int a, int b);
         virtual ~NthRoot();
         Value* getNum1();
         Value* getNum2();

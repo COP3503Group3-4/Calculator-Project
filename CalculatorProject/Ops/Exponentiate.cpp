@@ -36,8 +36,8 @@ Value* Exponentiate::takeNthRoot(Value* base, int root)
      int coefficient =1;
 
      if(f && rt) {
-    	 int numer = f1->getNumerator();
-    	     int denom = f1->getDenominator();
+    	 int numer = f->getNumerator();
+    	     int denom = f->getDenominator();
     	         if(pow(numer, 1/root) == float(pow(numer, 1/root)) && pow(denom, 1/root) == float(pow(denom, 1/root))){
     	             int nn = pow(numer, 1/root);
     	             int dd = pow(denom, 1/root);
@@ -74,7 +74,7 @@ Value* Exponentiate::takeNthRoot(Value* base, int root)
     	     }
 
      if(rN && rt){
-             int inside = rN1->getNumValue();
+             int inside = rN->getNumValue();
              if (pow(inside, 1/root) == floor(pow(inside, 1/root))){
                  int simpRoot = pow(inside, 1/root);
                  Value* rootSim = new RationalNumber(simpRoot);
@@ -90,8 +90,8 @@ Value* Exponentiate::takeNthRoot(Value* base, int root)
 
 
 //helper function to be called later
-int Exponentiate::pow (int base, int exp)
-{ if(exp >= 1) {return base * (exp (base,exp - 1));}
+int Exponentiate::expo (int base, int exp)
+{ if(exp >= 1) {return base * (expo (base,exp - 1));}
    else return 1; }
 
 //the function that does the exponentiation
@@ -118,8 +118,8 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 	        if(exp>=0)  //if the exponent is not negative, exponentiate both numerator and denominator and return the fraction
 	        {int n1 = f1->getNumerator();
 			int d1 = f1->getDenominator();
-			int n = exp(n1, exp );
-			int d = exp(d1, exp);
+			int n = expo(n1, exp );
+			int d = expo(d1, exp);
 	        Value* f3 = new RationalFraction(n,d);
 			f3 = f3->simplify();
 	        return f3;}
@@ -127,8 +127,8 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 	        else //if the exponent is negative, exponentiate both numerator and denominator and return the fraction with numerator being the new denominator and denominator being the new numerator
 	        {int n1 = f1->getNumerator();
 			int d1 = f1->getDenominator();
-			int n = exp(n1, exp );
-			int d = exp(d1, exp);
+			int n = expo(n1, exp );
+			int d = expo(d1, exp);
 			Value* f3 = new RationalFraction(d,n);
 				f3 = f3->simplify();
 				 return f3;
@@ -141,11 +141,11 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 	            int exp = rN2->getNumValue();
 	            if(exp>=0)
 	            {                  //if the exponent is not negative, just take the nth power and return the result
-	            int result = exp(base, exp);
+	            int result = expo(base, exp);
 	            Value* ans = new RationalNumber(result);
 	             return ans;}
 	            else               //if the exponent is negative, take the nth power and return 1 over the result
-	            {int d = exp(base, exp);
+	            {int d = expo(base, exp);
 	            Value* f3 = new RationalFraction(1,d);
 	            f3 = f3->simplify();
 	             return f3;}
@@ -156,7 +156,7 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 	    	 int base0 = rN1->getNumValue();
 	    	 int n2 = f2->getNumerator();
 	    	 int d2 = f2->getDenominator();
-	    	 int base = exp(base0, n2);
+	    	 int base = expo(base0, n2);
 	    	 RationalNumber* rN = dynamic_cast<RationalNumber*>(base);
 	    	 return takeNthRoot(rN, d2);
 

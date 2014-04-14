@@ -15,7 +15,9 @@
 #include <Number.h>
 #include <RationalNumber.h>
 #include <IrrationalNumber.h>
+#include <IrrationalFraction.h>
 #include <Value.h>
+#include <NthRoot.h>
 #include <sstream>
 
 class Exponentiate
@@ -26,7 +28,7 @@ class Exponentiate
 	    static Value* simplifyDenominator(int a, int b, int c);
 	    static Value* takeNthRoot(Value* base, int root);
         static Value* exponentiate(Value* base, Value* exp);
-        static int pow (int base, int exp);
+        static int expo (int base, int exp);
         virtual ~Exponentiate();
     protected:
     private:
