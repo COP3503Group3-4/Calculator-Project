@@ -54,7 +54,10 @@ Expression::~Expression()
 }
 
 Value* Expression::simplify(){
-	return 0;
+	Value* v;
+	minusToPlus();
+	v = this;
+	return v;
 }
 
 Value* Expression::getNum1() {
@@ -137,6 +140,15 @@ int Expression::sizeA()
 int Expression::sizeM()
 {
 	return mults.size();
+}
+int Expression::size()
+{
+	if (mults.size() > 0) {
+		return 1 + adds.size();
+	}
+	else {
+		return adds.size();
+	}
 }
 bool Expression::getRational(Value* v, int* ind) {
 	//Check first

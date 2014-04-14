@@ -32,6 +32,7 @@ class Expression : public Value
         Value* getM(int i);
         int sizeA();
         int sizeM();
+        int size();
         void minusToPlus();
         void makeNegative();
         void foil();
