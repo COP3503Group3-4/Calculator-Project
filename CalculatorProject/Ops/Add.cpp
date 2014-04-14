@@ -257,8 +257,13 @@ Value* Add::add(Value* a, Value* b) {
     //If both types are Expressions, congrats, just concatenate them into a new expression. Done deal.
 
    if(iRN1 && iRN2){
-        //Value* exp1 = new Expression(iRN1, iRN2, '+');
-        //return exp1;
+        if(iRN1->getIRNumValue()==iRN2->getIRNumValue()){
+        	//get coeffecients and add them so 2pi + pi = 3pi
+        }
+        else{
+	    Value* exp1 = new Expression(iRN1, iRN2, '+');
+        return exp1;
+        }
    }
 
    //If both are IrrationalNumbers, we really can't just tack on a coefficient and call it a done deal, so

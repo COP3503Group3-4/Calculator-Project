@@ -253,19 +253,19 @@ Subtract::~Subtract() {}
         if(ex1 && ex2){
             ex1->subtract(ex2);
 			return ex1->simplify();
-            return exp1;
+            return ex1;
         }
         if((ex1 && f2) || (ex2 && f1)){
             }
             if(ex1 && f2){
-                ex1->subtract(f2);
+            ex1->subtract(f2);
 			return ex1->simplify();
-            return exp1;
+            return ex1;
             }
-            if(ex2 && f1){
-                ex2->subtract(f1);
-				return ex2->simplify();
-				return exp2;
+        if(ex2 && f1){
+            ex2->subtract(f1);
+			return ex2->simplify();
+			return ex2;
 				
         }
    }
