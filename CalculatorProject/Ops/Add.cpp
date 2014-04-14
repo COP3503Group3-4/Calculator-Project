@@ -243,5 +243,51 @@ bool Add::isEqual(Value* a, Value* b){
             return true;
         }
     }
+    else if(rfTestA && rfTestB){
+    	Value* num1 = new RationalFraction();
+    	Value* num2 = new RationalFraction();
+    	num1 = a;
+    	num2 = b;
+    	if(num1->getNum1() == num2->getNum1() && num2->getNum2() == num1->getNum2()){
+    		return true;
+    		}
+    	}
+    else if(logTestA && logTestB){
+    	Value* num1 = new Log();
+    	Value* num2 = new Log();
+    	num1 = a;
+    	num2 = b;
+    	if(num1->getNum1() == num2->getNum1() && num2->getNum2() == num1->getNum2()){
+    	    return true;
+    	    }
+    	}
+    else if(exTestA && exTestB) {
+    	Value* num1 = new Expression();
+    	Value* num2 = new Expression();
+    	num1 = a;
+    	num2 = b;
+    	if(num1->getNum1() == num2->getNum1() && num2->getNum2() == num1->getNum2()){
+    	    return true;
+    	    }
+    	}
+    else if(inTestA && inTestB) {
+    	Value* num1 = new RationalFraction();
+    	Value* num2 = new RationalFraction();
+    	num1 = a;
+    	num2 = b;
+    	if(num1->getNum1() == num2->getNum1()){
+    		return true;
+    	    }
+    	}
+   /* else if(irfTestA && irfTestB) {
+    	Value* num1 = new RationalFraction();
+    	Value* num2 = new RationalFraction();
+    	num1 = a;
+    	num2 = b;
+    	if(num1->getNum1() == num2->getNum1() && num2->getNum2() == num1->getNum2()){
+    		return true;
+    	    }
+    	}*/
     else{ return false; }
+
 }
