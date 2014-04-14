@@ -38,7 +38,7 @@ int RationalFraction::simplifyNum(int n, int d, int index){
             tempNum = numerator/i;
         }
     }*/
-    if(i >= numerator){
+    if(i > numerator){
         //cout<<numerator<<endl;;
         return numerator;
     }
