@@ -37,9 +37,11 @@ void MathSys::menu()
 	int c;
 
 	//for printing out the Menu
-	cout << endl << "Welcome to MathSys."
+	cout << "Welcome to MathSys."
+		<< endl << "-----------------------------------"
 		<< endl << "1. Calculation" << endl << "2. View Syntax"
 		<< endl << "3. View Stored Data" << endl << "4. Quit" << endl
+		<< "-----------------------------------" << endl
 		<< "Please choose an option: ";
 
 	cin >> c;
@@ -50,10 +52,9 @@ void MathSys::menu()
 		//Option 1 : Calculation
 		if (c == 1)
 		{
-			string data = "ssssss";
+			string data = "0";
 			//Need to call the calculation method.
-			cout << endl << "Calculation."
-				<< endl << "Calculation to be done: " << endl;
+			cout << endl << "Calculation to be done: " << endl;
 
 			cin.ignore();
 			getline (cin, data);
@@ -68,7 +69,9 @@ void MathSys::menu()
 			lastAnswer->printInfo();
 			cout << endl;
 
-			cout << endl << "Calculation complete." << endl << "Please choose an option: ";
+			cout << endl << "Calculation complete." << endl
+					<< "-----------------------------------" << endl
+					<< "Please choose an option: ";
 			cin >> c;
 		}
 
@@ -78,9 +81,11 @@ void MathSys::menu()
 		{
 			//print out Syntax Menu
 			cout << endl << "Welcome to View Syntax."
+					<< endl << "-----------------------------------"
 				<< endl << "1. Addition" << endl << "2. Subtraction"
 				<< endl << "3. Multiplication" << endl << "4. Division" << endl
-				<< "5. Root" << endl << "6. Logarithm" << endl << "7. Quit" << endl
+				<< "5. Root" << endl << "6. Logarithm" << endl << "7. Quit"
+				<< endl << "-----------------------------------" << endl
 				<< "Please choose an option: ";
 
 			cin >> c;
@@ -98,8 +103,9 @@ void MathSys::menu()
 				if (c == 2)
 				{
 					cout << endl << "Subtraction Syntax."
-						<< endl << "(number)-(number)" << endl
-						<< endl << "Please choose an option: ";
+						<< endl << "(number)-( )(number)"
+						<< endl << "The (space) is necessary, -(number) represents a negative number."
+						<< endl << endl << "Please choose an option: ";
 					cin >> c;
 				}
 				if (c == 3)
@@ -131,7 +137,7 @@ void MathSys::menu()
 					cin >> c;
 				}
 			}
-			cout << endl << "Syntax Quit." << endl << endl << "Please choose an option: ";
+			cout << endl << "-----------------------------------" << endl << "Syntax Quit." << endl << endl << "Please choose an option: ";
 			cin >> c;
 		}
 
@@ -139,13 +145,18 @@ void MathSys::menu()
 		if (c == 3)
 		{
 			//Needs to call stored data.
-			cout << endl << "View Stored." << endl << "Please choose an option: ";
+			cout << endl << "View Stored." << endl;
+					lastAnswer->printInfo();
+					cout << endl << "-----------------------------------"
+					<< endl << "Please choose an option: ";
 			cin >> c;
 		}
 	}
 
 	//Defaults to Quit when logic is met.
-	cout << endl << "MathSys Quit.";
+	cout << endl << "-----------------------------------"
+	<< endl << "MathSys Quit."
+	<< endl << "-----------------------------------";
 }
 
 
