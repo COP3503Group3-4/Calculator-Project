@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <typeinfo>
+#include <IrrationalNumber.h>
 
 class Expression : public Value
 {
@@ -20,7 +21,6 @@ class Expression : public Value
         Expression(Value* v1, Value* v2, char op);
         virtual ~Expression();
         Value* simplify();
-        Value* simplify(int ind);
         Value* getNum1();
         Value* getNum2();
         void printInfo();
@@ -32,8 +32,9 @@ class Expression : public Value
         void foil();
         void popOff(int ind, Value* vPtr);
         void popOff(int ind);
-        Value* add(Value* v1);
         void simplifyOps();
+        bool getRational(Value* v, int* ind);
+        bool getIrrational(IrrationalNumber* iN1, int* ind, string type);
 
     protected:
     private:
