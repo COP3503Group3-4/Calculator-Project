@@ -8,15 +8,9 @@
 #ifndef MATHSYS_H_
 #define MATHSYS_H_
 
-#include <string>
-#include <iostream>
-#include <vector>
-#include <UserIO.h>
 #include <Value.h>
-#include <Add.h>
-#include <Multiply.h>
-#include <Subtract.h>
-#include <Divide.h>
+#include <string>
+#include <vector>
 
 using namespace std;
 

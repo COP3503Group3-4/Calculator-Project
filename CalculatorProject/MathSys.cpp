@@ -6,6 +6,14 @@
  */
 
 #include <MathSys.h>
+#include <iostream>
+#include <UserIO.h>
+#include <Value.h>
+#include <Add.h>
+#include <Multiply.h>
+#include <Subtract.h>
+#include <Divide.h>
+#include <Exponentiate.h>
 
 using namespace std;
 
@@ -158,7 +166,7 @@ Value* MathSys::calculate() {
 	rpnToCalc.pop_back();
 
 	if (current.length() == 1) {
-		if(current == "+" || current == "-" || current == "*" || current == "/" || current == "t" || current == "_") {
+		if(current == "+" || current == "-" || current == "*" || current == "/" || current == "t" || current == "_" || current == "^") {
 				v2 = calculate();
 				v1 = calculate();
 		}
@@ -181,6 +189,9 @@ Value* MathSys::calculate() {
 				break;
 			case 't':
 				answer = new NthRoot(v1,v2);
+				break;
+			case '^':
+				answer = Exponentiate::exponentiate(v1, v2);
 				break;
 			case '_':
 				answer = new Log(v1,v2);
