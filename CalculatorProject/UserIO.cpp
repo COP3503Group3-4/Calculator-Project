@@ -195,11 +195,15 @@ void UserIO::rpnInput()
 {
 	//vector containing order of operations for reference.
 	string pemdas[] = { "^", "_", "t", "*", "/", "+", "-", "(" };
+	string pemdasTwo[] = { "^", "t", "_", "/", "*", "-", "+", "(" };
 
 	string working;
 	string search;
+	string searchTwo;
 	string lastop;
 	int last = 0;
+	int lastTwo = 0;
+	int currentTwo = 0;
 	int current = 0;
 	int s = 0;
 
@@ -224,33 +228,6 @@ void UserIO::rpnInput()
 				{
 					opStack.push_back(working);
 				}
-				else if ((working == "_" || "t") && (lastop == "_" || "t"))
-				{
-					rpnUserIn.push_back(opStack.back());
-					if(opStack.size() >= 1)
-					{
-						opStack.pop_back();
-						opStack.push_back(working);
-					}
-				}
-				else if ((working == "*" || "/") && (lastop == "*" || "/"))
-				{
-					rpnUserIn.push_back(opStack.back());
-					if(opStack.size() >= 1)
-					{
-						opStack.pop_back();
-						opStack.push_back(working);
-					}
-				}
-				else if ((working == "+" || "-") && (lastop == "+" || "-"))
-				{
-					rpnUserIn.push_back(opStack.back());
-					if(opStack.size() >= 1)
-					{
-						opStack.pop_back();
-						opStack.push_back(working);
-					}
-				}
 				else
 				{
 					while (search != working)
@@ -269,7 +246,23 @@ void UserIO::rpnInput()
 					last = s;
 					s = 0;
 
-					if (current < last)
+					while (searchTwo != working)
+					{
+						searchTwo = pemdasTwo[s];
+						s++;
+					}
+					currentTwo = s;
+					s = 0;
+
+					while (searchTwo != lastop)
+					{
+						searchTwo = pemdasTwo[s];
+						s++;
+					}
+					lastTwo = s;
+					s = 0;
+
+					if (current < last && current != lastTwo)
 					{
 						opStack.push_back(working);
 					}
@@ -309,8 +302,29 @@ void UserIO::rpnInput()
 								last = s;
 								s = 0;
 
+								while (searchTwo != working)
+								{
+									searchTwo = pemdasTwo[s];
+									s++;
+								}
+								currentTwo = s;
+								s = 0;
+
+								while (searchTwo != lastop)
+								{
+									searchTwo = pemdasTwo[s];
+									s++;
+								}
+								lastTwo = s;
+								s = 0;
+
 								if (current < last)
 								{
+									if (current == lastTwo)
+									{
+										rpnUserIn.push_back(lastop);
+										opStack.pop_back();
+									}
 									opStack.push_back(working);
 								}
 								else if (current == last)
