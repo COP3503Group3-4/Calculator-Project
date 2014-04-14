@@ -218,7 +218,7 @@ Value* Expression::add(Value* v)
     	int* ind = new int(-1);
     	if (getValue(typeid(RationalNumber*).name(), rN2, ind)) {
     		if(!(rN2->getNumValue() + rN1->getNumValue()) == 0) {
-    			int x = rN2->getNumValue() + rN1->getNumValue();1
+    			int x = rN2->getNumValue() + rN1->getNumValue();
     			delete rN2;
     			delete rN1;
     			values[*ind] = new RationalNumber(x);
