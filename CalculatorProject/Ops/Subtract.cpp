@@ -239,16 +239,25 @@ Subtract::~Subtract() {}
         }
     }
     */
-   /* if(ex1 && ex2){
-        Value* exp1 = new Expression(ex1, ex2, '-');
-        return exp1;
-    }*/
+
    if(iRN1 && iRN2){
-        if(iRN1->getIRNumValue() == iRN2->getIRNumValue()){
-            Value* exp1 = new Expression(iRN1->simplify(),iRN2->simplify(), '-');
+        //if(iRN1->getIRNumValue() == iRN2->getIRNumValue())
+		{
+            Value* exp1 = new Expression(iRN1,iRN2, '-');
             return exp1;
         }
    }
+   
+   if(ex1 && iRN2){
+   ex1->subtract(iRN2);
+   return ex1;}
+   
+   if(iRN1 && ex2){
+   ex2->makeNegative;
+   ex2->add(iRN1);
+   return ex2;
+   }
+   
   if( ex1 || ex2 ){
         if(ex1 && ex2){
             ex1->subtract(ex2);
@@ -258,14 +267,14 @@ Subtract::~Subtract() {}
         if((ex1 && f2) || (ex2 && f1)){
             }
             if(ex1 && f2){
-            ex1->subtract(f2);
+                ex1->subtract(f2);
 			return ex1->simplify();
             return ex1;
             }
-        if(ex2 && f1){
-            ex2->subtract(f1);
-			return ex2->simplify();
-			return ex2;
+            if(ex2 && f1){
+                ex2->subtract(f1);
+				return ex2->simplify();
+				return ex2;
 				
         }
    }
