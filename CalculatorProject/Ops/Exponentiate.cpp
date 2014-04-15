@@ -91,17 +91,22 @@ Value* Exponentiate::takeNthRoot(Value* base, int root)
 */
 
 int Exponentiate::expo2(int base, int exp)
-{ if(exp >= 1) {return base * (expo (base,exp - 1));}
-   else return 1;}
+{ if(exp >= 1) {return base * (expo2 (base,exp - 1));
+ cout<<"checkpoint expo2";}
+   else
+	   return 1;
+}
 
 
 //helper function to be called later
 int Exponentiate::expo(int base, int exp)
-{ if(exp >= 1) {return base * (expo (base,exp - 1));}
+{ if(exp >= 1) {return  (expo2 (base,exp));}
    else if(exp = 0)
    {return 1;} 
-   else if(exp <1)
-   return expo2(base, -exp);}
+   else
+   { cout<< "check point expo";
+   return expo2(base, (abs(exp)));}
+}
  
    
    
@@ -180,6 +185,10 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 	     }
 */
 }
+
+
+
+
 
 
 

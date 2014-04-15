@@ -210,7 +210,7 @@ Value* MathSys::calculate() {
 				if(n->getNumValue() == 2) {
 					answer = new SquareRoot(v2);
 				}
-				else answer = new NthRoot(v1,v2);
+				else answer = new NthRoot(v2,v1);
 				break;
 			case '^':
 				answer = Exponentiate::exponentiate(v1, v2);
