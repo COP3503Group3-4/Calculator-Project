@@ -1,5 +1,6 @@
 /*
  * Created by Cory Anderson
+
  */
 #include <Expression.h>
 #include <RationalNumber.h>
@@ -13,6 +14,19 @@
 #include <Subtract.h>
 #include <sstream>
 #include <typeinfo>
+
+/*
+ Didn't have enough time to fully implement this class. I was unable to get adding rational
+ and irrational numbers to work. getRational isn't working for some reason. And I don't have enough time
+ to figure out why.
+
+ The general idea I had for Expression was to have mults and adds. mults will hold the values that are
+ multiplied together like pi * e * 4 and adds will hold the values that are added.
+
+ I created a shit of helper methods because I restarted this class 5 times trying to figure out how to
+ implement it before I finally got fed up with inability of my group to handle the operations of expression
+ in the operations classes so I just integrated the operations into the class.
+ */
 
 Expression::Expression()
 {
@@ -56,11 +70,14 @@ Expression::~Expression()
 }
 
 Value* Expression::simplify(){
+	/*
+	 Definitely didn't get to the simplify function. I was planning on using simplifyOps to accompany
+	minusToPlus() to avoid having to deal with operators.
+	 */
 	Value* v;
-	minusToPlus();
+	simplifyOps();
 	return this;
 }
-
 Value* Expression::getNum1() {
 	return 0;
 }
@@ -68,7 +85,9 @@ Value* Expression::getNum1() {
 Value* Expression::getNum2() {
 	return 0;
 }
-
+//I thought this was going to be easy to make.
+//It's pretty hard having to deal with the fact that their is one less op than there are Values in add
+//and also 2 different vectors
 void Expression::printInfo(){
 	//Printing first value then op, value, op, value until end
 	if (mults.size() > 0) mults[0]->printInfo();
@@ -126,6 +145,7 @@ bool Expression::getValue(string typeName, Value* v, int* ind)
 	//Method returns false if Value with provided typeID isn't found in the expression
 	return false;
 }
+//some simple get methods
 Value* Expression::getA(int i)
 {
 	return adds[i];
@@ -151,59 +171,29 @@ int Expression::size()
 		return adds.size();
 	}
 }
+//This function wasn't working with add. I thought it was a pretty cool function :(
 bool Expression::getRational(Value* v, int* ind) {
 	//Check first
 	RationalNumber* rN;
 	RationalFraction* f;
-	if(ops[0] == "+") {
-		rN = dynamic_cast<RationalNumber*>(adds[0]);
-	    f = dynamic_cast<RationalFraction*>(adds[0]);
-	    if (rN) {
-	    	ind = 0;
-	    	v = rN;
-	    	return true;
-	    }
-	    if (f) {
-	    	ind = new int(0);
-	    	v = f;
-	    	return true;
-	    }
-	}
-	//Check middle
-	for(int i = 1; i < adds.size() - 1; i++) {
-		if(ops[i-1] == "+" && ops[i] == "+") {
+	for(int i = 0; i < adds.size() - 1; i++) {
 			rN = dynamic_cast<RationalNumber*>(adds[i]);
 		    f = dynamic_cast<RationalFraction*>(adds[i]);
 		    if (rN) {
 		    	ind = new int(i);
-		    	v = rN;
+		    	v = adds[i];
 		    	return true;
 		    }
 		    if (f) {
 		    	ind = new int(i);
-		    	v = f;
+		    	v = adds[i];
 		    	return true;
 		    }
-		}
 	}
-	//Check last
-	if(ops[ops.size()-1] == "+") {
-		rN = dynamic_cast<RationalNumber*>(adds[adds.size()-1]);
-	    f = dynamic_cast<RationalFraction*>(adds[adds.size()-1]);
-	    if (rN) {
-	    	ind = new int(adds.size()-1);
-	    	v = rN;
-	    	return true;
-	    }
-	    if (f) {
-	    	ind = new int(adds.size()-1);
-	    	v = f;
-	    	return true;
-	    }
-	}
+
 	return false;
 }
-
+//Mirrored getRational
 bool Expression::getIrrational(IrrationalNumber* iN1, int* ind, string type)
 {
 	for(int i = 0; i < adds.size(); i++) {
@@ -403,9 +393,9 @@ void Expression::add(Value* v)
 			if(getRational(v2, ind)) {
 				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v2);
 				RationalFraction* f2 = dynamic_cast<RationalFraction*>(v2);
-				if (rN2) adds[*ind] = Add::add(rN1,rN2); delete rN2;
-				if (f2) adds[*ind] = Add::add(rN1,f2); delete f2;
-				delete rN1;
+				if (rN2) adds[*ind] = Add::add(rN1,rN2);
+				if (f2) adds[*ind] = Add::add(rN1,f2);
+
 			}
 		}
 		if (f1) {

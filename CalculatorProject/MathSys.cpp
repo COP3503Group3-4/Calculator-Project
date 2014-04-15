@@ -15,6 +15,7 @@
 #include <Divide.h>
 #include <Exponentiate.h>
 #include <SquareRoot.h>
+#include <stdexcept>
 
 using namespace std;
 
@@ -66,7 +67,12 @@ void MathSys::menu()
 
 			rpnToCalc = calculation.rpn();
 			delete lastAnswer;
+			try {
 			lastAnswer = calculate();
+			}
+			catch(exception &e){
+				cout << e.what() << endl;
+			}
 			cout << "= ";
 			lastAnswer->printInfo();
 			Value* v = lastAnswer->simplify();
@@ -180,6 +186,7 @@ Value* MathSys::calculate() {
 	Value* v1;
 	Value* v2;
 	RationalNumber* n;
+	RationalNumber* m;
 	string current = rpnToCalc[rpnToCalc.size() - 1];
 	rpnToCalc.pop_back();
 
@@ -188,6 +195,7 @@ Value* MathSys::calculate() {
 				v2 = calculate();
 				v1 = calculate();
 				n = dynamic_cast<RationalNumber*>(v1);
+				m = dynamic_cast<RationalNumber*>(v2);
 		}
 		if (current == "~") {
 			v1 = new RationalNumber("0");
@@ -204,13 +212,19 @@ Value* MathSys::calculate() {
 				answer = Multiply::multiply(v1,v2);
 				break;
 			case '/':
+				if (n->getNumValue() == 0) {
+					throw invalid_argument("Divide by zero error");
+				}
 				answer = Divide::divide(v1,v2);
 				break;
 			case 't':
 				if(n->getNumValue() == 2) {
 					answer = new SquareRoot(v2);
 				}
-				else answer = new NthRoot(v1,v2);
+				else {
+					if (!(n->getNumValue() < 0 && (m->getNumValue() % 2 == 0))) answer = new NthRoot(v2,v1);
+					else throw invalid_argument("Can't take even root of negative number");
+				}
 				break;
 			case '^':
 				answer = Exponentiate::exponentiate(v1, v2);
