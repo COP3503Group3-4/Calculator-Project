@@ -335,19 +335,19 @@ Value* Add::add(Value* a, Value* b) {
         }
         if((ex1 && rN1) || (ex1 && rN2) || (ex2 && rN1) || (ex2 && rN2)) {
 			if(ex1 && rN1){
-				ex1->add(f1);
+				ex1->add(rN1);
 				return ex1;
 			}
 			if(ex1 && rN2){
-				ex1->add(f2);
+				ex1->add(rN2);
 				return ex1;
 			}
 			if(ex2 && rN1){
-				ex2->add(f1);
+				ex2->add(rN1);
 				return ex2;
 			}
 			if(ex2 && rN2){
-				ex2->add(f2);
+				ex2->add(rN2);
 				return ex2;
 			}
         }
