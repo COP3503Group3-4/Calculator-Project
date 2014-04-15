@@ -89,10 +89,22 @@ Value* Exponentiate::takeNthRoot(Value* base, int root)
      }
 
 */
+
+int Exponentiate::expo2(int base, int exp)
+{ if(exp >= 1) {return base * (expo (base,exp - 1));}
+   else return 1;}
+
+
 //helper function to be called later
 int Exponentiate::expo(int base, int exp)
 { if(exp >= 1) {return base * (expo (base,exp - 1));}
-   else return 1; }
+   else if(exp = 0)
+   {return 1;} 
+   else if(exp <1)
+   return expo2;}
+ 
+   
+   
 
 //the function that does the exponentiation
 Value* Exponentiate::exponentiate(Value* base, Value* exp)
@@ -158,11 +170,16 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 	    	 int d2 = f2->getDenominator();
 	    	 int base = expo(base0, n2);
 	    	 Value* v = new RationalNumber(base);
+			 if (n2<0 || d2<0)
+			 {if takeNthRoot(v, d2)== float(takeNthRoot())
+			 
+			 }
 	    	 return takeNthRoot(v, d2);
 
 
 	     }
 */
 }
+
 
 
