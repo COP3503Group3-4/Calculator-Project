@@ -12,6 +12,7 @@ Subtract::~Subtract() {}
  //Version 3:
 
  Value* Subtract::subtract(Value* a, Value* b) {
+    //dynamic cast variables for later use
     RationalFraction* f1 = dynamic_cast<RationalFraction*>(a);
     RationalFraction* f2 = dynamic_cast<RationalFraction*>(b);
     Log* l1 = dynamic_cast<Log*>(a);
@@ -93,10 +94,10 @@ Subtract::~Subtract() {}
     if(rN1 && rN2){
         int num1 = rN1->getNumValue();
         int num2 = rN2->getNumValue();
-        int numAdded = num1 - num2;
-        Value* summedNum = new RationalNumber(numAdded);
+        int numSub = num1 - num2;
+        Value* Num = new RationalNumber(numSub);
         //cout<<numAdded<<endl;
-        return summedNum;
+        return Num;
     }
     if((f1 && rN1) ||  (f1 && rN2) || (f2 && rN1) || (f2 && rN2) ){
         if( f1 && rN1 ){
@@ -201,6 +202,7 @@ Subtract::~Subtract() {}
             return f3;
         }
     }
+	
     /*if((f1 && l2) || (f1 && l1) || (f2 && l1) || (f2 && l2)){
         if(f1 && l1){
             Value* exp1 = new Expression(f1, l1, '-');
@@ -254,16 +256,78 @@ Subtract::~Subtract() {}
         RationalNumber* n2 = dynamic_cast<RationalNumber*>(co2);
 		int newco= n1->getNumValue() - n2->getNumValue(); 
 		return new IrrationalNumber(newco, iRN1->getIRNumValue());
-		
+		}
    }
    
-   if(rN1 && iRN2)
-   {Value* exp1 = new Expression(rN1,iRN2, '-');
-            return exp1;}
-			
-	if(iRN1 && rN2)
-	{Value* exp1 = new Expression(iRN1,rN2, '-');
-            return exp1;}
+        if((iRN1 && rN1) || (iRN1 && rN2) || (iRN2 &&rN1) || (iRN2 && rN2)){
+        	   if(iRN1 && rN1){
+        		  Value* exp1 = new Expression(iRN1, rN1, '-');
+        		   return exp1;
+        		  }
+        		  if(iRN1 && rN2){
+        			  Value* exp1 = new Expression(iRN1, rN2, '-');
+        			  return exp1;
+        		  }
+        		  if(iRN2 && rN1){
+        			  Value* exp1 = new Expression(rN1, iRN2, '-');
+        			  return exp1;
+        		  }
+        		  if(iRN2 && rN2){
+        			  Value* exp1 = new Expression(rN2, iRN2, '-');
+        			  return exp1;
+        		  }
+        		  if(iRN1 && rN1){
+        		  Value* exp1 = new Expression(iRN1, rN1, '-');
+        		   return exp1;
+        		  }
+        		  if(iRN1 && rN2){
+        			  Value* exp1 = new Expression(iRN1, rN2, '-');
+        			  return exp1;
+        		  }
+        		  if(iRN2 && rN1){
+        			  Value* exp1 = new Expression(iRN2, rN1, '-');
+        			  return exp1;
+        		  }
+        		  if(iRN2 && rN2){
+        			  Value* exp1 = new Expression(iRN2, rN2, '-');
+        			  return exp1;
+        		  }
+           }
+
+           if((iRN1 && f1) || (iRN1 && f2) || (iRN2 && f1) || (iRN2 && f2)){
+           	   if(iRN1 && rN1){
+           		  Value* exp1 = new Expression(iRN1, f1, '-');
+           		   return exp1;
+           		  }
+           		  if(iRN1 && f2){
+           			  Value* exp1 = new Expression(iRN1, f2, '-');
+           			  return exp1;
+           		  }
+           		  if(iRN2 && f1){
+           			  Value* exp1 = new Expression(f1, iRN2, '-');
+           			  return exp1;
+           		  }
+           		  if(iRN2 && f2){
+           			  Value* exp1 = new Expression(f2, iRN2, '-');
+           			  return exp1;
+           		  }
+           		  if(iRN1 && f1){
+           		  Value* exp1 = new Expression(iRN1, rN1, '-');
+           		   return exp1;
+           		  }
+           		  if(iRN1 && rN2){
+           			  Value* exp1 = new Expression(iRN1, rN2, '-');
+           			  return exp1;
+           		  }
+           		  if(iRN2 && rN1){
+           			  Value* exp1 = new Expression(iRN2, rN1, '-');
+           			  return exp1;
+           		  }
+           		  if(iRN2 && rN2){
+           			  Value* exp1 = new Expression(iRN2, rN2, '-');
+           			  return exp1;
+           		  }
+              }
    
    if(ex1 && iRN2){
    ex1->subtract(iRN2);
@@ -278,24 +342,25 @@ Subtract::~Subtract() {}
   if( ex1 || ex2 ){
         if(ex1 && ex2){
             ex1->subtract(ex2);
-			return ex1->simplify();
+			 ex1->simplify();
             return ex1;
         }
         if((ex1 && f2) || (ex2 && f1)){
             }
             if(ex1 && f2){
                 ex1->subtract(f2);
-			return ex1->simplify();
+			 ex1->simplify();
             return ex1;
             }
             if(ex2 && f1){
                 ex2->subtract(f1);
-				return ex2->simplify();
+				 ex2->simplify();
 				return ex2;
 				
         }
    }
-}
+   }
+
 
  bool Subtract::isEqual(Value* a, Value* b){
      RationalNumber* rnTestA = dynamic_cast<RationalNumber*>(a);
@@ -367,6 +432,8 @@ Subtract::~Subtract() {}
      else{ return false; }
 
  }
+
+
 
 
 

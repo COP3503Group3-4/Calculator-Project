@@ -349,7 +349,6 @@ void UserIO::rpnInput()
 						{
 							opStack.push_back(working);
 						}
-
 					}
 				}
 

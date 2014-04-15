@@ -29,6 +29,7 @@ class Exponentiate
 	    static Value* takeNthRoot(Value* base, int root);
         static Value* exponentiate(Value* base, Value* exp);
         static int expo (int base, int exp);
+        static int expo2(int base, int exp);
         virtual ~Exponentiate();
     protected:
     private:
