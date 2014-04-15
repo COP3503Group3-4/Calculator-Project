@@ -92,7 +92,7 @@ Value* Exponentiate::takeNthRoot(Value* base, int root)
 
 int Exponentiate::expo(int base, int exp)
 { if(exp >= 1) {return base * (expo (base,exp - 1));}
-   else if return 1;}
+   else return 1;}
    
 
  
