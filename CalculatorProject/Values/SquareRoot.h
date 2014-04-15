@@ -10,6 +10,7 @@ class SquareRoot : public Value
         SquareRoot();
         SquareRoot(Value* a);
         SquareRoot(int c, Value* a);
+        SquareRoot(int c, Value* a, bool simplified);
         int coefficient = 1;
         virtual ~SquareRoot();
         Value* simplifyNumerator(Value* a, Value* b);
@@ -25,6 +26,7 @@ class SquareRoot : public Value
         int getCoefficient();
     protected:
     private:
+        bool simplified;
 };
 
 #endif // SQUAREROOT_H
