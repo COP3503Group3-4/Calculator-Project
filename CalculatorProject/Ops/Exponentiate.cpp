@@ -101,7 +101,7 @@ int Exponentiate::expo(int base, int exp)
    else if(exp = 0)
    {return 1;} 
    else if(exp <1)
-   return expo2;}
+   return expo2(base, -exp);}
  
    
    

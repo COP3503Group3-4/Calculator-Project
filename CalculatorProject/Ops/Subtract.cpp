@@ -254,7 +254,7 @@ Subtract::~Subtract() {}
         RationalNumber* n2 = dynamic_cast<RationalNumber*>(co2);
 		int newco= n1->getNumValue() - n2->getNumValue(); 
 		return new IrrationalNumber(newco, iRN1->getIRNumValue());
-		
+		}
    }
    
         if((iRN1 && rN1) || (iRN1 && rN2) || (iRN2 &&rN1) || (iRN2 && rN2)){
@@ -340,24 +340,25 @@ Subtract::~Subtract() {}
   if( ex1 || ex2 ){
         if(ex1 && ex2){
             ex1->subtract(ex2);
-			return ex1->simplify();
+			 ex1->simplify();
             return ex1;
         }
         if((ex1 && f2) || (ex2 && f1)){
             }
             if(ex1 && f2){
                 ex1->subtract(f2);
-			return ex1->simplify();
+			 ex1->simplify();
             return ex1;
             }
             if(ex2 && f1){
                 ex2->subtract(f1);
-				return ex2->simplify();
+				 ex2->simplify();
 				return ex2;
 				
         }
    }
-}
+   }
+
 
  bool Subtract::isEqual(Value* a, Value* b){
      RationalNumber* rnTestA = dynamic_cast<RationalNumber*>(a);
@@ -429,6 +430,7 @@ Subtract::~Subtract() {}
      else{ return false; }
 
  }
+
 
 
 
