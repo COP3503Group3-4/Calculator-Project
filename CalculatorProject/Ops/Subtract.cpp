@@ -257,13 +257,75 @@ Subtract::~Subtract() {}
 		
    }
    
-   if(rN1 && iRN2)
-   {Value* exp1 = new Expression(rN1,iRN2, '-');
-            return exp1;}
-			
-	if(iRN1 && rN2)
-	{Value* exp1 = new Expression(iRN1,rN2, '-');
-            return exp1;}
+        if((iRN1 && rN1) || (iRN1 && rN2) || (iRN2 &&rN1) || (iRN2 && rN2)){
+        	   if(iRN1 && rN1){
+        		  Value* exp1 = new Expression(iRN1, rN1, '-');
+        		   return exp1;
+        		  }
+        		  if(iRN1 && rN2){
+        			  Value* exp1 = new Expression(iRN1, rN2, '-');
+        			  return exp1;
+        		  }
+        		  if(iRN2 && rN1){
+        			  Value* exp1 = new Expression(rN1, iRN2, '-');
+        			  return exp1;
+        		  }
+        		  if(iRN2 && rN2){
+        			  Value* exp1 = new Expression(rN2, iRN2, '-');
+        			  return exp1;
+        		  }
+        		  if(iRN1 && rN1){
+        		  Value* exp1 = new Expression(iRN1, rN1, '-');
+        		   return exp1;
+        		  }
+        		  if(iRN1 && rN2){
+        			  Value* exp1 = new Expression(iRN1, rN2, '-');
+        			  return exp1;
+        		  }
+        		  if(iRN2 && rN1){
+        			  Value* exp1 = new Expression(iRN2, rN1, '-');
+        			  return exp1;
+        		  }
+        		  if(iRN2 && rN2){
+        			  Value* exp1 = new Expression(iRN2, rN2, '-');
+        			  return exp1;
+        		  }
+           }
+
+           if((iRN1 && f1) || (iRN1 && f2) || (iRN2 && f1) || (iRN2 && f2)){
+           	   if(iRN1 && rN1){
+           		  Value* exp1 = new Expression(iRN1, f1, '-');
+           		   return exp1;
+           		  }
+           		  if(iRN1 && f2){
+           			  Value* exp1 = new Expression(iRN1, f2, '-');
+           			  return exp1;
+           		  }
+           		  if(iRN2 && f1){
+           			  Value* exp1 = new Expression(f1, iRN2, '-');
+           			  return exp1;
+           		  }
+           		  if(iRN2 && f2){
+           			  Value* exp1 = new Expression(f2, iRN2, '-');
+           			  return exp1;
+           		  }
+           		  if(iRN1 && f1){
+           		  Value* exp1 = new Expression(iRN1, rN1, '-');
+           		   return exp1;
+           		  }
+           		  if(iRN1 && rN2){
+           			  Value* exp1 = new Expression(iRN1, rN2, '-');
+           			  return exp1;
+           		  }
+           		  if(iRN2 && rN1){
+           			  Value* exp1 = new Expression(iRN2, rN1, '-');
+           			  return exp1;
+           		  }
+           		  if(iRN2 && rN2){
+           			  Value* exp1 = new Expression(iRN2, rN2, '-');
+           			  return exp1;
+           		  }
+              }
    
    if(ex1 && iRN2){
    ex1->subtract(iRN2);
