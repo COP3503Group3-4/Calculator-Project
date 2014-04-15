@@ -90,7 +90,7 @@ void Expression::printInfo(){
 }
 
 string Expression::toString(){
-	string s = adds[0]->toString();
+	string s = "";
 	if (mults.size() > 0) s.append(mults[0]->toString());
 	for (int i = 1; i < mults.size(); i++) {
 		s.append("*");
