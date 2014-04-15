@@ -241,12 +241,29 @@ Subtract::~Subtract() {}
     */
 
    if(iRN1 && iRN2){
-        //if(iRN1->getIRNumValue() == iRN2->getIRNumValue())
+        if(iRN1->getIRNumValue() != iRN2->getIRNumValue())
 		{
             Value* exp1 = new Expression(iRN1,iRN2, '-');
             return exp1;
         }
+		else 
+		{ 
+		Value* co1= iRN1->getNum1();
+		Value* co2= iRN2->getNum1();
+		RationalNumber* n1 = dynamic_cast<RationalNumber*>(co1);
+        RationalNumber* n2 = dynamic_cast<RationalNumber*>(co2);
+		int newco= n1->getNumValue() - n2->getNumValue(); 
+		return new IrrationalNumber(newco, iRN1->getIRNumValue());
+		
    }
+   
+   if(rN1 && iRN2)
+   {Value* exp1 = new Expression(rN1,iRN2, '-');
+            return exp1;}
+			
+	if(iRN1 && rN2)
+	{Value* exp1 = new Expression(iRN1,rN2, '-');
+            return exp1;}
    
    if(ex1 && iRN2){
    ex1->subtract(iRN2);
