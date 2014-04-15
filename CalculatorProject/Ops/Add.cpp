@@ -283,6 +283,25 @@ Value* Add::add(Value* a, Value* b) {
                    return exp1;
                }
            }
+   if((iRN1 && f1) || (iRN1 && f2) || (iRN2 && f1) || (iRN2 && f2)){
+                  if(iRN1 && f1){
+               	   Value* exp1 = new Expression(iRN1, f1, '+');
+               	   return exp1;
+                  }
+                  if(iRN1 && f2){
+                      Value* exp1 = new Expression(iRN1, f2, '+');
+                      return exp1;
+                  }
+                  if(iRN2 && f1){
+                      Value* exp1 = new Expression(iRN2, f1, '+');
+                      return exp1;
+                  }
+                  if(iRN2 && f2){
+                      Value* exp1 = new Expression(iRN2, f2, '+');
+                      return exp1;
+                  }
+              }
+
 
 
    //If both are IrrationalNumbers, we really can't just tack on a coefficient and call it a done deal, so

@@ -253,7 +253,7 @@ Subtract::~Subtract() {}
    return ex1;}
    
    if(iRN1 && ex2){
-   ex2->makeNegative;
+   ex2->makeNegative();
    ex2->add(iRN1);
    return ex2;
    }
