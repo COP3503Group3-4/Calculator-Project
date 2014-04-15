@@ -1,4 +1,6 @@
-
+/*
+ * Created by Cory Anderson
+ */
 #include <Expression.h>
 #include <RationalNumber.h>
 #include <Fraction.h>
@@ -56,8 +58,7 @@ Expression::~Expression()
 Value* Expression::simplify(){
 	Value* v;
 	minusToPlus();
-	v = this;
-	return v;
+	return this;
 }
 
 Value* Expression::getNum1() {
@@ -275,7 +276,7 @@ void Expression::minusToPlus()
 				delete f1;
 		    }
 		    if (l1) {
-		    	//Cannot implement until log constant is implemented
+		    	//Cannot implement until log is implemented
 		    }
 		    if (ex1) {
 		    	ex1->minusToPlus();
@@ -315,7 +316,7 @@ void Expression::makeNegative()
 			delete f1;
 	    }
 	    if (l1) {
-	    	//Cannot implement until log constant is implemented
+	    	//Cannot implement until log is implemented
 	    }
 	    if (ex1) {
 	    	ex1->minusToPlus();
@@ -429,6 +430,10 @@ void Expression::add(Value* v)
 		}
 		if(ex1) {
 			ex1->minusToPlus();
+			for(int i = 0; i < ex1->sizeA(); i++) {
+				v2 = ex1->getA(i);
+				add(v2);
+			}
 
 		}
 	}
@@ -439,6 +444,7 @@ void Expression::add(Value* v)
 }
 void Expression::subtract(Value* v)
 {
+	minusToPlus();
 	if (hasValue(typeid(v).name())) {
 		RationalNumber* rN1 = dynamic_cast<RationalNumber*>(v);
 		RationalFraction* f1 = dynamic_cast<RationalFraction*>(v);

@@ -6,6 +6,7 @@
 #include <NthRoot.h>
 #include <Expression.h>
 #include <cmath>
+#include <sstream>
 
 SquareRoot::SquareRoot()
 {
@@ -120,6 +121,7 @@ Value* SquareRoot::getNum2(){
 }
 
 void SquareRoot::printInfo(){
+	if(coefficient != 1) cout << coefficient << "*";
 	cout << "sqrt(";
 	insideRoot->printInfo();
 	cout << ")";
@@ -127,7 +129,14 @@ void SquareRoot::printInfo(){
 
 string SquareRoot::toString()
 {
-	string s = "sqrt(";
+	string s = "";
+	ostringstream c;
+	if (coefficient != 1) {
+		c << coefficient;
+		s.append(c.str());
+		s.append("*");
+	}
+	s.append("sqrt(");
 	s.append(insideRoot->toString());
 	s.append(")");
 }

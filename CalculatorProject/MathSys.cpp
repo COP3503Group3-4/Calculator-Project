@@ -69,9 +69,6 @@ void MathSys::menu()
 			lastAnswer = calculate();
 			cout << "= ";
 			lastAnswer->printInfo();
-			Value* v = lastAnswer->simplify();
-			cout << endl;
-			v->printInfo();
 			cout << endl;
 
 			cout << endl << "Calculation complete." << endl

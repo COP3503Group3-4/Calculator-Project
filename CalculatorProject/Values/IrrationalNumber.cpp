@@ -1,4 +1,6 @@
-#include "IrrationalNumber.h"
+#include <IrrationalNumber.h>
+#include <RationalNumber.h>
+#include <sstream>
 
 IrrationalNumber::IrrationalNumber()
 {
@@ -7,17 +9,24 @@ IrrationalNumber::IrrationalNumber()
 IrrationalNumber::IrrationalNumber(string s){
     storedVal = s;
 }
+
+IrrationalNumber::IrrationalNumber(int coeff, string s){
+    coefficient = coeff;
+    storedVal = s;
+}
 IrrationalNumber::~IrrationalNumber()
 {
-    //dtor
+
 }
 
 Value* IrrationalNumber::getNum1(){
-    getIRNumValue();
+    Value* IR = new RationalNumber(coefficient);
+    return IR;
 }
 
 Value* IrrationalNumber::getNum2(){
-    getIRNumValue();
+    Value* IR = new IrrationalNumber(getIRNumValue());
+    return IR;
 }
 
 Value* IrrationalNumber::simplify(){
@@ -29,8 +38,17 @@ string IrrationalNumber::getIRNumValue(){
 }
 
 void IrrationalNumber::printInfo(){
+    if (!coefficient == 1) cout<<coefficient;
     cout<<storedVal;
 }
-string IrrationalNumber::toString(){
-	return storedVal;
+string IrrationalNumber::toString() {
+	string s = "";
+	ostringstream c;
+	if (!coefficient == 1) {
+		c << coefficient;
+		s.append(c.str());
+		s.append("*");
+	}
+	s.append(storedVal);
+	return s;
 }
