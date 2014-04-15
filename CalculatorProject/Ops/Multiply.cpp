@@ -231,10 +231,51 @@ Value* Multiply::multiply(Value* a, Value* b) {
 
     //do we need to be able to foil out expressions in this class? Or will that be handled somewhere else?
 
-   if(iRN1 && iRN2){
-        Value* exp1 = new Expression(iRN1, iRN2, '*');
-        return exp1;
-   }
+    if(iRN1 && iRN2){
+           if(iRN1->getIRNumValue()==iRN2->getIRNumValue()){
+           	//get powers and add them so pi * pi becomes pi^2
+           }
+           else{
+   	    Value* exp1 = new Expression(iRN1, iRN2, '*');
+           return exp1;
+           }
+      }
+      if((iRN1 && rN1) || (iRN1 && rN2) || (iRN2 && rN1) || (iRN2 && rN2)){
+                  if(iRN1 && rN1){
+               	   Value* exp1 = new Expression(iRN1, rN1, '*');
+               	   return exp1;
+                  }
+                  if(iRN1 && rN2){
+                      Value* exp1 = new Expression(iRN1, rN2, '*');
+                      return exp1;
+                  }
+                  if(iRN2 && rN1){
+                      Value* exp1 = new Expression(iRN2, rN1, '*');
+                      return exp1;
+                  }
+                  if(iRN2 && rN2){
+                      Value* exp1 = new Expression(iRN2, rN2, '*');
+                      return exp1;
+                  }
+              }
+      if((iRN1 && f1) || (iRN1 && f2) || (iRN2 && f1) || (iRN2 && f2)){
+                     if(iRN1 && f1){
+                  	   Value* exp1 = new Expression(iRN1, f1, '*');
+                  	   return exp1;
+                     }
+                     if(iRN1 && f2){
+                         Value* exp1 = new Expression(iRN1, f2, '*');
+                         return exp1;
+                     }
+                     if(iRN2 && f1){
+                         Value* exp1 = new Expression(iRN2, f1, '*');
+                         return exp1;
+                     }
+                     if(iRN2 && f2){
+                         Value* exp1 = new Expression(iRN2, f2, '*');
+                         return exp1;
+                     }
+                 }
 
    //If both are IrrationalNumbers, we really can't just tack on a coefficient and call it a done deal, so
    //we create an Expression that stores the two. So if we have e * e, we will get an expression that calls that.
