@@ -70,9 +70,9 @@ void MathSys::menu()
 			cout << "= ";
 			lastAnswer->printInfo();
 			Value* v = lastAnswer->simplify();
-			cout << endl;
-			v->printInfo();
-			cout << endl;
+			//cout << endl;
+			//v->printInfo();
+			//cout << endl;
 
 			cout << endl << "Calculation complete." << endl
 					<< "-----------------------------------" << endl
@@ -123,14 +123,15 @@ void MathSys::menu()
 				if (c == 4)
 				{
 					cout << endl << "Division Syntax."
-						<< endl << "(numerator)/(denominator)" << endl
+						<< endl << "(numerator)/(denominator)"
+						<< endl << "For negative fractions the sign goes out side parenthesis -(num/den)"
 						<< endl << "Please choose an option: ";
 					cin >> c;
 				}
 				if (c == 5)
 				{
 					cout << endl << "Root Syntax."
-						<< endl << "nroot((radicand),index)" << endl
+						<< endl << "(index)rt(radicand)" << endl
 						<< endl << "Please choose an option: ";
 					cin >> c;
 				}
