@@ -7,6 +7,7 @@ IrrationalNumber::IrrationalNumber()
     //ctor
 }
 IrrationalNumber::IrrationalNumber(string s){
+	coefficient = 1;
     storedVal = s;
 }
 

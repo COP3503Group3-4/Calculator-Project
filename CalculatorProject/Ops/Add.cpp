@@ -22,8 +22,8 @@ Add::~Add()
 }
 
 Value* Add::add(Value* a, Value* b) {
-    RationalFraction* f1 = dynamic_cast<RationalFraction*>(a);
-    RationalFraction* f2 = dynamic_cast<RationalFraction*>(b);
+    RationalFraction* rF1 = dynamic_cast<RationalFraction*>(a);
+    RationalFraction* rF2 = dynamic_cast<RationalFraction*>(b);
     Log* l1 = dynamic_cast<Log*>(a);
     Log* l2 = dynamic_cast<Log*>(b);
     RationalNumber* rN1 = dynamic_cast<RationalNumber*>(a);
@@ -32,27 +32,37 @@ Value* Add::add(Value* a, Value* b) {
     Expression* ex2 = dynamic_cast<Expression*>(b);
     IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(a);
     IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
-    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
-    //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
+    //IrrationalFraction* irF1 = dynamic_cast<IrrationalFraction*>(a);
+    //IrrationalFraction* irF2 = dynamic_cast<IrrationalFraction*>(b);
     SquareRoot* sqrA = dynamic_cast<SquareRoot*>(a);
     SquareRoot* sqrB = dynamic_cast<SquareRoot*>(b);
     NthRoot* nrtA = dynamic_cast<NthRoot*>(a);
     NthRoot* nrtB = dynamic_cast<NthRoot*>(b);
 
     //Type Checks the Initial Values passed into the function
-    if(f1 && f2){
-        int n1 = f1->getNumerator() * f2->getDenominator();
-        //cout<<"N1: "<<n1<<endl;
-        int n2 = f2->getNumerator() * f1->getDenominator();
-        //cout<<"N2: "<<n2<<endl;
-        int d = f1->getDenominator() * f2->getDenominator();
-        //cout<<"D: "<<d<<endl;
-        Value* f3 = new RationalFraction(n1+n2,d);
-        f3->simplify();
-        return f3;
 
-        //If the Values are Rational Fractions, the program will add them together.
+    if(rN1 && rN2){
+    	RationalNumber* rN3 = new RationalNumber(rN1->getNumValue() + rN2->getNumValue());
+    	return rN3;
     }
+    if(rN1 && rF2){
+    	RationalFraction* rF3 = new RationalFraction(rN1->getNumValue() + rF2->getNumerator(), rF2->getDenominator());
+    	return rF3->simplify();
+    }
+    if(rF1 && rN2) {
+    	return add(rN2,rF1);
+    }
+    if(rF1 && rF2){
+    	int n1 = rF1->getNumerator() * rF2->getDenominator();
+		//cout<<"N1: "<<n1<<endl;
+		int n2 = rF2->getNumerator() * rF1->getDenominator();
+		//cout<<"N2: "<<n2<<endl;
+		int d = rF1->getDenominator() * rF2->getDenominator();
+		//cout<<"D: "<<d<<endl;
+		Value* rF3 = new RationalFraction(n1+n2,d);
+		return rF3->simplify();
+    }
+
     if(l1 && l2){
         Value* lB1 = l1->getNum1();
         Value* lB2 = l2->getNum1();
@@ -95,8 +105,8 @@ Value* Add::add(Value* a, Value* b) {
                 Expression* exIV2 = dynamic_cast<Expression*>(lIV2);
                 IrrationalNumber* iRNIV1 = dynamic_cast<IrrationalNumber*>(lIV1);
                 IrrationalNumber* iRNIV2 = dynamic_cast<IrrationalNumber*>(lIV2);
-                //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
-                //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
+                //IrrationalFraction* irF1 = dynamic_cast<IrrationalFraction*>(a);
+                //IrrationalFraction* irF2 = dynamic_cast<IrrationalFraction*>(b);
                 SquareRoot* sqrA = dynamic_cast<SquareRoot*>(a);
                 SquareRoot* sqrB = dynamic_cast<SquareRoot*>(b);
                 NthRoot* nrtA = dynamic_cast<NthRoot*>(a);
@@ -146,78 +156,21 @@ Value* Add::add(Value* a, Value* b) {
     //If both of the values to be added are Rational Numbers, all we need to do is get their values,
     //add them, and return a RationalNumber object equivalent to the sum.
 
-    if((f1 && rN1) || (f1 && rN2) || (f2 && rN1) || (f2 && rN2) ){
-
-        //This is what is performed if we have any combination of a Rational Fraction and a Rational Number.
-        //The following if statements are called depending on which combination is entered (so if Value 1 is
-        //a rational number and B is a rational Fraction, rN1 && f2 will be performed).
-        if( f1 && rN1 ){
-            int numerFN = rN1->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f1->getNumerator() * fN2->getDenominator();
-            int n2 = fN2->getNumerator() * f1->getDenominator();
-            int d = f1->getDenominator() * fN2->getDenominator();
-            Value* f3 = new RationalFraction(n1+n2,d);
-            return f3;
-        }
-        if( f1 && rN2 ){
-            int numerFN = rN2->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f1->getNumerator() * fN2->getDenominator();
-            //cout<<"N1: "<<n1<<endl;
-            int n2 = fN2->getNumerator() * f1->getDenominator();
-            //cout<<"N2: "<<n2<<endl;
-            int d = f1->getDenominator() * fN2->getDenominator();
-            //cout<<"d: "<<d<<endl;
-            Value* f3 = new RationalFraction(n1+n2,d);
-            return f3;
-        }
-        if( f2 && rN1 ){
-            int numerFN = rN1->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f2->getNumerator() * fN2->getDenominator();
-            //cout<<"N1: "<<n1<<endl;
-            int n2 = fN2->getNumerator() * f2->getDenominator();
-            //cout<<"N2: "<<n2<<endl;
-            int d = f2->getDenominator() * fN2->getDenominator();
-            //cout<<"d: "<<d<<endl;
-            Value* f3 = new RationalFraction(n1+n2,d);
-            return f3;
-        }
-        if( f2 && rN2 ){
-            int numerFN = rN2->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f2->getNumerator() * fN2->getDenominator();
-            //cout<<"N1: "<<n1<<endl;
-            int n2 = fN2->getNumerator() * f2->getDenominator();
-            //cout<<"N2: "<<n2<<endl;
-            int d = f2->getDenominator() * fN2->getDenominator();
-            //cout<<"d: "<<d<<endl;
-            Value* f3 = new RationalFraction(n1+n2,d);
-            return f3;
-        }
-
-        //All of the above steps are the same with slightly different Value names.
-        //Essentially, what happens is the Rational Number is converted into a Rational Fraction
-        //with the numerator being the value of the Number and the denominator being 1. So,
-        //if we input 1/2 + 6, it will become 1/2 + 6/1, and then the same process as Rational Fraction
-        //addition will occur.
-    }
-    /*if((f1 && l2) || (f1 && l1) || (f2 && l1) || (f2 && l2)){
-        if(f1 && l1){
-            Value* exp1 = new Expression(f1, l1, '+');
+    /*if((rF1 && l2) || (rF1 && l1) || (rF2 && l1) || (rF2 && l2)){
+        if(rF1 && l1){
+            Value* exp1 = new Expression(rF1, l1, '+');
             return exp1;
         }
-        if(f1 && l2){
-            Value* exp1 = new Expression(f1, l2, '+');
+        if(rF1 && l2){
+            Value* exp1 = new Expression(rF1, l2, '+');
             return exp1;
         }
-        if(f2 && l1){
-            Value* exp1 = new Expression(f2, l1, '+');
+        if(rF2 && l1){
+            Value* exp1 = new Expression(rF2, l1, '+');
             return exp1;
         }
-        if(f2 && l2){
-            Value* exp1 = new Expression(f2, l2, '+');
+        if(rF2 && l2){
+            Value* exp1 = new Expression(rF2, l2, '+');
             return exp1;
         }
     }*/
@@ -283,21 +236,21 @@ Value* Add::add(Value* a, Value* b) {
                    return exp1;
                }
            }
-   if((iRN1 && f1) || (iRN1 && f2) || (iRN2 && f1) || (iRN2 && f2)){
-                  if(iRN1 && f1){
-               	   Value* exp1 = new Expression(iRN1, f1, '+');
+   if((iRN1 && rF1) || (iRN1 && rF2) || (iRN2 && rF1) || (iRN2 && rF2)){
+                  if(iRN1 && rF1){
+               	   Value* exp1 = new Expression(iRN1, rF1, '+');
                	   return exp1;
                   }
-                  if(iRN1 && f2){
-                      Value* exp1 = new Expression(iRN1, f2, '+');
+                  if(iRN1 && rF2){
+                      Value* exp1 = new Expression(iRN1, rF2, '+');
                       return exp1;
                   }
-                  if(iRN2 && f1){
-                      Value* exp1 = new Expression(iRN2, f1, '+');
+                  if(iRN2 && rF1){
+                      Value* exp1 = new Expression(iRN2, rF1, '+');
                       return exp1;
                   }
-                  if(iRN2 && f2){
-                      Value* exp1 = new Expression(iRN2, f2, '+');
+                  if(iRN2 && rF2){
+                      Value* exp1 = new Expression(iRN2, rF2, '+');
                       return exp1;
                   }
               }
@@ -315,39 +268,39 @@ Value* Add::add(Value* a, Value* b) {
             ex1->add(ex2);
             return ex1;
         }
-        if((ex1 && f1) || (ex1 && f2) || (ex2 && f1) || (ex2 && f2)){
-            if(ex1 && f1){
-                ex1->add(f1);
+        if((ex1 && rF1) || (ex1 && rF2) || (ex2 && rF1) || (ex2 && rF2)){
+            if(ex1 && rF1){
+                ex1->add(rF1);
                 return ex1;
             }
-            if(ex1 && f2){
-                ex1->add(f2);
+            if(ex1 && rF2){
+                ex1->add(rF2);
                 return ex1;
             }
-            if(ex2 && f1){
-                ex2->add(f1);
+            if(ex2 && rF1){
+                ex2->add(rF1);
                 return ex2;
             }
-            if(ex2 && f2){
-                ex2->add(f2);
+            if(ex2 && rF2){
+                ex2->add(rF2);
                 return ex2;
             }
         }
         if((ex1 && rN1) || (ex1 && rN2) || (ex2 && rN1) || (ex2 && rN2)) {
 			if(ex1 && rN1){
-				ex1->add(f1);
+				ex1->add(rF1);
 				return ex1;
 			}
 			if(ex1 && rN2){
-				ex1->add(f2);
+				ex1->add(rF2);
 				return ex1;
 			}
 			if(ex2 && rN1){
-				ex2->add(f1);
+				ex2->add(rF1);
 				return ex2;
 			}
 			if(ex2 && rN2){
-				ex2->add(f2);
+				ex2->add(rF2);
 				return ex2;
 			}
         }
@@ -356,8 +309,8 @@ Value* Add::add(Value* a, Value* b) {
    if(sqrA && sqrB){
         Value* sqrAInside = sqrA->getNum2();
         Value* sqrBInside = sqrB->getNum2();
-        RationalFraction* insideRTF1 = dynamic_cast<RationalFraction*>(sqrAInside);
-        RationalFraction* insideRTF2 = dynamic_cast<RationalFraction*>(sqrBInside);
+        RationalFraction* insideRTrF1 = dynamic_cast<RationalFraction*>(sqrAInside);
+        RationalFraction* insideRTrF2 = dynamic_cast<RationalFraction*>(sqrBInside);
         Log* insideLog1 = dynamic_cast<Log*>(sqrAInside);
         Log* insideLog2 = dynamic_cast<Log*>(sqrBInside);
         RationalNumber* insideRN1 = dynamic_cast<RationalNumber*>(sqrAInside);
@@ -366,32 +319,32 @@ Value* Add::add(Value* a, Value* b) {
         Expression* insideEX2 = dynamic_cast<Expression*>(sqrBInside);
         IrrationalNumber* insideIRN1 = dynamic_cast<IrrationalNumber*>(sqrAInside);
         IrrationalNumber* insideIRN2 = dynamic_cast<IrrationalNumber*>(sqrBInside);
-        //IrrationalFraction* insideIRF1 = dynamic_cast<IrrationalFraction*>(sqrAInside);
-        //IrrationalFraction* insideIRF2 = dynamic_cast<IrrationalFraction*>(sqrBInside);
+        //IrrationalFraction* insideIrF1 = dynamic_cast<IrrationalFraction*>(sqrAInside);
+        //IrrationalFraction* insideIrF2 = dynamic_cast<IrrationalFraction*>(sqrBInside);
         SquareRoot* insideSqr1 = dynamic_cast<SquareRoot*>(sqrAInside);
         SquareRoot* insideSqr2 = dynamic_cast<SquareRoot*>(sqrBInside);
         NthRoot* insideNrt1 = dynamic_cast<NthRoot*>(sqrAInside);
         NthRoot* insideNrt2 = dynamic_cast<NthRoot*>(sqrBInside);
-        if((insideRN1 && insideRN2) || (insideRTF1 == insideRTF2) || (insideEX1 == insideEX2) || (insideSqr1 == insideSqr2) ||
+        if((insideRN1 && insideRN2) || (insideRTrF1 == insideRTrF2) || (insideEX1 == insideEX2) || (insideSqr1 == insideSqr2) ||
            (insideIRN1 == insideIRN2) || (insideLog1 == insideLog2)){
             int insideNum1 = insideRN1->getNumValue();
             int insideNum2 = insideRN2->getNumValue();
             if(insideNum1 == insideNum2){
-                int coeff1 = sqrA->getCoefficient();
-                int coeff2 = sqrB->getCoefficient();
-                int simpCoeff = coeff1 + coeff2;
+                int coefrF1 = sqrA->getCoefficient();
+                int coefrF2 = sqrB->getCoefficient();
+                int simpCoeff = coefrF1 + coefrF2;
                 Value* addedRoot = new SquareRoot(simpCoeff, sqrAInside);
             }
         }
-        else if(insideRTF1 && insideRTF2){
-            int insideNumerator1 = insideRTF1->getNumerator();
-            int insideDenominator1 = insideRTF1->getDenominator();
-            int insideNumerator2 = insideRTF2->getNumerator();
-            int insideDenominator2 = insideRTF2->getDenominator();
+        else if(insideRTrF1 && insideRTrF2){
+            int insideNumerator1 = insideRTrF1->getNumerator();
+            int insideDenominator1 = insideRTrF1->getDenominator();
+            int insideNumerator2 = insideRTrF2->getNumerator();
+            int insideDenominator2 = insideRTrF2->getDenominator();
             if((insideNumerator1 == insideNumerator2) && (insideDenominator1 == insideDenominator2)){
-                int coeff1 = sqrA->getCoefficient();
-                int coeff2 = sqrB->getCoefficient();
-                int simpCoeff = coeff1 + coeff2;
+                int coefrF1 = sqrA->getCoefficient();
+                int coefrF2 = sqrB->getCoefficient();
+                int simpCoeff = coefrF1 + coefrF2;
                 Value* addedRoot = new SquareRoot(simpCoeff, sqrAInside);
             }
         }
