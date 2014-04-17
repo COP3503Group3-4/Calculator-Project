@@ -29,9 +29,7 @@ class Expression : public Value
         bool hasValue(string typeName);
         bool getValue(string typeName, Value* v, int* i);
         Value* getA(int i);
-        Value* getM(int i);
         int sizeA();
-        int sizeM();
         int size();
         void minusToPlus();
         void makeNegative();
@@ -44,9 +42,8 @@ class Expression : public Value
 
     protected:
     private:
-        vector<string> ops;
+        vector<char> ops;
         vector<Value*> adds;
-        vector<Value*> mults;
 };
 
 #endif // EXPRESSION_H

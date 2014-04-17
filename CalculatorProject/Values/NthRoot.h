@@ -18,7 +18,7 @@ class NthRoot : public Value
         string toString();
         Value* rootNum;
         Value* insideRoot;
-        int coefficient = 1;
+        int coefficient;
         int getCoefficient();
         Value* simplifyNumerator(Value* a, Value* b);
         Value* simplifyDenominator(Value* a, Value* b);

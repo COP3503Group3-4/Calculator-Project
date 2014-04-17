@@ -11,7 +11,7 @@ class SquareRoot : public Value
         SquareRoot(Value* a);
         SquareRoot(int c, Value* a);
         SquareRoot(int c, Value* a, bool simplified);
-        int coefficient = 1;
+        int coefficient;
         virtual ~SquareRoot();
         Value* simplifyNumerator(Value* a, Value* b);
         Value* simplifyDenominator(Value* a, Value* b);

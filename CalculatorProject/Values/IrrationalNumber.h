@@ -11,7 +11,7 @@ class IrrationalNumber : public Number
         IrrationalNumber();
         IrrationalNumber(string s);
         IrrationalNumber(int coeff, string s);
-        int coefficient = 1;
+        int coefficient;
         string storedVal;
         virtual ~IrrationalNumber();
         Value* getNum1();

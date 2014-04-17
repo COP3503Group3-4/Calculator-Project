@@ -18,6 +18,7 @@ NthRoot::NthRoot()
 }
 
 NthRoot::NthRoot(Value* a, Value* b){
+	coefficient = 1;
     insideRoot = a;
     rootNum = b;
 }

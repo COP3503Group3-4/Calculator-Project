@@ -14,6 +14,7 @@ SquareRoot::SquareRoot()
 }
 
 SquareRoot::SquareRoot(Value* a){
+	coefficient = 1;
     insideRoot = a;
 }
 
