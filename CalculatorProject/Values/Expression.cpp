@@ -21,30 +21,24 @@ Expression::Expression()
 
 Expression::Expression(Value* v1, Value* v2, string op)
 {
-	if(op == "*") {
-		mults.push_back(v1);
-		mults.push_back(v2);
+	if(op.at(0) == '*') {
+		cout << "ERROR! EXPRESSION NO LONGER HANDLES * OR /.";
 	}
-	if(op == "+" || op == "-") {
+	if(op.at(0) == '+' || op.at(0) == '-') {
 		adds.push_back(v1);
 		adds.push_back(v2);
-		ops.push_back(op);
+		ops.push_back(op.at(0));
 	}
 }
 Expression::Expression(Value* v1, Value* v2, char op)
 {
 	if(op == '*') {
-		mults.push_back(v1);
-		mults.push_back(v2);
+		cout << "ERROR! EXPRESSION NO LONGER HANDLES * OR /.";
 	}
 	if(op == '+' || op == '-') {
 		adds.push_back(v1);
 		adds.push_back(v2);
-		stringstream ss;
-		string s;
-		ss << op;
-		ss >> s;
-		ops.push_back(s);
+		ops.push_back(op);
 	}
 
 	//simplify();
@@ -71,18 +65,8 @@ Value* Expression::getNum2() {
 
 void Expression::printInfo(){
 	//Printing first value then op, value, op, value until end
-	if (mults.size() > 0) mults[0]->printInfo();
-	for (int i = 1; i < mults.size(); i++) {
-		cout << "*";
-		mults[i]->printInfo();
-	}
-	if(adds.size() > 0 && mults.size() > 0) {
-		cout << " " << "+" << " ";
-		adds[0]->printInfo();
-	}
-	else if (adds.size() > 0 && !mults.size() > 0){
-		adds[0]->printInfo();
-	}
+
+	adds[0]->printInfo();
 	for (int i = 0; i < ops.size(); i++) {
 		cout << " " << ops[i] << " ";
 		adds[i+1]->printInfo();
@@ -91,18 +75,8 @@ void Expression::printInfo(){
 
 string Expression::toString(){
 	string s = "";
-	if (mults.size() > 0) s.append(mults[0]->toString());
-	for (int i = 1; i < mults.size(); i++) {
-		s.append("*");
-		s.append(mults[i]->toString());
-	}
-	if(adds.size() > 0 && mults.size() > 0) {
-		s.append(" + ");
-		s.append(adds[0]->toString());
-	}
-	else if (adds.size() > 0 && !mults.size() > 0){
-		s.append(adds[0]->toString());
-	}
+
+	s.append(adds[0]->toString());
 	for (int i = 0; i < ops.size(); i++) {
 		s.append(" + ");
 		s.append(adds[i+1]->toString());
@@ -130,77 +104,40 @@ Value* Expression::getA(int i)
 {
 	return adds[i];
 }
-Value* Expression::getM(int i)
-{
-	return mults[i]
-;}
 int Expression::sizeA()
 {
 	return adds.size();
 }
-int Expression::sizeM()
-{
-	return mults.size();
-}
 int Expression::size()
 {
-	if (mults.size() > 0) {
-		return 1 + adds.size();
-	}
-	else {
-		return adds.size();
-	}
+
+	return adds.size();
 }
 bool Expression::getRational(Value* v, int* ind) {
-	//Check first
+
+	//Going to point v to the Rational and provide the ind
+
+	//May be able to assume this has already been called.
+	minusToPlus();
+
 	RationalNumber* rN;
-	RationalFraction* f;
-	if(ops[0] == "+") {
-		rN = dynamic_cast<RationalNumber*>(adds[0]);
-	    f = dynamic_cast<RationalFraction*>(adds[0]);
-	    if (rN) {
-	    	ind = 0;
-	    	v = rN;
-	    	return true;
-	    }
-	    if (f) {
-	    	ind = new int(0);
-	    	v = f;
-	    	return true;
-	    }
-	}
-	//Check middle
-	for(int i = 1; i < adds.size() - 1; i++) {
-		if(ops[i-1] == "+" && ops[i] == "+") {
-			rN = dynamic_cast<RationalNumber*>(adds[i]);
-		    f = dynamic_cast<RationalFraction*>(adds[i]);
-		    if (rN) {
-		    	ind = new int(i);
-		    	v = rN;
-		    	return true;
-		    }
-		    if (f) {
-		    	ind = new int(i);
-		    	v = f;
-		    	return true;
-		    }
+	RationalFraction* rF;
+
+	for(int i = 0; i < adds.size(); i++) {
+		rN = dynamic_cast<RationalNumber*>(adds[i]);
+		rF = dynamic_cast<RationalFraction*>(adds[i]);
+		if(rN) {
+			v = rN;
+			ind = new int(i);
+			return true;
+		}
+		if(rF) {
+			v = rF;
+			ind = new int(i);
+			return true;
 		}
 	}
-	//Check last
-	if(ops[ops.size()-1] == "+") {
-		rN = dynamic_cast<RationalNumber*>(adds[adds.size()-1]);
-	    f = dynamic_cast<RationalFraction*>(adds[adds.size()-1]);
-	    if (rN) {
-	    	ind = new int(adds.size()-1);
-	    	v = rN;
-	    	return true;
-	    }
-	    if (f) {
-	    	ind = new int(adds.size()-1);
-	    	v = f;
-	    	return true;
-	    }
-	}
+
 	return false;
 }
 
@@ -255,8 +192,8 @@ void Expression::minusToPlus()
 	//This function is changing all of the ops to +
 	for (int i = 0; i < ops.size(); i++) {
 		//If the op is negative
-		if(ops[i] == "-") {
-			ops[i] = "+";
+		if(ops[i] == '-') {
+			ops[i] = '+';
 
 			RationalNumber* rN1 = dynamic_cast<RationalNumber*>(adds[i+1]);
 		    RationalFraction* f1 = dynamic_cast<RationalFraction*>(adds[i+1]);
@@ -281,11 +218,10 @@ void Expression::minusToPlus()
 		    if (ex1) {
 		    	ex1->minusToPlus();
 		    	ex1->makeNegative();
-		    	ex1 = 0;
 		    }
 		    if (iRN1) {
 		    	string s = iRN1->getIRNumValue();
-		    	//adds[i+1] = new IrrationalNumber(-1, s);
+		    	adds[i+1] = new IrrationalNumber(-1, s);
 		    	delete iRN1;
 		    }
 		    //if (iRF1) {
@@ -345,15 +281,15 @@ void Expression::simplifyOps()
 	    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(adds[i+1]);
 
 		    if (rN1 && (rN1->getNumValue() < 0)) {
-		    	if (ops[i] == "+") ops[i] = "-";
-		    	if (ops[i] == "-") ops[i] = "+";
+		    	if (ops[i] == '+') ops[i] = '-';
+		    	if (ops[i] == '-') ops[i] = '+';
 				int x = (-1 * rN1->getNumValue());
 				adds[i+1] = new RationalNumber(x);
 				delete rN1;
 		    }
 		    if (f1 && (f1->getNumerator() < 0)) {
-		    	if (ops[i] == "+") ops[i] = "-";
-		    	if (ops[i] == "-") ops[i] = "+";
+		    	if (ops[i] == '+') ops[i] = '-';
+		    	if (ops[i] == '-') ops[i] = '+';
 				int x = (-1 * f1->getNumerator());
 				adds[i+1] = new RationalFraction(x, f1->getDenominator());
 				delete f1;
@@ -362,7 +298,7 @@ void Expression::simplifyOps()
 		    if (l1) {
 		    	//Multiply it by -1 and swap the op
 		    }
-		    if (ex1 && ops[i] == "-") {
+		    if (ex1 && ops[i] == '-') {
 		    	ex1->makeNegative();
 		    	ex1->simplifyOps();
 
@@ -403,7 +339,7 @@ void Expression::add(Value* v)
 			if(getRational(v2, ind)) {
 				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(v2);
 				RationalFraction* f2 = dynamic_cast<RationalFraction*>(v2);
-				if (rN2) adds[*ind] = Add::add(rN1,rN2); delete rN2;
+				if (rN2) cout << "oh shit" << endl; adds[*ind] = Add::add(rN1,rN2); delete rN2;
 				if (f2) adds[*ind] = Add::add(rN1,f2); delete f2;
 				delete rN1;
 			}
@@ -424,7 +360,7 @@ void Expression::add(Value* v)
 			}
 			else {
 				adds.push_back(v);
-				ops.push_back("+");
+				ops.push_back('+');
 			}
 			delete iRN1;
 		}
@@ -439,7 +375,7 @@ void Expression::add(Value* v)
 	}
 	else {
 		adds.push_back(v);
-		ops.push_back("+");
+		ops.push_back('+');
 	}
 }
 void Expression::subtract(Value* v)
@@ -481,14 +417,14 @@ void Expression::subtract(Value* v)
 			}
 			else {
 				adds.push_back(v);
-				ops.push_back("-");
+				ops.push_back('-');
 			}
 			delete iRN1;
 		}
 	}
 	else {
 		adds.push_back(v);
-		ops.push_back("-");
+		ops.push_back('-');
 	}
 }
 void Expression::multiply(Value* v)
