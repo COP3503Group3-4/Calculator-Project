@@ -39,13 +39,13 @@ string IrrationalNumber::getIRNumValue(){
 }
 
 void IrrationalNumber::printInfo(){
-    if (!coefficient == 1) cout<<coefficient;
+    if (coefficient != 1) cout<<coefficient;
     cout<<storedVal;
 }
 string IrrationalNumber::toString() {
 	string s = "";
 	ostringstream c;
-	if (!coefficient == 1) {
+	if (coefficient != 1) {
 		c << coefficient;
 		s.append(c.str());
 		s.append("*");

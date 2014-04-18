@@ -214,6 +214,9 @@ Value* Add::add(Value* a, Value* b) {
    if(iRN1 && iRN2){
         if(iRN1->getIRNumValue()==iRN2->getIRNumValue()){
         	//get coeffecients and add them so 2pi + pi = 3pi
+        	int coef = iRN1->coefficient + iRN2->coefficient;
+        	IrrationalNumber* iRN3 = new IrrationalNumber(coef, iRN1->getIRNumValue());
+        	return iRN3;
         }
         else{
 	    Expression* exp1 = new Expression(iRN1, iRN2, '+');
@@ -222,11 +225,11 @@ Value* Add::add(Value* a, Value* b) {
    }
    if((iRN1 && rN1) || (iRN1 && rN2) || (iRN2 && rN1) || (iRN2 && rN2)){
                if(iRN1 && rN2){
-                   Expression* exp1 = new Expression(a, b, '+');
+                   Expression* exp1 = new Expression(iRN1, rN2, '+');
                    return exp1;
                }
                if(iRN2 && rN1){
-                   Expression* exp1 = new Expression(a, b, '+');
+                   Expression* exp1 = new Expression(iRN2, rN1, '+');
                    return exp1;
                }
            }
