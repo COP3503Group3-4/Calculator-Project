@@ -8,16 +8,7 @@
 #ifndef EXPONENTIATE_H_
 #define EXPONENTIATE_H_
 
-#include <Fraction.h>
-#include <RationalFraction.h>
-#include <Log.h>
-#include <Expression.h>
-#include <Number.h>
-#include <RationalNumber.h>
-#include <IrrationalNumber.h>
-#include <IrrationalFraction.h>
 #include <Value.h>
-#include <NthRoot.h>
 #include <sstream>
 
 class Exponentiate

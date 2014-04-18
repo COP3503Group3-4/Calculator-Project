@@ -6,6 +6,17 @@
  */
 
 #include <Exponentiate.h>
+#include <Fraction.h>
+#include <RationalFraction.h>
+#include <Log.h>
+#include <Expression.h>
+#include <Number.h>
+#include <RationalNumber.h>
+#include <IrrationalNumber.h>
+#include <IrrationalFraction.h>
+#include <NthRoot.h>
+#include <Divide.h>
+#include <sstream>
 #include <cmath>
 using namespace std;
 
@@ -129,13 +140,15 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 	        int exp = rN2->getNumValue();
 
 	        if(exp>=0)  //if the exponent is not negative, exponentiate both numerator and denominator and return the fraction
-	        {int n1 = f1->getNumerator();
-			int d1 = f1->getDenominator();
-			int n = expo(n1, exp );
-			int d = expo(d1, exp);
-	        Value* f3 = new RationalFraction(n,d);
-			f3 = f3->simplify();
-	        return f3;}
+	        {
+	        	int n1 = f1->getNumerator();
+	        	int d1 = f1->getDenominator();
+	        	int n = expo(n1, exp );
+	        	int d = expo(d1, exp);
+	        	Value* f3 = new RationalFraction(n,d);
+	        	f3 = f3->simplify();
+	        	return f3;
+	        }
 
 	        else //if the exponent is negative, exponentiate both numerator and denominator and return the fraction with numerator being the new denominator and denominator being the new numerator
 	        {int n1 = f1->getNumerator();
@@ -166,21 +179,23 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 
 	        }
 
-	/*     if(rN1 && f2) {
-	    	 int base0 = rN1->getNumValue();
-	    	 int n2 = f2->getNumerator();
-	    	 int d2 = f2->getDenominator();
-	    	 int base = expo(base0, n2);
-	    	 Value* v = new RationalNumber(base);
-			 if (n2<0 || d2<0)
-			 {if takeNthRoot(v, d2)== float(takeNthRoot())
-			 
+	     if(rN1 && f2) {
+	    	 int pow = f2->getNumerator();
+	    	 RationalNumber* rN3 = new RationalNumber(expo(rN1->getNumValue(), pow));
+	    	 RationalNumber* rN4 = new RationalNumber(f2->getDenominator());
+			 if (f2->getNumerator() < 0) {
+				 RationalNumber* one = new RationalNumber(1);
+				 NthRoot* NR = new NthRoot(rN3, rN4);
+				 Value* v = Divide::divide(one, NR->simplify());
+				 return v;
 			 }
-	    	 return takeNthRoot(v, d2);
-
+			 else {
+				 NthRoot* NR = new NthRoot(rN3,rN4);
+				 return NR->simplify();
+			 }
 
 	     }
-*/
+
 }
 
 
