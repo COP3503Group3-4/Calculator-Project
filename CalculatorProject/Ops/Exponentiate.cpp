@@ -91,9 +91,17 @@ Value* Exponentiate::takeNthRoot(Value* base, int root)
 */
 
 int Exponentiate::expo(int base, int exp)
-{ if(exp >= 1) {return base * (expo (base,exp - 1));}
-   else return 1;}
-   
+{
+	if(exp >= 1) {
+		return base * (expo (base,exp - 1));
+	}
+	else if (exp == 0) {
+		return 1;
+	}
+   else if (exp <0) {
+	   return expo(base, std::abs(exp));
+   }
+}
 
  
    
@@ -142,18 +150,19 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 	    }
 
 	    if(rN1 && rN2){
-	            int base = rN1->getNumValue();
-	            int exp = rN2->getNumValue();
-	            if(exp>=0)
-	            {                  //if the exponent is not negative, just take the nth power and return the result
-	            int result = expo(base, exp);
-	            Value* ans = new RationalNumber(result);
-	             return ans;}
-	            else               //if the exponent is negative, take the nth power and return 1 over the result
-	            {int d = expo(base, exp);
-	            Value* f3 = new RationalFraction(1,d);
-	            f3 = f3->simplify();
-	             return f3;}
+			int base = rN1->getNumValue();
+			int exp = rN2->getNumValue();
+			if(exp>=0) {                  //if the exponent is not negative, just take the nth power and return the result
+			int result = expo(base, exp);
+			Value* ans = new RationalNumber(result);
+			 return ans;
+			}
+			else {             //if the exponent is negative, take the nth power and return 1 over the result
+			int d = expo(base, exp);
+			Value* f3 = new RationalFraction(1,d);
+			f3 = f3->simplify();
+			 return f3;
+	            }
 
 	        }
 
