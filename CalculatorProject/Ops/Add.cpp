@@ -10,6 +10,7 @@
 #include <NthRoot.h>
 #include <IrrationalFraction.h>
 #include <sstream>
+#include <typeinfo>
 
 Add::Add()
 {
@@ -22,6 +23,7 @@ Add::~Add()
 }
 
 Value* Add::add(Value* a, Value* b) {
+
     RationalFraction* rF1 = dynamic_cast<RationalFraction*>(a);
     RationalFraction* rF2 = dynamic_cast<RationalFraction*>(b);
     Log* l1 = dynamic_cast<Log*>(a);
@@ -214,43 +216,27 @@ Value* Add::add(Value* a, Value* b) {
         	//get coeffecients and add them so 2pi + pi = 3pi
         }
         else{
-	    Value* exp1 = new Expression(iRN1, iRN2, '+');
+	    Expression* exp1 = new Expression(iRN1, iRN2, '+');
         return exp1;
         }
    }
    if((iRN1 && rN1) || (iRN1 && rN2) || (iRN2 && rN1) || (iRN2 && rN2)){
-               if(iRN1 && rN1){
-            	   Value* exp1 = new Expression(iRN1, rN1, '+');
-            	   return exp1;
-               }
                if(iRN1 && rN2){
-                   Value* exp1 = new Expression(iRN1, rN2, '+');
+                   Expression* exp1 = new Expression(a, b, '+');
                    return exp1;
                }
                if(iRN2 && rN1){
-                   Value* exp1 = new Expression(iRN2, rN1, '+');
-                   return exp1;
-               }
-               if(iRN2 && rN2){
-                   Value* exp1 = new Expression(iRN2, rN2, '+');
+                   Expression* exp1 = new Expression(a, b, '+');
                    return exp1;
                }
            }
    if((iRN1 && rF1) || (iRN1 && rF2) || (iRN2 && rF1) || (iRN2 && rF2)){
-                  if(iRN1 && rF1){
-               	   Value* exp1 = new Expression(iRN1, rF1, '+');
-               	   return exp1;
-                  }
                   if(iRN1 && rF2){
-                      Value* exp1 = new Expression(iRN1, rF2, '+');
+                      Expression* exp1 = new Expression(iRN1, rF2, '+');
                       return exp1;
                   }
                   if(iRN2 && rF1){
-                      Value* exp1 = new Expression(iRN2, rF1, '+');
-                      return exp1;
-                  }
-                  if(iRN2 && rF2){
-                      Value* exp1 = new Expression(iRN2, rF2, '+');
+                      Expression* exp1 = new Expression(iRN2, rF1, '+');
                       return exp1;
                   }
               }
@@ -268,11 +254,7 @@ Value* Add::add(Value* a, Value* b) {
             ex1->add(ex2);
             return ex1;
         }
-        if((ex1 && rF1) || (ex1 && rF2) || (ex2 && rF1) || (ex2 && rF2)){
-            if(ex1 && rF1){
-                ex1->add(rF1);
-                return ex1;
-            }
+        if((ex1 && rF2) || (ex2 && rF1)){
             if(ex1 && rF2){
                 ex1->add(rF2);
                 return ex1;
@@ -281,26 +263,31 @@ Value* Add::add(Value* a, Value* b) {
                 ex2->add(rF1);
                 return ex2;
             }
-            if(ex2 && rF2){
-                ex2->add(rF2);
-                return ex2;
-            }
         }
-        if((ex1 && rN1) || (ex1 && rN2) || (ex2 && rN1) || (ex2 && rN2)) {
-			if(ex1 && rN1){
-				ex1->add(rF1);
-				return ex1;
-			}
+        if((ex1 && rN2) || (ex2 && rN1)) {
 			if(ex1 && rN2){
-				ex1->add(rF2);
+				//ex1->add(rN2);
+				int ind;
+				if(ex1->getRational(ind)) {
+					Value* v = add(rN2, ex1->get(ind));
+					ex1->popOffAt(ind);
+					ex1->addVal(v);
+				}
+				else {
+					ex1->addVal(rN2);
+				}
 				return ex1;
 			}
 			if(ex2 && rN1){
-				ex2->add(rF1);
-				return ex2;
-			}
-			if(ex2 && rN2){
-				ex2->add(rF2);
+				int ind;
+				if(ex2->getRational(ind)) {
+					Value* v = add(rN1, ex2->get(ind));
+					ex2->popOffAt(ind);
+					ex2->addVal(v);
+				}
+				else {
+					ex2->addVal(rN2);
+				}
 				return ex2;
 			}
         }
