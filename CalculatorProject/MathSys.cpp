@@ -185,8 +185,8 @@ Value* MathSys::calculate() {
 
 	if (current.length() == 1) {
 		if(current == "+" || current == "-" || current == "*" || current == "/" || current == "t" || current == "_" || current == "^") {
-				v2 = calculate();
-				v1 = calculate();
+			v2 = calculate();
+			v1 = calculate();
 				/*
 				cout << "V1= ";
 				v1->printInfo();
@@ -252,10 +252,17 @@ Value* MathSys::calculate() {
 			answer = new IrrationalNumber("pi");
 		}
 		else if (current == "-pi") {
-			//answer = new IrrationalNumber(-1,"pi");
+			answer = new IrrationalNumber(-1,"pi");
 		}
 		else if (current == "-e") {
-			//answer = new IrrationalNumber(-1,"pi");
+			answer = new IrrationalNumber(-1,"e");
+		}
+		else if(current == "ans") {
+			answer = lastAnswer;
+		}
+		else if(current == "-ans") {
+			RationalNumber* zero = new RationalNumber(0);
+			answer = Subtract::subtract(zero,lastAnswer);
 		}
 		else {
 			answer = new RationalNumber(current);

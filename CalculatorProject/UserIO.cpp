@@ -123,25 +123,29 @@ void UserIO::splitInput()
 			rawUserIn = rawUserIn.substr(2, rawUserIn.length() - 2);
 			//Getting rid of 'a'
 			splitUserIn.pop_back();
+			splitUserIn.push_back("ans");
 			//Adding the last answer onto the beginning of the input string
 			//Essentially, "ans" is replaced with the print out of the lastAnswer in parentheses
-			string s = "(";
+			//string s = "(";
 			//Won't work until Value gets an abstract toString method.
-			s.append(lastAns->toString());
-			s.append(")");
-			s.append(rawUserIn);
-			rawUserIn = s;
+			//s.append(lastAns->toString());
+			//s.append(")");
+			//s.append(rawUserIn);
+			//rawUserIn = s;
 		}
 		if (negative) {
 			negative = false;
 			bool neg2 = true;
 			//Excludes pi and e by being 17
-			for (int i = 0; i < 17; i++) {
-				if(rawUserIn.at(0) == uniques[i]) {
-					neg2 = false;
-					break;
+			if (!rawUserIn.empty()) {
+				for (int i = 0; i < 16; i++) {
+					if(rawUserIn.at(0) == uniques[i]) {
+						neg2 = false;
+						break;
+					}
 				}
 			}
+			else neg2 = false;
 			//Getting rid of the "-"
 			if (neg2) {
 				splitUserIn.pop_back();
