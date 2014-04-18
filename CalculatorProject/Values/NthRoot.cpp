@@ -44,6 +44,8 @@ Value* NthRoot::getNum2(){
 }
 
 void NthRoot::printInfo(){
+	if(coefficient > 1 || coefficient < -1) cout << coefficient << "*";
+	if(coefficient == -1) cout << "-";
 	rootNum->printInfo();
 	cout << "rt";
 	insideRoot->printInfo();
@@ -51,6 +53,12 @@ void NthRoot::printInfo(){
 string NthRoot::toString(){
 	ostringstream c;
 	string s = "";
+	if(coefficient > 1 || coefficient < -1) {
+		c << coefficient;
+		s.append(c.str());
+		s.append("*");
+	}
+	if (coefficient == -1) s.append("-");
 	s.append(rootNum->toString());
 	s.append("rt");
 	s.append(insideRoot->toString());
