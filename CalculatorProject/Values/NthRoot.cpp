@@ -44,7 +44,9 @@ Value* NthRoot::getNum2(){
 }
 
 void NthRoot::printInfo(){
-
+	rootNum->printInfo();
+	cout << "rt";
+	insideRoot->printInfo();
 }
 string NthRoot::toString(){
 	ostringstream c;
@@ -75,7 +77,7 @@ Value* NthRoot::simplify(){
     if(f1 && f2){
         double initialNumerator = f1->getNumerator();
         double initialDenominator = f1->getDenominator();
-        cout<<initialDenominator<<endl;
+        //cout<<initialDenominator<<endl;
         double initialPowNum = f2->getNumerator();
         double initialPowDen = f2->getDenominator();
         double numPow = (pow((initialNumerator),(double)(1/initialPowDen)));
@@ -88,8 +90,8 @@ Value* NthRoot::simplify(){
            //(pow(initialDenominator,(1.0/initialPowDen))) == floor(pow(initialDenominator,(1.0/initialPowDen)))
             int newNumerator = pow(initialNumerator,(1.0/initialPowDen));
             int newDenominator = pow(initialDenominator,(1.0/initialPowDen));
-            cout<<newNumerator<<endl;
-            cout<<newDenominator<<endl;
+            ////cout<<newNumerator<<endl;
+            ////cout<<newDenominator<<endl;
             Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
             simpFrac = expo.exponentiate(simpFrac, newPower);
             simpFrac->printInfo();
@@ -99,8 +101,8 @@ Value* NthRoot::simplify(){
             if(floor(cbrt(initialNumerator)) == (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) == cbrt(initialDenominator)){
                 int newNumerator = cbrt(initialNumerator);
                 int newDenominator = cbrt(initialDenominator);
-                cout<<newNumerator<<endl;
-                cout<<newDenominator<<endl;
+                ////cout<<newNumerator<<endl;
+                ////cout<<newDenominator<<endl;
                 Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
                 simpFrac = expo.exponentiate(simpFrac, newPower);
                 return simpFrac;
@@ -108,7 +110,7 @@ Value* NthRoot::simplify(){
             else if(floor(cbrt(initialNumerator)) == (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) != cbrt(initialDenominator)){
                 int simpNum = cbrt(initialNumerator);
                 Value* newNum = new RationalNumber(simpNum);
-                cout<<"Simp Num: "<<simpNum<<endl;
+                ////cout<<"Simp Num: "<<simpNum<<endl;
                 int index = 2;
                 Value* newDen = new NthRoot();
                 vector<int> storeNum;
@@ -118,7 +120,7 @@ Value* NthRoot::simplify(){
             else if(floor(cbrt(initialNumerator)) != (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) == cbrt(initialDenominator)){
                 int simpDen = cbrt(initialDenominator);
                 Value* newDen = new RationalNumber(simpDen);
-                cout<<"SimpDen: " <<simpDen<<endl;
+                ////cout<<"SimpDen: " <<simpDen<<endl;
                 int index = 2;
                 Value* newNum = new NthRoot();
                 vector<int> storeNums;
@@ -130,7 +132,7 @@ Value* NthRoot::simplify(){
         else if(numPow == comparisonNum && numDem != comparisonDen){
             int simpNum = pow(initialNumerator,(1/initialPowDen));
             Value* newNum = new RationalNumber(simpNum);
-            cout<<"SimpNum: "<<simpNum<<endl;
+            ////cout<<"SimpNum: "<<simpNum<<endl;
             int index = 2;
             Value* newDen = new NthRoot();
             vector<int> storeNum;
@@ -140,7 +142,7 @@ Value* NthRoot::simplify(){
         else if(numPow != comparisonNum && numDem == comparisonDen){
             int simpDen = pow(initialDenominator,(1/initialPowDen));
             Value* newDen = new RationalNumber(simpDen);
-            cout<<"SimpDen: " <<simpDen<<endl;
+            ////cout<<"SimpDen: " <<simpDen<<endl;
             int index = 2;
             Value* newNum = new NthRoot();
             vector<int> storeNums;
@@ -161,12 +163,12 @@ Value* NthRoot::simplify(){
    if(rN1 && rN2){
         double initialNumber = rN1->getNumValue();
         double initialPower = rN2->getNumValue();
-        cout<<initialNumber<<endl;
-        cout<<initialPower<<endl;
+        //cout<<initialNumber<<endl;
+        //cout<<initialPower<<endl;
         double numPow = (pow((initialNumber),(1/initialPower)));
         double powTest = floor(pow(initialNumber,(1/initialPower)));
-        cout<<numPow<<endl;
-        cout<<powTest<<endl;
+        //cout<<numPow<<endl;
+        //cout<<powTest<<endl;
         if( initialPower == 3){
             if(cbrt(initialNumber) == floor(cbrt(initialNumber))){
                 int simpValue = cbrt(initialNumber);
@@ -184,7 +186,7 @@ Value* NthRoot::simplify(){
 
         else if( pow(initialNumber, (1/initialPower)) == round(pow(initialNumber,(1/initialPower)))){
             int simplifiedNum = pow(initialNumber, (1/initialPower));
-            cout<<simplifiedNum;
+            //cout<<simplifiedNum;
             Value* simplifiedVal = new RationalNumber(simplifiedNum);
             return simplifiedVal;
         }
@@ -210,22 +212,22 @@ Value* NthRoot::simplify(){
                 //(pow(initialDenominator,(1.0/initialPowDen))) == floor(pow(initialDenominator,(1.0/initialPowDen)))
                 int newNumerator = pow(initialNumerator,(1.0/initialPower));
                 int newDenominator = pow(initialDenominator,(1.0/initialPower));
-                cout<<newNumerator<<endl;
-                cout<<newDenominator<<endl;
+                //cout<<newNumerator<<endl;
+                //cout<<newDenominator<<endl;
                 Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
             }
             else if( initialPower == 3){
                 if (floor(cbrt(initialNumerator)) == (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) == cbrt(initialDenominator)){
                     int newNumerator = cbrt(initialNumerator);
                     int newDenominator = cbrt(initialDenominator);
-                    cout<<newNumerator<<endl;
-                    cout<<newDenominator<<endl;
+                    //cout<<newNumerator<<endl;
+                    //cout<<newDenominator<<endl;
                     Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
                 }
                 else if(floor(cbrt(initialNumerator)) == (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) != cbrt(initialDenominator)){
                     int simpNum = cbrt(initialNumerator);
                     Value* newNum = new RationalNumber(simpNum);
-                    cout<<"Simp Num: "<<simpNum<<endl;
+                    //cout<<"Simp Num: "<<simpNum<<endl;
                     int index = 2;
                     Value* newDen = new NthRoot();
                     vector<int> storeNum;
@@ -235,7 +237,7 @@ Value* NthRoot::simplify(){
                 else if(floor(cbrt(initialNumerator)) != (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) == cbrt(initialDenominator)){
                     int simpDen = cbrt(initialDenominator);
                     Value* newDen = new RationalNumber(simpDen);
-                    cout<<"SimpDen: " <<simpDen<<endl;
+                    //cout<<"SimpDen: " <<simpDen<<endl;
                     int index = 2;
                     Value* newNum = new NthRoot();
                     vector<int> storeNums;
@@ -247,7 +249,7 @@ Value* NthRoot::simplify(){
             else if(numPow == comparisonNum && numDem != comparisonDen){
                 int simpNum = pow(initialNumerator,(1/initialPower));
                 Value* newNum = new RationalNumber(simpNum);
-                cout<<"SimpNum: "<<simpNum<<endl;
+                //cout<<"SimpNum: "<<simpNum<<endl;
                 int index = 2;
                 Value* newDen = new NthRoot();
                 vector<int> storeNum;
@@ -257,7 +259,7 @@ Value* NthRoot::simplify(){
             else if(numPow != comparisonNum && numDem == comparisonDen){
                 int simpDen = pow(initialDenominator,(1/initialPower));
                 Value* newDen = new RationalNumber(simpDen);
-                cout<<"SimpDen: " <<simpDen<<endl;
+                //cout<<"SimpDen: " <<simpDen<<endl;
                 int index = 2;
                 Value* newNum = new NthRoot();
                 vector<int> storeNums;
@@ -302,7 +304,7 @@ Value* NthRoot::simplify(){
         }
        else if( pow(initialNumber, (1/initialPowDen)) == round(pow(initialNumber,(1/initialPowDen)))){
             int simplifiedNum = pow(initialNumber, (1/initialPowDen));
-            cout<<simplifiedNum;
+            //cout<<simplifiedNum;
             Value* simplifiedVal = new RationalNumber(simplifiedNum);
             Value* newExponent = new RationalNumber(initialPowNum);
             simplifiedVal = expo.exponentiate(simplifiedVal, newExponent);
@@ -348,20 +350,20 @@ Value* NthRoot::rootDenominator(int insideVal, int index, int co, int power, vec
             storedNumbers.push_back (storedInts[0]);
             for(int i = 0; i < storedInts.size(); i++){
                 int checkNum = storedInts[i];
-                cout<<"Check Num: "<<checkNum<<endl;
+                //cout<<"Check Num: "<<checkNum<<endl;
                 for(int j = 0; j < storedNumbers.size(); j++){
                     int checkRN = storedNumbers[j];
-                    cout<<"Check RN: "<<checkRN<<endl;
+                    //cout<<"Check RN: "<<checkRN<<endl;
                     for(int k = 0; k < storedNumbers.size(); k++){
                         if( checkRN != storedNumbers[k]){
                             storedNumbers.push_back(checkNum);
-                            cout<<storedNumbers[k];
+                            //cout<<storedNumbers[k];
                         }
                     }
                 }
             }
-            cout<<"StoredInts Size: "<<storedInts.size()<<endl;
-            cout<<"StoredNumbers Size: "<< storedNumbers.size()<<endl;
+            //cout<<"StoredInts Size: "<<storedInts.size()<<endl;
+            //cout<<"StoredNumbers Size: "<< storedNumbers.size()<<endl;
             int comparison = storedInts.size() - storedNumbers.size();
             if(comparison == power){
                 int newCoeff = storedInts[0];
@@ -369,7 +371,7 @@ Value* NthRoot::rootDenominator(int insideVal, int index, int co, int power, vec
                 Value* newInsideVal = new RationalNumber(newInside);
                 Value* newPower = new RationalNumber(power);
                 Value* simpRoot = new NthRoot(newCoeff, newInsideVal, newPower );
-                cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
+                //cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
                 return simpRoot;
             }
             else if( comparison > power ){
@@ -384,7 +386,7 @@ Value* NthRoot::rootDenominator(int insideVal, int index, int co, int power, vec
                 Value* newInsideValue = new RationalNumber(newInside);
                 Value* newPower = new RationalNumber(power);
                 Value* simpRoot = new NthRoot(newCoeff, newInsideValue, newPower);
-                cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
+                //cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
                 return simpRoot;
 
             }
@@ -393,7 +395,7 @@ Value* NthRoot::rootDenominator(int insideVal, int index, int co, int power, vec
                 for(int i = 0; i < storedInts.size(); i++){
                     newInside = newInside * storedInts[i];
                 }
-                cout<<power<<"rt:"<<newInside;
+                //cout<<power<<"rt:"<<newInside;
                 Value* simpInside = new RationalNumber(newInside);
                 Value* simpPower = new RationalNumber(power);
                 Value* simplified = new NthRoot(simpInside, simpPower);
@@ -427,7 +429,7 @@ Value* NthRoot::rootNumerator(int insideVal, int index, int co, int power, vecto
             storedNumbers.push_back (storedInts[0]);
             for(int i = 0; i < storedInts.size(); i++){
                 int checkNum = storedInts[i];
-                //cout<<checkNum;
+                ////cout<<checkNum;
                 for(int j = 0; j < storedNumbers.size(); j++){
                     int checkRN = storedNumbers[j];
                     for(int k = 0; k < storedNumbers.size(); k++){
@@ -445,7 +447,7 @@ Value* NthRoot::rootNumerator(int insideVal, int index, int co, int power, vecto
                 Value* newInsideVal = new RationalNumber(newInside);
                 Value* newPower = new RationalNumber(power);
                 Value* simpRoot = new NthRoot(newCoeff, newInsideVal, newPower );
-                cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
+                //cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
                 return simpRoot;
             }
             else if( comparison > power ){
@@ -460,7 +462,7 @@ Value* NthRoot::rootNumerator(int insideVal, int index, int co, int power, vecto
                 Value* newInsideValue = new RationalNumber(newInside);
                 Value* newPower = new RationalNumber(power);
                 Value* simpRoot = new NthRoot(newCoeff, newInsideValue, newPower);
-                cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
+                //cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
                 return simpRoot;
 
             }
@@ -469,7 +471,7 @@ Value* NthRoot::rootNumerator(int insideVal, int index, int co, int power, vecto
                 for(int i = 0; i < storedInts.size(); i++){
                     newInside = newInside * storedInts[i];
                 }
-                cout<<power<<"rt:"<<newInside;
+                //cout<<power<<"rt:"<<newInside;
                 Value* simpInside = new RationalNumber(newInside);
                 Value* simpPower = new RationalNumber(power);
                 Value* simplified = new NthRoot(simpInside, simpPower);

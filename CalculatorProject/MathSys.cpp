@@ -220,6 +220,7 @@ Value* MathSys::calculate() {
 					answer = new SquareRoot(v2);
 				}
 				else answer = new NthRoot(v2,v1);
+				answer = answer->simplify();
 				break;
 			case '^':
 				answer = Exponentiate::exponentiate(v1, v2);
