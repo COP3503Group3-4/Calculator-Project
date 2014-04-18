@@ -31,7 +31,7 @@ class Expression : public Value
         void popOffAt(int ind);
         void simplifyOps();
         bool getRational(int& ind);
-        bool getIrrational(IrrationalNumber* iN1, int& ind, string type);
+        bool getIrrational(int& ind, string type);
 
     protected:
     private:

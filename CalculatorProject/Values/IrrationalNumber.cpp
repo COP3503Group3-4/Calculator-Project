@@ -5,6 +5,7 @@
 IrrationalNumber::IrrationalNumber()
 {
     //ctor
+	coefficient = 0;
 }
 IrrationalNumber::IrrationalNumber(string s){
 	coefficient = 1;
@@ -39,16 +40,20 @@ string IrrationalNumber::getIRNumValue(){
 }
 
 void IrrationalNumber::printInfo(){
-    if (coefficient != 1) cout<<coefficient;
+    if (coefficient > 1 || coefficient < -1) cout << coefficient << "*";
+    if (coefficient == -1) cout << "-";
     cout<<storedVal;
 }
 string IrrationalNumber::toString() {
 	string s = "";
 	ostringstream c;
-	if (coefficient != 1) {
+	if (coefficient > 1 || coefficient < -1) {
 		c << coefficient;
 		s.append(c.str());
 		s.append("*");
+	}
+	if (coefficient == -1) {
+		s.append("-");
 	}
 	s.append(storedVal);
 	return s;

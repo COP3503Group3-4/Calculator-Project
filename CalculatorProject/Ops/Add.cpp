@@ -253,24 +253,37 @@ Value* Add::add(Value* a, Value* b) {
    //and if they're equivalent, add the coefficients.
 
    if( ex1 || ex2 ){
+	   int ind;
         if(ex1 && ex2){
             ex1->add(ex2);
             return ex1;
         }
         if((ex1 && rF2) || (ex2 && rF1)){
             if(ex1 && rF2){
-                ex1->add(rF2);
+				if(ex1->getRational(ind)) {
+					Value* v = add(rF2, ex1->get(ind));
+					ex1->popOffAt(ind);
+					ex1->addVal(v);
+				}
+				else {
+					ex1->addVal(rF2);
+				}
                 return ex1;
             }
             if(ex2 && rF1){
-                ex2->add(rF1);
+				if(ex1->getRational(ind)) {
+					Value* v = add(rF1, ex2->get(ind));
+					ex2->popOffAt(ind);
+					ex2->addVal(v);
+				}
+				else {
+					ex2->addVal(rN2);
+				}
                 return ex2;
             }
         }
         if((ex1 && rN2) || (ex2 && rN1)) {
 			if(ex1 && rN2){
-				//ex1->add(rN2);
-				int ind;
 				if(ex1->getRational(ind)) {
 					Value* v = add(rN2, ex1->get(ind));
 					ex1->popOffAt(ind);
@@ -282,7 +295,6 @@ Value* Add::add(Value* a, Value* b) {
 				return ex1;
 			}
 			if(ex2 && rN1){
-				int ind;
 				if(ex2->getRational(ind)) {
 					Value* v = add(rN1, ex2->get(ind));
 					ex2->popOffAt(ind);
@@ -293,6 +305,26 @@ Value* Add::add(Value* a, Value* b) {
 				}
 				return ex2;
 			}
+        }
+        if(ex1 && iRN2) {
+        	if(ex1->getIrrational(ind, iRN2->getIRNumValue())) {
+        		Value* v = add(iRN2, ex1->get(ind));
+        		ex1->popOffAt(ind);
+        		ex1->addVal(v);
+        	}
+        	else ex1->addVal(iRN2);
+
+        	return ex1;
+        }
+        if(ex2 && iRN1) {
+        	if(ex2->getIrrational(ind, iRN1->getIRNumValue())) {
+        		Value* v = add(iRN1, ex2->get(ind));
+        		ex2->popOffAt(ind);
+        		ex2->addVal(v);
+        	}
+        	else ex2->addVal(iRN1);
+
+        	return ex2;
         }
    }
 

@@ -234,54 +234,57 @@ Value* Multiply::multiply(Value* a, Value* b) {
     if(iRN1 && iRN2){
            if(iRN1->getIRNumValue()==iRN2->getIRNumValue()){
            	//get powers and add them so pi * pi becomes pi^2
+           	int coef = iRN1->coefficient * iRN2->coefficient;
+           	IrrationalNumber* iRN3 = new IrrationalNumber(coef, iRN1->getIRNumValue());
+           	return iRN3;
            }
            else{
-   	    Value* exp1 = new Expression(iRN1, iRN2, '*');
-           return exp1;
+        	   cout << "Expressions with irrationals not supported. Use coefficients instead." << endl;
+   	    //Value* exp1 = new Expression(iRN1, iRN2, '*');
+           //return exp1;
            }
       }
       if((iRN1 && rN1) || (iRN1 && rN2) || (iRN2 && rN1) || (iRN2 && rN2)){
-                  if(iRN1 && rN1){
-               	   Value* exp1 = new Expression(iRN1, rN1, '*');
-               	   return exp1;
-                  }
                   if(iRN1 && rN2){
-                      Value* exp1 = new Expression(iRN1, rN2, '*');
-                      return exp1;
+                	  int coeff = rN2->getNumValue() * iRN1->coefficient;
+                      IrrationalNumber* iRN3 = new IrrationalNumber(coeff,iRN1->getIRNumValue());
+                      return iRN3;
                   }
                   if(iRN2 && rN1){
-                      Value* exp1 = new Expression(iRN2, rN1, '*');
-                      return exp1;
-                  }
-                  if(iRN2 && rN2){
-                      Value* exp1 = new Expression(iRN2, rN2, '*');
-                      return exp1;
+                	  int coeff = rN1->getNumValue() * iRN2->coefficient;
+                      IrrationalNumber* iRN3 = new IrrationalNumber(coeff,iRN2->getIRNumValue());
+                      return iRN3;
                   }
               }
       if((iRN1 && f1) || (iRN1 && f2) || (iRN2 && f1) || (iRN2 && f2)){
-                     if(iRN1 && f1){
-                  	   Value* exp1 = new Expression(iRN1, f1, '*');
-                  	   return exp1;
-                     }
-                     if(iRN1 && f2){
-                         Value* exp1 = new Expression(iRN1, f2, '*');
-                         return exp1;
-                     }
-                     if(iRN2 && f1){
-                         Value* exp1 = new Expression(iRN2, f1, '*');
-                         return exp1;
-                     }
-                     if(iRN2 && f2){
-                         Value* exp1 = new Expression(iRN2, f2, '*');
-                         return exp1;
-                     }
-                 }
+    	  cout << "Need to add support for Value* coefficient in IrrationalNumbers" << endl;
+			 if(iRN1 && f1){
+			   Value* exp1 = new Expression(iRN1, f1, '*');
+			   return exp1;
+			 }
+			 if(iRN1 && f2){
+				 Value* exp1 = new Expression(iRN1, f2, '*');
+				 return exp1;
+			 }
+			 if(iRN2 && f1){
+				 Value* exp1 = new Expression(iRN2, f1, '*');
+				 return exp1;
+			 }
+			 if(iRN2 && f2){
+				 Value* exp1 = new Expression(iRN2, f2, '*');
+				 return exp1;
+			 }
+		 }
 
    //If both are IrrationalNumbers, we really can't just tack on a coefficient and call it a done deal, so
    //we create an Expression that stores the two. So if we have e * e, we will get an expression that calls that.
    //In simplifying the expression, we will have to find a way to know that e*e = e^2, which we may have to do by
    //removing common factors or something. Or I'll have to add to this. I don't know. There is a getIRNumValue method
    //and if they're equivalent, add the coefficients.
+
+   //Cory - Expression no longer supports * or /
+   //If you want to multiply an expression then set the expression's coefficient to the value
+   //In simplifying, I will distribute that coefficient onto the values inside the expression
 
    /*if( ex1 || ex2 ){
         if(ex1 && ex2){

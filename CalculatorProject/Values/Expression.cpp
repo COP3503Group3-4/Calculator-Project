@@ -138,14 +138,15 @@ bool Expression::getRational(int& ind) {
 	return false;
 }
 
-bool Expression::getIrrational(IrrationalNumber* iN1, int& ind, string type)
+bool Expression::getIrrational(int& ind, string irrType)
 {
+	minusToPlus();
+	IrrationalNumber* iN;
 	for(int i = 0; i < adds.size(); i++) {
-	    IrrationalNumber* iN = dynamic_cast<IrrationalNumber*>(adds[i]);
+	    iN = dynamic_cast<IrrationalNumber*>(adds[i]);
 	    if(iN) {
-	    	if (iN->storedVal == type) {
+	    	if (iN->storedVal == irrType) {
 	    		ind = i;
-	    		iN1 = iN;
 	    		return true;
 	    	}
 	    }
@@ -307,107 +308,9 @@ bool Expression::hasValue(string typeName)
 }
 void Expression::add(Value* v)
 {
-	minusToPlus();
-	if (hasValue(typeid(v).name())) {
-		RationalNumber* rN1 = dynamic_cast<RationalNumber*>(v);
-		RationalFraction* f1 = dynamic_cast<RationalFraction*>(v);
-		Log* l1 = dynamic_cast<Log*>(v);
-		Expression* ex1 = dynamic_cast<Expression*>(v);
-		IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(v);
-		//IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(v);
-
-		Value* v2;
-		int ind;
-
-		if(rN1) {
-			if(getRational(ind)) {
-				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(adds[ind]);
-				RationalFraction* f2 = dynamic_cast<RationalFraction*>(adds[ind]);
-				if (rN2) cout << "oh shit" << endl; adds[ind] = Add::add(rN1,rN2);
-				if (f2) adds[ind] = Add::add(rN1,f2);
-				delete rN1;
-			}
-		}
-		if (f1) {
-			if(getRational(ind)) {
-				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(adds[ind]);
-				RationalFraction* f2 = dynamic_cast<RationalFraction*>(adds[ind]);
-				if (rN2) adds[ind] = Add::add(f1,rN2);
-				if (f2) adds[ind] = Add::add(f1,f2);
-				delete f1;
-			}
-		}
-		if(iRN1) {
-			IrrationalNumber* iRN2;
-			if(getIrrational(iRN2, ind, iRN2->getIRNumValue())) {
-				adds[ind] = Add::add(iRN1,iRN2);
-			}
-			else {
-				adds.push_back(v);
-				ops.push_back('+');
-			}
-			delete iRN1;
-		}
-		if(ex1) {
-			ex1->minusToPlus();
-			for(int i = 0; i < ex1->size(); i++) {
-				v2 = ex1->get(i);
-				add(v2);
-			}
-
-		}
-	}
-	else {
-		adds.push_back(v);
-		ops.push_back('+');
-	}
+	cout << "Expression->add() no longer supported." << endl;
 }
 void Expression::subtract(Value* v)
 {
-	minusToPlus();
-	if (hasValue(typeid(v).name())) {
-		RationalNumber* rN1 = dynamic_cast<RationalNumber*>(v);
-		RationalFraction* f1 = dynamic_cast<RationalFraction*>(v);
-		Log* l1 = dynamic_cast<Log*>(v);
-		Expression* ex1 = dynamic_cast<Expression*>(v);
-		IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(v);
-		//IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(v);
-
-		Value* v2;
-		int ind;
-
-		if(rN1) {
-			if(getRational(ind)) {
-				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(adds[ind]);
-				RationalFraction* f2 = dynamic_cast<RationalFraction*>(adds[ind]);
-				if (rN2) adds[ind] = Subtract::subtract(rN1,rN2); delete rN2;
-				if (f2) adds[ind] = Subtract::subtract(rN1,f2); delete f2;
-				delete rN1;
-			}
-		}
-		if (f1) {
-			if(getRational(ind)) {
-				RationalNumber* rN2 = dynamic_cast<RationalNumber*>(adds[ind]);
-				RationalFraction* f2 = dynamic_cast<RationalFraction*>(adds[ind]);
-				if (rN2) adds[ind] = Subtract::subtract(f1,rN2); delete rN2;
-				if (f2) adds[ind] = Subtract::subtract(f1,f2); delete f2;
-				delete f1;
-			}
-		}
-		if(iRN1) {
-			IrrationalNumber* iRN2;
-			if(getIrrational(iRN2, ind, iRN2->getIRNumValue())) {
-				adds[ind] = Subtract::subtract(iRN1,iRN2);
-			}
-			else {
-				adds.push_back(v);
-				ops.push_back('-');
-			}
-			delete iRN1;
-		}
-	}
-	else {
-		adds.push_back(v);
-		ops.push_back('-');
-	}
+	cout << "Expression->subtract() no longer supported." << endl;
 }
