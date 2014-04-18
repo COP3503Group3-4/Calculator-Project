@@ -19,7 +19,7 @@
 using namespace std;
 
 MathSys::MathSys() {
-	lastAnswer = 0;
+	lastAnswer = new RationalNumber(0);
 	menu();
 }
 
@@ -65,7 +65,6 @@ void MathSys::menu()
 			UserIO calculation = UserIO(data, lastAnswer);
 
 			rpnToCalc = calculation.rpn();
-			delete lastAnswer;
 			lastAnswer = calculate();
 			cout << "= ";
 			lastAnswer->printInfo();
@@ -180,6 +179,7 @@ Value* MathSys::calculate() {
 	Value* v1;
 	Value* v2;
 	RationalNumber* n;
+	if(rpnToCalc.empty()) return lastAnswer;
 	string current = rpnToCalc[rpnToCalc.size() - 1];
 	rpnToCalc.pop_back();
 
@@ -196,6 +196,7 @@ Value* MathSys::calculate() {
 				v2->printInfo();
 				cout << endl;
 				*/
+
 				n = dynamic_cast<RationalNumber*>(v1);
 		}
 		if (current == "~") {
