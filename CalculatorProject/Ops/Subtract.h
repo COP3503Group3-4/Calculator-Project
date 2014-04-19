@@ -20,6 +20,7 @@
 #include <SquareRoot.h>
 #include <Value.h>
 #include <Add.h>
+#include <IrrationalNumber.h>
 
 
 class Subtract {
