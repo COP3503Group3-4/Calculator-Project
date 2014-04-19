@@ -128,19 +128,11 @@ Value* Multiply::multiply(Value* a, Value* b) {
     //If both of the values to be multiplied are Rational Numbers, all we need to do is get their values,
     //Multiply them, and return a RationalNumber object equivalent to the product.
 
-    if((f1 && rN1) || (f1 && rN2) || (f2 && rN1) || (f2 && rN2) ){
+    if((f1 && rN2) || (f2 && rN1)){
 
         //This is what is performed if we have any combination of a Rational Fraction and a Rational Number.
         //The following if statements are called depending on which combination is entered (so if Value 1 is
         //a rational number and B is a rational Fraction, rN1 && f2 will be performed).
-        if( f1 && rN1 ){
-            int numerFN = rN1->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n = f1->getNumerator() * fN2->getNumerator();
-            int d = f1->getDenominator() * fN2->getDenominator();
-            Value* f3 = new RationalFraction(n,d);
-            return f3;
-        }
         if( f1 && rN2 ){
             int numerFN = rN2->getNumValue();
             RationalFraction* fN2 = new RationalFraction(numerFN,1);
@@ -153,16 +145,6 @@ Value* Multiply::multiply(Value* a, Value* b) {
         }
         if( f2 && rN1 ){
             int numerFN = rN1->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n = f2->getNumerator() * fN2->getNumerator();
-            //cout<<"N: "<<n<<endl;
-            int d = f2->getDenominator() * fN2->getDenominator();
-            //cout<<"d: "<<d<<endl;
-            Value* f3 = new RationalFraction(n,d);
-            return f3;
-        }
-        if( f2 && rN2 ){
-            int numerFN = rN2->getNumValue();
             RationalFraction* fN2 = new RationalFraction(numerFN,1);
             int n = f2->getNumerator() * fN2->getNumerator();
             //cout<<"N: "<<n<<endl;
@@ -256,22 +238,14 @@ Value* Multiply::multiply(Value* a, Value* b) {
                       return iRN3;
                   }
               }
-      if((iRN1 && f1) || (iRN1 && f2) || (iRN2 && f1) || (iRN2 && f2)){
+      if((iRN1 && f2) || (iRN2 && f1)){
     	  cout << "Need to add support for Value* coefficient in IrrationalNumbers" << endl;
-			 if(iRN1 && f1){
-			   Value* exp1 = new Expression(iRN1, f1, '*');
-			   return exp1;
-			 }
 			 if(iRN1 && f2){
 				 Value* exp1 = new Expression(iRN1, f2, '*');
 				 return exp1;
 			 }
 			 if(iRN2 && f1){
 				 Value* exp1 = new Expression(iRN2, f1, '*');
-				 return exp1;
-			 }
-			 if(iRN2 && f2){
-				 Value* exp1 = new Expression(iRN2, f2, '*');
 				 return exp1;
 			 }
 		 }
@@ -282,7 +256,9 @@ Value* Multiply::multiply(Value* a, Value* b) {
    //removing common factors or something. Or I'll have to add to this. I don't know. There is a getIRNumValue method
    //and if they're equivalent, add the coefficients.
 
-   //Cory - Expression no longer supports * or /
+   //THE ABOVE STATEMENT IS NOW INCORRECT
+   //Expression no longer supports * or /
+   //We will now be taking care of this using Value* coefficients for irrational numbers
    //If you want to multiply an expression then set the expression's coefficient to the value
    //In simplifying, I will distribute that coefficient onto the values inside the expression
 
