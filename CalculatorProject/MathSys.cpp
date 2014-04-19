@@ -202,6 +202,7 @@ Value* MathSys::calculate() {
 		if (current == "~") {
 			v1 = new RationalNumber("0");
 			v2 = calculate();
+			answer = Subtract::subtract(v1,v2);
 		}
 		switch(current.at(0)) {
 			case '+':

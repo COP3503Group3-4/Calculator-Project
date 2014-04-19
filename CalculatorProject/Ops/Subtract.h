@@ -9,18 +9,7 @@
 #ifndef SUBTRACT_H_
 #define SUBTRACT_H_
 
-#include <Expression.h>
-#include <Fraction.h>
-#include <IrrationalFraction.h>
-#include <Log.h>
-#include <NthRoot.h>
-#include <Number.h>
-#include <RationalFraction.h>
-#include <RationalNumber.h>
-#include <SquareRoot.h>
 #include <Value.h>
-#include <Add.h>
-#include <IrrationalNumber.h>
 
 
 class Subtract {

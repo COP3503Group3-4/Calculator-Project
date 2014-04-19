@@ -223,7 +223,7 @@ Value* Add::add(Value* a, Value* b) {
         return exp1;
         }
    }
-   if((iRN1 && rN1) || (iRN1 && rN2) || (iRN2 && rN1) || (iRN2 && rN2)){
+   if((iRN1 && rN2) || (iRN2 && rN1)){
                if(iRN1 && rN2){
                    Expression* exp1 = new Expression(iRN1, rN2, '+');
                    return exp1;
@@ -233,7 +233,7 @@ Value* Add::add(Value* a, Value* b) {
                    return exp1;
                }
            }
-   if((iRN1 && rF1) || (iRN1 && rF2) || (iRN2 && rF1) || (iRN2 && rF2)){
+   if((iRN1 && rF2) || (iRN2 && rF1)){
                   if(iRN1 && rF2){
                       Expression* exp1 = new Expression(iRN1, rF2, '+');
                       return exp1;
@@ -268,7 +268,7 @@ Value* Add::add(Value* a, Value* b) {
 				else {
 					ex1->addVal(rF2);
 				}
-                return ex1;
+                return ex1->simplify();
             }
             if(ex2 && rF1){
 				if(ex1->getRational(ind)) {
@@ -279,7 +279,7 @@ Value* Add::add(Value* a, Value* b) {
 				else {
 					ex2->addVal(rN2);
 				}
-                return ex2;
+                return ex2->simplify();
             }
         }
         if((ex1 && rN2) || (ex2 && rN1)) {
@@ -292,7 +292,7 @@ Value* Add::add(Value* a, Value* b) {
 				else {
 					ex1->addVal(rN2);
 				}
-				return ex1;
+				return ex1->simplify();
 			}
 			if(ex2 && rN1){
 				if(ex2->getRational(ind)) {
@@ -303,7 +303,7 @@ Value* Add::add(Value* a, Value* b) {
 				else {
 					ex2->addVal(rN2);
 				}
-				return ex2;
+				return ex2->simplify();
 			}
         }
         if(ex1 && iRN2) {
@@ -314,7 +314,7 @@ Value* Add::add(Value* a, Value* b) {
         	}
         	else ex1->addVal(iRN2);
 
-        	return ex1;
+        	return ex1->simplify();
         }
         if(ex2 && iRN1) {
         	if(ex2->getIrrational(ind, iRN1->getIRNumValue())) {
@@ -324,7 +324,7 @@ Value* Add::add(Value* a, Value* b) {
         	}
         	else ex2->addVal(iRN1);
 
-        	return ex2;
+        	return ex2->simplify();
         }
    }
 

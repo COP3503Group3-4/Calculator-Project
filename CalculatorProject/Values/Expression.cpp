@@ -51,8 +51,8 @@ Expression::~Expression()
 }
 
 Value* Expression::simplify(){
-	Value* v;
 	minusToPlus();
+	simplifyOps();
 	return this;
 }
 
@@ -217,7 +217,7 @@ void Expression::minusToPlus()
 }
 void Expression::makeNegative()
 {
-	for (int i = 0; i < adds.size(); i++) {
+	for (int i = 0; i < adds.size() - 1; i++) {
 
 		RationalNumber* rN1 = dynamic_cast<RationalNumber*>(adds[i+1]);
 	    RationalFraction* f1 = dynamic_cast<RationalFraction*>(adds[i+1]);
@@ -229,12 +229,10 @@ void Expression::makeNegative()
 	    if (rN1) {
 			int x = (-1 * rN1->getNumValue());
 			adds[i+1] = new RationalNumber(x);
-			delete rN1;
 	    }
 	    if (f1) {
 			int x = (-1 * f1->getNumerator());
 			adds[i+1] = new RationalFraction(x, f1->getDenominator());
-			delete f1;
 	    }
 	    if (l1) {
 	    	//Cannot implement until log is implemented
@@ -246,8 +244,7 @@ void Expression::makeNegative()
 	    }
 	    if (iRN1) {
 	    	string s = iRN1->getIRNumValue();
-	    	//adds[i+1] = new IrrationalNumber(-1, s);
-	    	delete iRN1;
+	    	adds[i+1] = new IrrationalNumber(iRN1->coefficient * -1, s);
 	    }
 	    //if (iRF1) {
 
@@ -257,7 +254,7 @@ void Expression::makeNegative()
 
 void Expression::simplifyOps()
 {
-	for (int i = 0; i < ops.size(); i++) {
+	for (int i = 0; i < adds.size() - 1; i++) {
 		RationalNumber* rN1 = dynamic_cast<RationalNumber*>(adds[i+1]);
 	    RationalFraction* f1 = dynamic_cast<RationalFraction*>(adds[i+1]);
 	    Log* l1 = dynamic_cast<Log*>(adds[i+1]);
@@ -267,14 +264,13 @@ void Expression::simplifyOps()
 
 		    if (rN1 && (rN1->getNumValue() < 0)) {
 		    	if (ops[i] == '+') ops[i] = '-';
-		    	if (ops[i] == '-') ops[i] = '+';
+		    	else if (ops[i] == '-') ops[i] = '+';
 				int x = (-1 * rN1->getNumValue());
 				adds[i+1] = new RationalNumber(x);
-				delete rN1;
 		    }
 		    if (f1 && (f1->getNumerator() < 0)) {
 		    	if (ops[i] == '+') ops[i] = '-';
-		    	if (ops[i] == '-') ops[i] = '+';
+		    	else if (ops[i] == '-') ops[i] = '+';
 				int x = (-1 * f1->getNumerator());
 				adds[i+1] = new RationalFraction(x, f1->getDenominator());
 				delete f1;
@@ -286,13 +282,12 @@ void Expression::simplifyOps()
 		    if (ex1 && ops[i] == '-') {
 		    	ex1->makeNegative();
 		    	ex1->simplifyOps();
-
-		    	ex1 = 0;
 		    }
-		    if (iRN1) {
+		    if (iRN1 && (iRN1->coefficient < 0)) {
+		    	if (ops[i] == '+') ops[i] = '-';
+		    	else if (ops[i] == '-') ops[i] = '+';
 		    	string s = iRN1->getIRNumValue();
-		    	//adds[i+1] = new IrrationalNumber(-1, s);
-		    	delete iRN1;
+		    	adds[i+1] = new IrrationalNumber(-1 * iRN1->coefficient, s);
 		    }
 		    //if (iRF1) {
 
