@@ -226,11 +226,11 @@ Value* Add::add(Value* a, Value* b) {
    if((iRN1 && rN2) || (iRN2 && rN1)){
 	   if(iRN1 && rN2){
 		   if (rN2->getNumValue() == 0) return iRN1;
-		   if(rN1->getNumValue() == 0) return iRN2;
 		   Expression* exp1 = new Expression(iRN1, rN2, '+');
 		   return exp1;
 	   }
 	   if(iRN2 && rN1){
+		   if(rN1->getNumValue() == 0) return iRN2;
 		   Expression* exp1 = new Expression(iRN2, rN1, '+');
 		   return exp1;
 	   }
