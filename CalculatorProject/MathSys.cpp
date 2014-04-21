@@ -170,11 +170,14 @@ Value* MathSys::lastAns() {
 }
 
 Value* MathSys::calculate() {
-
-
 	//Created by Cory Anderson
 
-	//vector<string> rpnToCalc declared in header
+	//This function is not that complicated
+	//MathSys takes the RPN vector from the UserIO object := rpnToCalc
+	//This function simply recursively pops off the last item of that vector
+	//And does something based on what it is
+
+	//Three values being used
 	Value* answer;
 	Value* v1;
 	Value* v2;
@@ -202,7 +205,6 @@ Value* MathSys::calculate() {
 		if (current == "~") {
 			v1 = new RationalNumber("0");
 			v2 = calculate();
-			answer = Subtract::subtract(v1,v2);
 		}
 		switch(current.at(0)) {
 			case '+':
@@ -237,19 +239,13 @@ Value* MathSys::calculate() {
 				if (current == "e") {
 					answer = new IrrationalNumber("e");
 				}
-				else if (current == "pi") {
-					answer = new IrrationalNumber("pi");
-				}
 				else {
 					answer = new RationalNumber(current);
 				}
 		}
 	}
 	else {
-		if (current == "e") {
-			answer = new IrrationalNumber("e");
-		}
-		else if (current == "pi") {
+		if (current == "pi") {
 			answer = new IrrationalNumber("pi");
 		}
 		else if (current == "-pi") {

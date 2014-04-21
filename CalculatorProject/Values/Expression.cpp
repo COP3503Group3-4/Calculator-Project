@@ -217,22 +217,22 @@ void Expression::minusToPlus()
 }
 void Expression::makeNegative()
 {
-	for (int i = 0; i < adds.size() - 1; i++) {
+	for (int i = 0; i < adds.size(); i++) {
 
-		RationalNumber* rN1 = dynamic_cast<RationalNumber*>(adds[i+1]);
-	    RationalFraction* f1 = dynamic_cast<RationalFraction*>(adds[i+1]);
-	    Log* l1 = dynamic_cast<Log*>(adds[i+1]);
-	    Expression* ex1 = dynamic_cast<Expression*>(adds[i+1]);
-	    IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(adds[i+1]);
-	    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(adds[i+1]);
+		RationalNumber* rN1 = dynamic_cast<RationalNumber*>(adds[i]);
+	    RationalFraction* f1 = dynamic_cast<RationalFraction*>(adds[i]);
+	    Log* l1 = dynamic_cast<Log*>(adds[i]);
+	    Expression* ex1 = dynamic_cast<Expression*>(adds[i]);
+	    IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(adds[i]);
+	    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(adds[i]);
 
 	    if (rN1) {
 			int x = (-1 * rN1->getNumValue());
-			adds[i+1] = new RationalNumber(x);
+			adds[i] = new RationalNumber(x);
 	    }
 	    if (f1) {
 			int x = (-1 * f1->getNumerator());
-			adds[i+1] = new RationalFraction(x, f1->getDenominator());
+			adds[i] = new RationalFraction(x, f1->getDenominator());
 	    }
 	    if (l1) {
 	    	//Cannot implement until log is implemented
@@ -244,7 +244,7 @@ void Expression::makeNegative()
 	    }
 	    if (iRN1) {
 	    	string s = iRN1->getIRNumValue();
-	    	adds[i+1] = new IrrationalNumber(iRN1->coefficient * -1, s);
+	    	adds[i] = new IrrationalNumber(iRN1->coefficient * -1, s);
 	    }
 	    //if (iRF1) {
 

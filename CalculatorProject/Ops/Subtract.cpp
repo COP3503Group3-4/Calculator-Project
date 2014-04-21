@@ -277,7 +277,7 @@ Subtract::~Subtract() {}
                    return exp1;
                }
                if(iRN2 && rN1){
-                   Expression* exp1 = new Expression(iRN2, rN1, '-');
+                   Expression* exp1 = new Expression(rN1, iRN2, '-');
                    return exp1;
                }
            }
