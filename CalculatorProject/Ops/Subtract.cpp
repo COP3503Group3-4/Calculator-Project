@@ -273,12 +273,21 @@ Subtract::~Subtract() {}
    }
    if((iRN1 && rN2) || (iRN2 && rN1)){
                if(iRN1 && rN2){
-                   Expression* exp1 = new Expression(iRN1, rN2, '-');
-                   return exp1;
+            	   if(!rN2->getNumValue() == 0) {
+            		   Expression* exp1 = new Expression(iRN1, rN2, '-');
+                   	   return exp1;
+            	   }
+            	   else return iRN1;
                }
                if(iRN2 && rN1){
-                   Expression* exp1 = new Expression(rN1, iRN2, '-');
-                   return exp1;
+            	   if(!rN1->getNumValue() == 0) {
+            		   Expression* exp1 = new Expression(rN1, iRN2, '-');
+                   	   return exp1;
+            	   }
+            	   else {
+            		   IrrationalNumber* iRN = new IrrationalNumber(iRN2->coefficient * -1, iRN2->getIRNumValue());
+            		   return iRN;
+            	   }
                }
            }
    if((iRN1 && f2) || (iRN2 && f1)){
