@@ -9,6 +9,8 @@
 #include <Expression.h>
 #include <Number.h>
 #include <RationalNumber.h>
+#include <NthRoot.h>
+#include <SquareRoot.h>
 #include <Add.h>
 #include <Subtract.h>
 #include <sstream>
@@ -191,6 +193,45 @@ bool Expression::getIrrational(int& ind, string irrType)
 	    }
 	}
 	return false;
+}
+
+bool Expression::getLog(int& ind, Value* base, Value* val)
+{
+    RationalNumber* rN1 = dynamic_cast<RationalNumber*>(base);
+    RationalNumber* rN2 = dynamic_cast<RationalNumber*>(val);
+    RationalFraction* rF1 = dynamic_cast<RationalFraction*>(base);
+    RationalFraction* rF2 = dynamic_cast<RationalFraction*>(val);
+    Log* l1 = dynamic_cast<Log*>(base);
+    Log* l2 = dynamic_cast<Log*>(val);
+    Expression* ex1 = dynamic_cast<Expression*>(base);
+    Expression* ex2 = dynamic_cast<Expression*>(val);
+    IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(base);
+    IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(val);
+    //IrrationalFraction* irF1 = dynamic_cast<IrrationalFraction*>(a);
+    //IrrationalFraction* irF2 = dynamic_cast<IrrationalFraction*>(b);
+    SquareRoot* sqrA = dynamic_cast<SquareRoot*>(base);
+    SquareRoot* sqrB = dynamic_cast<SquareRoot*>(val);
+    NthRoot* nrtA = dynamic_cast<NthRoot*>(base);
+    NthRoot* nrtB = dynamic_cast<NthRoot*>(val);
+
+    Log* exL;
+
+    for(int i = 0; i < adds.size(); i++) {
+    	exL = dynamic_cast<Log*>(adds[i]);
+    	if(exL) {
+            if(rN1 && rN2) {
+            	Value* insideBase = exL->getNum1();
+            	Value* insideVal = exL->getNum2();
+            	if(Add::isEqual(insideBase,rN1)) {
+            		if(Add::isEqual(insideVal,rN2)) {
+            			ind = i;
+            			return true;
+            		}
+            	}
+            }
+    	}
+    }
+    return false;
 }
 
 void Expression::popOffAt(int ind)

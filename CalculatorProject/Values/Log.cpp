@@ -124,6 +124,7 @@ Value* Log::getNum2(){
 
 void Log::printInfo(){
     if(coefficient != 1) cout<<coefficient;
+    if(coefficient == -1) cout << "-";
     cout<<"log_";
     base->printInfo();
     cout<<":";
@@ -171,10 +172,20 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
 }
 
 string Log::toString(){
-    //ostringstream logString;
-    //logString << "log_" << base->printInfo() <<":" <<insideValue->printInfo();
-    //return logString.str();
-    return "";
+	string s = "";
+	ostringstream c;
+    if(coefficient > 1 && coefficient < -1) {
+    	c << coefficient;
+    	s.append(c.str());
+    	c.str("");
+    	c.clear();
+    }
+    if(coefficient == -1) s.append("-");
+    s.append("log_");
+    s.append(base->toString());
+    s.append(":");
+    s.append(insideValue->toString());
+    return s;
 
     /*
         This was the "failed to be implemented" toString method. This was kind of a slip-up on our parts.

@@ -48,7 +48,7 @@ Value* Add::add(Value* a, Value* b) {
     	return rN3;
     }
     if(rN1 && rF2){
-    	RationalFraction* rF3 = new RationalFraction(rN1->getNumValue() + rF2->getNumerator(), rF2->getDenominator());
+    	RationalFraction* rF3 = new RationalFraction(rN1->getNumValue()*rF2->getDenominator() + rF2->getNumerator(), rF2->getDenominator());
     	return rF3->simplify();
     }
     if(rF1 && rN2) {
@@ -327,6 +327,21 @@ Value* Add::add(Value* a, Value* b) {
 
         	return ex2->simplify();
         }
+		 if(l1 && ex2){
+			 if(ex2->getLog(ind,l1->getNum1(),l1->getNum2())) {
+				 Value* v = add(l1,ex2->get(ind));
+				 ex2->popOffAt(ind);
+				 ex2->addVal(v);
+			 }
+			 else {
+				 ex2->addVal(l1);
+			 }
+			 return ex2->simplify();
+		 }
+		 if(ex1 && l2){
+			 return add(b,a);
+		 }
+
    }
 
    if(sqrA && sqrB){
@@ -370,17 +385,6 @@ Value* Add::add(Value* a, Value* b) {
                 int simpCoeff = coefrF1 + coefrF2;
                 Value* addedRoot = new SquareRoot(simpCoeff, sqrAInside);
             }
-        }
-   }
-
-   if( l1 && ex2 || ex1 && l2 ){
-        if(l1 && ex2){
-            Value* newExp = new Expression(l1, ex2, '+');
-            return newExp;
-        }
-        if(ex1 && l2){
-            Value* newExp = new Expression(ex1, l2, '+');
-            return newExp;
         }
    }
 
