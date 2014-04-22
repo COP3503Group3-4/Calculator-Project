@@ -15,6 +15,9 @@
 #include <Divide.h>
 #include <Exponentiate.h>
 #include <SquareRoot.h>
+#include <NthRoot.h>
+#include <RationalNumber.h>
+#include <Log.h>
 
 using namespace std;
 
@@ -190,6 +193,7 @@ Value* MathSys::calculate() {
 		if(current == "+" || current == "-" || current == "*" || current == "/" || current == "t" || current == "_" || current == "^") {
 			v2 = calculate();
 			v1 = calculate();
+
 				/*
 				cout << "V1= ";
 				v1->printInfo();
