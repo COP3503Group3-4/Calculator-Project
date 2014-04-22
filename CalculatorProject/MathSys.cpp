@@ -48,7 +48,7 @@ void MathSys::menu()
 		<< "-----------------------------------" << endl
 		<< "Please choose an option: ";
 
-	cin >> c;
+		cin >> c;
 
 	//while loop used for menu control
 	while (c != 4)
@@ -84,7 +84,7 @@ void MathSys::menu()
 
 		//Option 2 : Syntax Menu
 		//Move Into
-		if (c == 2)
+		else if (c == 2)
 		{
 			//print out Syntax Menu
 			cout << endl << "Welcome to View Syntax."
@@ -150,7 +150,7 @@ void MathSys::menu()
 		}
 
 		// will be hanled by ans in future.
-		if (c == 3)
+		else if (c == 3)
 		{
 			//Needs to call stored data.
 			cout << endl << "View Stored." << endl;
@@ -159,8 +159,15 @@ void MathSys::menu()
 					<< endl << "Please choose an option: ";
 			cin >> c;
 		}
-	}
 
+		else
+			{
+				cin.clear();
+				cin.ignore();
+				cout << endl << "Invalid Input, Please Try Again:" << endl << endl << "Please choose an option: ";
+				cin >> c;
+			}
+	}
 	//Defaults to Quit when logic is met.
 	cout << endl << "-----------------------------------"
 	<< endl << "MathSys Quit."
