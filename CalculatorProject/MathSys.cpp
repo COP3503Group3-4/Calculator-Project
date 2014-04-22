@@ -204,6 +204,7 @@ Value* MathSys::calculate() {
 				cout << endl;
 				*/
 
+
 				n = dynamic_cast<RationalNumber*>(v1);
 		}
 		if (current == "~") {
@@ -226,6 +227,10 @@ Value* MathSys::calculate() {
 			case 't':
 				if(n->getNumValue() == 2) {
 					answer = new SquareRoot(v2);
+				}
+				else if(n->getNumValue() < 0) {
+					RationalFraction* rF = new RationalFraction(-1,n->getNumValue() * -1);
+					answer = Exponentiate::exponentiate(v2,rF);
 				}
 				else answer = new NthRoot(v2,v1);
 				answer = answer->simplify();

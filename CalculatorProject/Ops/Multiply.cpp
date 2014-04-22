@@ -141,7 +141,7 @@ Value* Multiply::multiply(Value* a, Value* b) {
             int d = f1->getDenominator() * fN2->getDenominator();
             //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n,d);
-            return f3;
+            return f3->simplify();
         }
         if( f2 && rN1 ){
             int numerFN = rN1->getNumValue();
@@ -151,7 +151,7 @@ Value* Multiply::multiply(Value* a, Value* b) {
             int d = f2->getDenominator() * fN2->getDenominator();
             //cout<<"d: "<<d<<endl;
             Value* f3 = new RationalFraction(n,d);
-            return f3;
+            return f3->simplify();
         }
 
         //All of the above steps are the same with slightly different Value names.
@@ -242,11 +242,11 @@ Value* Multiply::multiply(Value* a, Value* b) {
     	  cout << "Need to add support for Value* coefficient in IrrationalNumbers" << endl;
 			 if(iRN1 && f2){
 				 Value* exp1 = new Expression(iRN1, f2, '*');
-				 return exp1;
+				 return exp1->simplify();
 			 }
 			 if(iRN2 && f1){
 				 Value* exp1 = new Expression(iRN2, f1, '*');
-				 return exp1;
+				 return exp1->simplify();
 			 }
 		 }
 
