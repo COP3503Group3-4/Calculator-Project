@@ -6,6 +6,16 @@
  */
 
 #include <Divide.h>
+#include <Fraction.h>
+#include <RationalFraction.h>
+#include <IrrationalFraction.h>
+#include <Log.h>
+#include <Expression.h>
+#include <Number.h>
+#include <RationalNumber.h>
+#include <IrrationalNumber.h>
+#include <NthRoot.h>
+#include <sstream>
 #include <typeinfo>
 
 Divide::Divide() {}
@@ -25,6 +35,8 @@ Value* Divide::divide(Value* a, Value* b){
     IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
     //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
     //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
+    NthRoot* nR1 = dynamic_cast<NthRoot*>(a);
+    NthRoot* nR2 = dynamic_cast<NthRoot*>(b);
 
     if(f1 && f2){
         int n1 = f1->getNumerator();
@@ -225,8 +237,10 @@ Value* Divide::divide(Value* a, Value* b){
     }*/
 
    if(iRN1 && iRN2){
-        Value* exp1 = new Expression(iRN1, iRN2, '/');
-        return exp1;
+        //Value* exp1 = new Expression(iRN1, iRN2, '/');
+        //return exp1;
+	   IrrationalFraction* irF = new IrrationalFraction(iRN1, iRN2);
+	   return irF->simplify();
    }
 
    /*if( ex1 || ex2 ){
@@ -253,6 +267,27 @@ Value* Divide::divide(Value* a, Value* b){
             }
         }
    }*/
+
+   if(nR1 && nR2) {
+	   IrrationalFraction* irF = new IrrationalFraction(nR1,nR2);
+	   return irF;
+   }
+   if(nR1 && rN2) {
+	   IrrationalFraction* irF = new IrrationalFraction(nR1,rN2);
+	   return irF;
+   }
+   if(rN1 && nR2) {
+	   IrrationalFraction* irF = new IrrationalFraction(rN1,nR2);
+	   return irF;
+   }
+   if(nR1 && f2) {
+	   cout << "Dividing NthRoots by fractions is currently unsupported." << endl;
+	   return nR1;
+   }
+   if(f1 && nR2) {
+	   cout << "Dividing fractions by NthRoots is currently unsupported." << endl;
+	   return nR2;
+   }
 }
 
 bool Divide::isEqual(Value* a, Value* b){
