@@ -239,14 +239,12 @@ Value* Multiply::multiply(Value* a, Value* b) {
                   }
               }
       if((iRN1 && f2) || (iRN2 && f1)){
-    	  cout << "Need to add support for Value* coefficient in IrrationalNumbers" << endl;
+    	  cout << "IrrationalNumbers currently only support integer coefficients." << endl;
 			 if(iRN1 && f2){
-				 Value* exp1 = new Expression(iRN1, f2, '*');
-				 return exp1->simplify();
+				 return new IrrationalNumber(f2->getNumerator() * iRN1->coefficient / f2->getDenominator(), iRN1->getIRNumValue());
 			 }
 			 if(iRN2 && f1){
-				 Value* exp1 = new Expression(iRN2, f1, '*');
-				 return exp1->simplify();
+				 return multiply(b,a);
 			 }
 		 }
 
@@ -262,30 +260,35 @@ Value* Multiply::multiply(Value* a, Value* b) {
    //If you want to multiply an expression then set the expression's coefficient to the value
    //In simplifying, I will distribute that coefficient onto the values inside the expression
 
-   /*if( ex1 || ex2 ){
+   if( ex1 || ex2 ){
+	   Expression* ex3;
         if(ex1 && ex2){
             Value* exp1 = new Expression(ex1, ex2, '*');
             return exp1;
         }
-        if((ex1 && f1) || (ex1 && f2) || (ex2 && f1) || (ex2 && f2)){
-            if(ex1 && f1){
-                Value* exp1 = new Expression(ex1, f1, '*');
-                return exp1;
-            }
-            if(ex1 && f2){
-                Value* exp1 = new Expression(ex1, f2, '*');
-                return exp1;
-            }
-            if(ex2 && f1){
-                Value* exp1 = new Expression(ex2, f1, '*');
-                return exp1;
-            }
-            if(ex2 && f2){
-                Value* exp1 = new Expression(ex2, f2, '*');
-                return exp1;
-            }
+        if(ex1 && rN2) {
+        	for(int i = ex1->size()-1; i >= 0; i--) {
+        		Value* v = multiply(ex1->get(i),rN2);
+        		ex1->popOffAt(i);
+        		ex1->addVal(v);
+        	}
+        	return ex1->simplify();
         }
-   }*/
+        if(rN1 && ex2) {
+        	return multiply(b,a);
+        }
+		if(ex1 && f2){
+        	for(int i = ex1->size()-1; i >= 0; i--) {
+        		Value* v = multiply(ex1->get(i),f2);
+        		ex1->popOffAt(i);
+        		ex1->addVal(v);
+        	}
+        	return ex1->simplify();
+		}
+		if(ex2 && f1){
+			return multiply(b,a);
+		}
+   }
 
     //If an Expression is used at all, the Value created is always going to be an expression. Why? Because that's the only one
     //that simplify isn't very simple to do.
