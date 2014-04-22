@@ -121,20 +121,28 @@ Value* Add::add(Value* a, Value* b) {
                 //log will be created. However, if one is a Rational Number and one is an Irrational Number,
                 //we need to perform a different set of steps to multiply them together.
                 if( rNIV1 && rNIV2 ){
-                    int value1 = rNIV1->getNumValue();
-                    int value2 = rNIV2->getNumValue();
-                    //cout<<value1<<endl;
-                    //cout<<value2<<endl;
-                    int finalVal = value1*value2;
-                    //cout<<finalVal<<endl;
-                    Value* finalRNIV = new RationalNumber(finalVal);
-                    Value* logSimp = new Log(lB1, finalRNIV);
-                    logSimp->printInfo();
-                    //cout<<endl;
-                    return logSimp;
-                    //Since we determined that the inside values are both rational numbers, they will be
-                    //returned and multiplied together. A new log object will be created which has the same
-                    //base and the inside value equivalent to the result of the multiplication.
+                    if(isEqual(rNIV1, rNIV2)){
+                        int co1 = l1->getCoefficient();
+                        int co2 = l2->getCoefficient();
+                        int newCo = co1 + co2;
+                        Value* simplifiedLog = new Log(newCo, base, insideVal);
+                    }
+                    else{
+                        int value1 = rNIV1->getNumValue();
+                        int value2 = rNIV2->getNumValue();
+                        //cout<<value1<<endl;
+                        //cout<<value2<<endl;
+                        int finalVal = value1*value2;
+                        //cout<<finalVal<<endl;
+                        Value* finalRNIV = new RationalNumber(finalVal);
+                        Value* logSimp = new Log(lB1, finalRNIV);
+                        logSimp->printInfo();
+                        //cout<<endl;
+                        return logSimp;
+                        //Since we determined that the inside values are both rational numbers, they will be
+                        //returned and multiplied together. A new log object will be created which has the same
+                        //base and the inside value equivalent to the result of the multiplication.
+                    }
                 }
             }
         }
