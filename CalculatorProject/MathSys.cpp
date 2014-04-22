@@ -107,7 +107,7 @@ void MathSys::menu()
 						<< endl << "Please choose an option: ";
 					cin >> c;
 				}
-				if (c == 2)
+				else if (c == 2)
 				{
 					cout << endl << "Subtraction Syntax."
 						<< endl << "(number)-( )(number)"
@@ -115,14 +115,14 @@ void MathSys::menu()
 						<< endl << endl << "Please choose an option: ";
 					cin >> c;
 				}
-				if (c == 3)
+				else if (c == 3)
 				{
 					cout << endl << "Multiplication Syntax."
 						<< endl << "(number)*(number)" << endl
 						<< endl << "Please choose an option: ";
 					cin >> c;
 				}
-				if (c == 4)
+				else if (c == 4)
 				{
 					cout << endl << "Division Syntax."
 						<< endl << "(numerator)/(denominator)"
@@ -130,20 +130,27 @@ void MathSys::menu()
 						<< endl << "Please choose an option: ";
 					cin >> c;
 				}
-				if (c == 5)
+				else if (c == 5)
 				{
 					cout << endl << "Root Syntax."
 						<< endl << "(index)rt(radicand)" << endl
 						<< endl << "Please choose an option: ";
 					cin >> c;
 				}
-				if (c == 6)
+				else if (c == 6)
 				{
 					cout << endl << "Logarithm Syntax."
 						<< endl << "log((base),(number))" << endl
 						<< endl << "Please choose an option: ";
 					cin >> c;
 				}
+				else
+					{
+						cin.clear();
+						cin.ignore();
+						cout << endl << "Invalid Input, Please Try Again:" << endl << endl << "Please choose an option: ";
+						cin >> c;
+					}
 			}
 			cout << endl << "-----------------------------------" << endl << "Syntax Quit." << endl << endl << "Please choose an option: ";
 			cin >> c;

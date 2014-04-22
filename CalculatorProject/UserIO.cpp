@@ -151,6 +151,14 @@ void UserIO::splitInput()
 				splitUserIn.pop_back();
 				negativeInds.push_back(splitUserIn.size());
 			}
+			//If the input string isn't empty, check for a "(" next
+			if(!rawUserIn.empty()) {
+				if(rawUserIn.at(ind) == '(') {
+					//If there is a "(" next, change the "-" to a "~"
+					splitUserIn.pop_back();
+					splitUserIn.push_back("~");
+				}
+			}
 		}
 
 	}
@@ -198,8 +206,8 @@ void UserIO::rpnInput()
 ////////////////////////////
 {
 	//vector containing order of operations for reference.
-	string pemdas[] = { "^", "_", "t", "*", "/", "+", "-", "(" };
-	string pemdasTwo[] = { "^", "t", "_", "/", "*", "-", "+", "(" };
+	string pemdas[] = { "~", "^", "_", "t", "*", "/", "+", "-", "(" };
+	string pemdasTwo[] = { "~", "^", "t", "_", "/", "*", "-", "+", "(" };
 
 	string working;
 	string search;
@@ -223,7 +231,7 @@ void UserIO::rpnInput()
 		working = splitUserIn.at(i);
 
 		//initial if to determine if numeric or operational
-		if (working == "^" || working == "_" || working =="t" || working == "*" || working == "/" || working == "+" || working == "-")
+		if (working == "~" || working == "^" || working == "_" || working =="t" || working == "*" || working == "/" || working == "+" || working == "-")
 		{
 			if (opStack.size() != 0)
 			{
