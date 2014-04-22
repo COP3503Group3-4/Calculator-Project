@@ -30,7 +30,7 @@ class Log : public Value
         void printInfo();
         string toString();
         Value* createSimpExpression(vector<int> a, Value* b);
-        Value* addToCombine(vector<Value*> a);
+        Value* addToCombine(vector<Value*> &a);
     protected:
     private:
 };

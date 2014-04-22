@@ -123,12 +123,12 @@ Value* Log::getNum2(){
 */
 
 void Log::printInfo(){
-    cout<<coefficient;
+    if(coefficient != 1) cout<<coefficient;
     cout<<"log_";
     base->printInfo();
     cout<<":";
     insideValue->printInfo();
-    cout<<endl;
+    //cout<<endl;
     /*
         This method simply prints out the status of the object. Each object type has a printInfo method, and when the base is
         called, for example, that object's method is called (so a RationalNumber base would call [RationalNumber]->printInfo).
@@ -163,7 +163,7 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
         Value* simpLog = new Log();
         simpLog = initLog->simplify();
         storedLogs.push_back(simpLog);
-        storedLogs[i]->printInfo();
+        //storedLogs[i]->printInfo();
     }
     Value* finalSimplify = addToCombine(storedLogs);
     return finalSimplify;
@@ -265,21 +265,21 @@ int Log::getCoefficient(){
     All this method would do is return the coefficient in front of the log object.
 */
 
-Value* Log::addToCombine(vector<Value*> a){
-    vector<Value*> simpVector = a;
-    int simpSize = simpVector.size();
+Value* Log::addToCombine(vector<Value*>& a){
+    //vector<Value*> simpVector = a;
+    int simpSize = a.size();
 
-    if(simpVector.size() == 1){
-        return simpVector[0];
+    if(a.size() < 2){
+        return a[0];
     }
     else{
-        Value* v1 = simpVector[simpSize - 1];
-        Value* v2 = simpVector[simpSize-2];
-        simpVector.pop_back();
-        simpVector.pop_back();
+        Value* v1 = a[simpSize - 1];
+        Value* v2 = a[simpSize-2];
+        a.pop_back();
+        a.pop_back();
         Value* v3 = new RationalNumber();
         v3 = Add::add(v1, v2);
-        simpVector.push_back(v3);
-        addToCombine(simpVector);
+        a.push_back(v3);
+        addToCombine(a);
     }
 }

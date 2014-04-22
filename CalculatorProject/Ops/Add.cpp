@@ -158,47 +158,48 @@ Value* Add::add(Value* a, Value* b) {
     //If both of the values to be added are Rational Numbers, all we need to do is get their values,
     //add them, and return a RationalNumber object equivalent to the sum.
 
-    /*if((rF1 && l2) || (rF1 && l1) || (rF2 && l1) || (rF2 && l2)){
-        if(rF1 && l1){
-            Value* exp1 = new Expression(rF1, l1, '+');
-            return exp1;
-        }
-        if(rF1 && l2){
-            Value* exp1 = new Expression(rF1, l2, '+');
-            return exp1;
-        }
-        if(rF2 && l1){
-            Value* exp1 = new Expression(rF2, l1, '+');
-            return exp1;
-        }
-        if(rF2 && l2){
-            Value* exp1 = new Expression(rF2, l2, '+');
-            return exp1;
-        }
-    }*/
-
-    //All of the above is the combination of a rational fraction and an expression. Expression types will not INITALLY
-    //be passed into the method, and they will be solved later on anyways, so all we need to do now is return an expression
-    //with both values. No need to worry about the actual simplification right now.
-
-    /*if((rN1 && l1) || (rN2 && l1) || (rN1 && l2) || (rN2 && l2)){
-        if(rN1 && l1){
-            Value* exp1 = new Expression(rN1, l1, '+');
-            return exp1;
-        }
-        if(rN1 && l2){
-            Value* exp1 = new Expression(rN1, l2, '+');
-            return exp1;
-        }
-        if(rN2 && l1){
-            Value* exp1 = new Expression(rN2, l1, '+');
-            return exp1;
-        }
-        if(rN2 && l2){
-            Value* exp1 = new Expression(rN2, l2, '+');
-        }
+    if((rF1 && l2) || (rF1 && l1) || (rF2 && l1) || (rF2 && l2)){
+		if(rF1 && l1){
+			Value* exp1 = new Expression(rF1, l1, '+');
+			return exp1;
+		}
+		if(rF1 && l2){
+			Value* exp1 = new Expression(rF1, l2, '+');
+			return exp1;
+		}
+		if(rF2 && l1){
+			Value* exp1 = new Expression(rF2, l1, '+');
+			return exp1;
+		}
+		if(rF2 && l2){
+			Value* exp1 = new Expression(rF2, l2, '+');
+			return exp1;
+		}
     }
-    */
+
+        //All of the above is the combination of a rational fraction and an expression. Expression types will not INITALLY
+        //be passed into the method, and they will be solved later on anyways, so all we need to do now is return an expression
+        //with both values. No need to worry about the actual simplification right now.
+
+	if((rN1 && l1) || (rN2 && l1) || (rN1 && l2) || (rN2 && l2)){
+		if(rN1 && l1){
+			Value* exp1 = new Expression(rN1, l1, '+');
+			return exp1;
+		}
+		if(rN1 && l2){
+			Value* exp1 = new Expression(rN1, l2, '+');
+			return exp1;
+		}
+		if(rN2 && l1){
+			Value* exp1 = new Expression(rN2, l1, '+');
+			return exp1;
+		}
+		if(rN2 && l2){
+			Value* exp1 = new Expression(rN2, l2, '+');
+			return exp1;
+		}
+	}
+
 
    if(iRN1 && iRN2){
         if(iRN1->getIRNumValue()==iRN2->getIRNumValue()){
@@ -369,6 +370,17 @@ Value* Add::add(Value* a, Value* b) {
                 int simpCoeff = coefrF1 + coefrF2;
                 Value* addedRoot = new SquareRoot(simpCoeff, sqrAInside);
             }
+        }
+   }
+
+   if( l1 && ex2 || ex1 && l2 ){
+        if(l1 && ex2){
+            Value* newExp = new Expression(l1, ex2, '+');
+            return newExp;
+        }
+        if(ex1 && l2){
+            Value* newExp = new Expression(ex1, l2, '+');
+            return newExp;
         }
    }
 

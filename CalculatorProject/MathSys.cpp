@@ -235,6 +235,7 @@ Value* MathSys::calculate() {
 				break;
 			case '_':
 				answer = new Log(v1,v2);
+				answer = answer->simplify();
 				break;
 			case '~':
 				answer = Subtract::subtract(v1,v2);
