@@ -282,11 +282,13 @@ Value* Divide::divide(Value* a, Value* b){
    }
    if(nR1 && f2) {
 	   cout << "Dividing NthRoots by fractions is currently unsupported." << endl;
-	   return nR1;
+	   cout <<"Operations that are currently unsupported will automatically return 0"<< endl;
+	   return 0;
    }
    if(f1 && nR2) {
 	   cout << "Dividing fractions by NthRoots is currently unsupported." << endl;
-	   return nR2;
+	   cout <<"Operations that are currently unsupported will automatically return 0"<< endl;
+	   return 0;
    }
 }
 
