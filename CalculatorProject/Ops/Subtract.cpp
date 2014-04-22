@@ -264,7 +264,7 @@ Subtract::~Subtract() {}
         if(iRN1->getIRNumValue() == iRN2->getIRNumValue()){
         	int coef = iRN1->coefficient - iRN2->coefficient;
         	IrrationalNumber* iRN3 = new IrrationalNumber(coef, iRN1->getIRNumValue());
-        	return iRN3;
+        	return iRN3->simplify();
         }
         else{
 	    Expression* exp1 = new Expression(iRN1, iRN2, '-');
@@ -277,16 +277,16 @@ Subtract::~Subtract() {}
             		   Expression* exp1 = new Expression(iRN1, rN2, '-');
                    	   return exp1;
             	   }
-            	   else return iRN1;
+            	   else return iRN1->simplify();
                }
                if(iRN2 && rN1){
             	   if(!rN1->getNumValue() == 0) {
             		   Expression* exp1 = new Expression(rN1, iRN2, '-');
-                   	   return exp1;
+                   	   return exp1->simplify();
             	   }
             	   else {
             		   IrrationalNumber* iRN = new IrrationalNumber(iRN2->coefficient * -1, iRN2->getIRNumValue());
-            		   return iRN;
+            		   return iRN->simplify();
             	   }
                }
            }

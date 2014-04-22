@@ -32,7 +32,9 @@ Value* IrrationalNumber::getNum2(){
 }
 
 Value* IrrationalNumber::simplify(){
-    getIRNumValue();
+	if(coefficient == 0) {
+		return new RationalNumber(0);
+	}
 }
 
 string IrrationalNumber::getIRNumValue(){

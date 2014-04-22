@@ -53,10 +53,20 @@ Expression::~Expression()
 Value* Expression::simplify(){
 	minusToPlus();
 	simplifyOps();
-
-	return this;
+	zeroCheck();
+	if(adds.empty()) {
+		return new RationalNumber(0);
+	}
+	else {
+		if(adds.size() > 1) {
+			return this;
+		}
+		else {
+			return adds[0];
+		}
+	}
 }
-/*
+
 void Expression::zeroCheck() {
 	int i;
 	RationalNumber* rN;
@@ -79,7 +89,7 @@ void Expression::zeroCheck() {
 		i++;
 	}
 }
-*/
+
 Value* Expression::getNum1() {
 	return 0;
 }
