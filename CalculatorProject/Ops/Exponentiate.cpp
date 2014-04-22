@@ -196,7 +196,7 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 
 	     }
 
-	     if(f1 && f2) {
+	   /*  if(f1 && f2) {
 	    	 int n = f1->getNumerator();
 	    	 int d = f1->getDenominator();
 	    	 RationalNumber* nn = dynamic_cast<RationalNumber*>(n);
@@ -208,7 +208,7 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 	    	 return result;
 
 	     }
-
+*/
 }
 
 
