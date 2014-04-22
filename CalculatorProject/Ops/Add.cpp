@@ -200,17 +200,6 @@ Value* Add::add(Value* a, Value* b) {
     }
     */
 
-    //The above handles Rational Numbers and Logs. Nothing else needs to be done. We could call exp->simplify here if we wanted,
-    //but it wouldn't make a difference if we did it at the end of calculate or in here. It's not programmed in because it isn't
-    //written yet, and I really didn't want to get too far ahead of myself.
-
-   /* if(ex1 && ex2){
-        Value* exp1 = new Expression(ex1, ex2, '+');
-        return exp1;
-    }*/
-
-    //If both types are Expressions, congrats, just concatenate them into a new expression. Done deal.
-
    if(iRN1 && iRN2){
         if(iRN1->getIRNumValue()==iRN2->getIRNumValue()){
         	//get coeffecients and add them so 2pi + pi = 3pi
@@ -253,6 +242,10 @@ Value* Add::add(Value* a, Value* b) {
    //In simplifying the expression, we will have to find a way to know that e+e = 2e, which we may have to do by
    //removing common factors or something. Or I'll have to add to this. I don't know. There is a getIRNumValue method
    //and if they're equivalent, add the coefficients.
+
+   //If both types are Expressions, congrats, just concatenate them into a new expression. Done deal.
+
+   //Lol hell no. You actually have to add.
 
    if( ex1 || ex2 ){
 	   int ind;

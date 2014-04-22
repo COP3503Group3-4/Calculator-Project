@@ -327,8 +327,16 @@ Subtract::~Subtract() {}
    
 
 	if(ex1 && ex2){
-		ex1->subtract(ex2);
-		return ex1->simplify();
+		Value* newEx = ex1;
+		ex2->minusToPlus();
+		ex2->makeNegative();
+
+		cout << endl << "ex&&ex subtraction not working properly until Hayden fixes RPN ~" << endl;
+
+		for(int i = 0; i < ex2->size(); i++) {
+		   newEx = Add::add(newEx, ex2->get(i));
+		}
+		return newEx->simplify();
 	}
 
 	if(ex1 && f2){
