@@ -220,29 +220,29 @@ Value* Add::add(Value* a, Value* b) {
         }
         else{
 	    Expression* exp1 = new Expression(iRN1, iRN2, '+');
-        return exp1;
+        return exp1->simplify();
         }
    }
    if((iRN1 && rN2) || (iRN2 && rN1)){
 	   if(iRN1 && rN2){
 		   if (rN2->getNumValue() == 0) return iRN1;
 		   Expression* exp1 = new Expression(iRN1, rN2, '+');
-		   return exp1;
+		   return exp1->simplify();
 	   }
 	   if(iRN2 && rN1){
 		   if(rN1->getNumValue() == 0) return iRN2;
 		   Expression* exp1 = new Expression(iRN2, rN1, '+');
-		   return exp1;
+		   return exp1->simplify();
 	   }
    }
    if((iRN1 && rF2) || (iRN2 && rF1)){
                   if(iRN1 && rF2){
                       Expression* exp1 = new Expression(iRN1, rF2, '+');
-                      return exp1;
+                      return exp1->simplify();
                   }
                   if(iRN2 && rF1){
                       Expression* exp1 = new Expression(iRN2, rF1, '+');
-                      return exp1;
+                      return exp1->simplify();
                   }
               }
 
@@ -256,9 +256,14 @@ Value* Add::add(Value* a, Value* b) {
 
    if( ex1 || ex2 ){
 	   int ind;
+	   Value* newEx;
         if(ex1 && ex2){
-            ex1->add(ex2);
-            return ex1;
+     	   newEx = ex1;
+     	   ex2->minusToPlus();
+            for(int i = 0; i < ex2->size(); i++) {
+            	newEx = add(newEx, ex2->get(i));
+            }
+            return newEx->simplify();
         }
         if((ex1 && rF2) || (ex2 && rF1)){
             if(ex1 && rF2){
