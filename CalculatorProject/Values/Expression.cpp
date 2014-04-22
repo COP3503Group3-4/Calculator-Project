@@ -53,9 +53,10 @@ Expression::~Expression()
 Value* Expression::simplify(){
 	minusToPlus();
 	simplifyOps();
+
 	return this;
 }
-
+/*
 void Expression::zeroCheck() {
 	int i;
 	RationalNumber* rN;
@@ -75,10 +76,10 @@ void Expression::zeroCheck() {
 			}
 		}
 
-		i++
+		i++;
 	}
 }
-
+*/
 Value* Expression::getNum1() {
 	return 0;
 }
@@ -89,7 +90,6 @@ Value* Expression::getNum2() {
 
 void Expression::printInfo(){
 	//Printing first value then op, value, op, value until end
-
 	adds[0]->printInfo();
 	for (int i = 0; i < ops.size(); i++) {
 		cout << " " << ops[i] << " ";
@@ -101,8 +101,14 @@ string Expression::toString(){
 	string s = "";
 
 	s.append(adds[0]->toString());
+	ostringstream c;
 	for (int i = 0; i < ops.size(); i++) {
-		s.append(" + ");
+		s.append(" ");
+		c << ops[i];
+		s.append(c.str());
+		c.str("");
+		c.clear();
+		s.append(" ");
 		s.append(adds[i+1]->toString());
 	}
 	return s;

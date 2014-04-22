@@ -14,7 +14,7 @@ class Expression : public Value
         Expression(Value* v1, Value* v2, char op);
         virtual ~Expression();
         Value* simplify();
-        void zeroCheck();
+        //void zeroCheck();
         Value* getNum1();
         Value* getNum2();
         void add(Value* v);

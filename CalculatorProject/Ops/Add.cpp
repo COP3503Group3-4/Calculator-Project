@@ -277,7 +277,7 @@ Value* Add::add(Value* a, Value* b) {
 					ex2->addVal(v);
 				}
 				else {
-					ex2->addVal(rN2);
+					ex2->addVal(rF1);
 				}
                 return ex2->simplify();
             }
@@ -301,7 +301,7 @@ Value* Add::add(Value* a, Value* b) {
 					ex2->addVal(v);
 				}
 				else {
-					ex2->addVal(rN2);
+					ex2->addVal(rN1);
 				}
 				return ex2->simplify();
 			}
