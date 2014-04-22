@@ -196,19 +196,19 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 
 	     }
 
-	   /*  if(f1 && f2) {
+	   if(f1 && f2) {
 	    	 int n = f1->getNumerator();
 	    	 int d = f1->getDenominator();
-	    	 RationalNumber* nn = dynamic_cast<RationalNumber*>(n);
-	    	 RationalNumber* dd = dynamic_cast<RationalNumber*>(d);
+	    	 RationalNumber* nn = new RationalNumber(n);
+	    	 RationalNumber* dd = new RationalNumber(d);
 	    	 Value* nnn = exponentiate(nn, f2);
 	    	 Value* ddd = exponentiate(dd, f2);
-	    	 Value* result = new IrrationalFraction(nnn, ddd);
+	    	 Value* result = Divide::divide(nnn, ddd);
 	    	 result = result ->simplify();
 	    	 return result;
 
 	     }
-*/
+
 }
 
 
