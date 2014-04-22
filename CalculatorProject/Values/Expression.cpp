@@ -56,6 +56,29 @@ Value* Expression::simplify(){
 	return this;
 }
 
+void Expression::zeroCheck() {
+	int i;
+	RationalNumber* rN;
+	IrrationalNumber* irN;
+	Value* v;
+	while (i < adds.size()) {
+		rN = dynamic_cast<RationalNumber*>(adds[i]);
+		irN = dynamic_cast<IrrationalNumber*>(adds[i]);
+		if(rN) {
+			if (rN->getNumValue() == 0) {
+				popOffAt(i);
+			}
+		}
+		if(irN) {
+			if(irN->coefficient == 0) {
+				popOffAt(i);
+			}
+		}
+
+		i++
+	}
+}
+
 Value* Expression::getNum1() {
 	return 0;
 }
