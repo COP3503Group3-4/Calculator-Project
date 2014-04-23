@@ -1,5 +1,6 @@
-#include "NthRoot.h"
+#include <NthRoot.h>
 #include <RationalFraction.h>
+#include <RationalNumber.h>
 #include <IrrationalNumber.h>
 #include <IrrationalFraction.h>
 #include <Log.h>
@@ -241,8 +242,8 @@ Value* NthRoot::simplify(){
                 //(pow(initialDenominator,(1.0/initialPowDen))) == floor(pow(initialDenominator,(1.0/initialPowDen)))
                 int newNumerator = pow(initialNumerator,(1.0/initialPower));
                 int newDenominator = pow(initialDenominator,(1.0/initialPower));
-                cout<<newNumerator<<endl;
-                cout<<newDenominator<<endl;
+                //cout<<newNumerator<<endl;
+                //cout<<newDenominator<<endl;
                 Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
                 return simpFrac;
             }
