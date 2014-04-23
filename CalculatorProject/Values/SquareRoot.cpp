@@ -2,6 +2,7 @@
 #include <RationalFraction.h>
 #include <IrrationalNumber.h>
 #include <IrrationalFraction.h>
+#include <RationalNumber.h>
 #include <Log.h>
 #include <NthRoot.h>
 #include <Expression.h>
@@ -44,7 +45,6 @@ Value* SquareRoot::simplify(){
             int simpDem = sqrt(denom);
             cout<<simpNum<<'/'<<simpDem;
             Value* rootSim = new RationalFraction(simpNum,simpDem);
-            rational = true;
             return rootSim;
         }
         else if(sqrt(numer) == floor(sqrt(numer)) && sqrt(denom) != floor(sqrt(denom))){
@@ -65,7 +65,6 @@ Value* SquareRoot::simplify(){
             Value* newNum = new SquareRoot();
             newNum = simplifyNumerator(numer, index, coefficient);
             Value* simpRoot = new IrrationalFraction(newNum,newDem);
-            rational = false;
             return simpRoot;
         }
         else{
@@ -75,7 +74,6 @@ Value* SquareRoot::simplify(){
             newNum = simplifyNumerator(numer, index, coefficient);
             newDem = simplifyDenominator(denom, index, coefficient);
             Value* simpRoot = new IrrationalFraction(newNum,newDem);
-            rational = false;
             return simpRoot;
         }
     }
@@ -89,14 +87,12 @@ Value* SquareRoot::simplify(){
             int simpRoot = sqrt(inside);
             cout<<simpRoot;
             Value* rootSim = new RationalNumber(simpRoot);
-            rational = true;
             return rootSim;
         }
         else{
             int index = 2;
             Value* newRoot = new SquareRoot();
             newRoot = simplifyNumerator(inside, index, coefficient);
-            rational = false;
             return newRoot;
         }
     }
