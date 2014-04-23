@@ -49,8 +49,9 @@ void NthRoot::printInfo(){
 	if(coefficient > 1 || coefficient < -1) cout << coefficient << "*";
 	if(coefficient == -1) cout << "-";
 	rootNum->printInfo();
-	cout << "rt";
+	cout << "rt:(";
 	insideRoot->printInfo();
+	cout << ")";
 }
 string NthRoot::toString(){
 	ostringstream c;

@@ -240,12 +240,17 @@ Value* MathSys::calculate() {
 				answer = Divide::divide(v1,v2);
 				break;
 			case 't':
-				if(n->getNumValue() == 2) {
-					answer = new SquareRoot(v2);
-				}
-				else if(n->getNumValue() < 0) {
-					RationalFraction* rF = new RationalFraction(-1,n->getNumValue() * -1);
-					answer = Exponentiate::exponentiate(v2,rF);
+				if (n) {
+					if(n->getNumValue() == 2) {
+						answer = new SquareRoot(v2);
+					}
+					else if(n->getNumValue() < 0) {
+						RationalFraction* rF = new RationalFraction(-1,n->getNumValue() * -1);
+						answer = Exponentiate::exponentiate(v2,rF);
+					}
+					else {
+						answer = new NthRoot(v2,v1);
+					}
 				}
 				else answer = new NthRoot(v2,v1);
 				answer = answer->simplify();
