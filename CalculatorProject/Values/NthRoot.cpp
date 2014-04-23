@@ -1,4 +1,4 @@
-#include <NthRoot.h>
+#include "NthRoot.h"
 #include <RationalFraction.h>
 #include <IrrationalNumber.h>
 #include <IrrationalFraction.h>
@@ -10,26 +10,26 @@
 #include <cmath>
 #include <tgmath.h>
 #include <vector>
-#include <sstream>
+#include <set>
 #include <map>
-
-
+#include <algorithm>
 NthRoot::NthRoot()
 {
     //ctor
 }
 
 NthRoot::NthRoot(Value* a, Value* b){
-	coefficient = 1;
     insideRoot = a;
     rootNum = b;
+
+    //Constructor without a coefficient, just creates an object of type NthRoot.
 }
 
 NthRoot::NthRoot(int coeff, Value* a, Value* b){
     coefficient = coeff;
     insideRoot = a;
     rootNum = b;
-
+    //Constructs an object of type NthRoot with a coefficient, which will be helpful for the ops methods.
 
 }
 NthRoot::~NthRoot()
@@ -38,34 +38,19 @@ NthRoot::~NthRoot()
 }
 
 Value* NthRoot::getNum1(){
-	return insideRoot;
+
 }
 
 Value* NthRoot::getNum2(){
-	return rootNum;
+
 }
 
 void NthRoot::printInfo(){
-	if(coefficient > 1 || coefficient < -1) cout << coefficient << "*";
-	if(coefficient == -1) cout << "-";
-	rootNum->printInfo();
-	cout << "rt:(";
-	insideRoot->printInfo();
-	cout << ")";
-}
-string NthRoot::toString(){
-	ostringstream c;
-	string s = "";
-	if(coefficient > 1 || coefficient < -1) {
-		c << coefficient;
-		s.append(c.str());
-		s.append("*");
-	}
-	if (coefficient == -1) s.append("-");
-	s.append(rootNum->toString());
-	s.append("rt");
-	s.append(insideRoot->toString());
-	return s;
+    cout<<coefficient<<"*";
+    rootNum->printInfo();
+    cout<<"rt:(";
+    insideRoot->printInfo();
+    cout<<")";
 }
 
 Value* NthRoot::simplify(){
@@ -84,7 +69,14 @@ Value* NthRoot::simplify(){
     SquareRoot* sqr1 = dynamic_cast<SquareRoot*>(insideRoot);
     SquareRoot* sqr2 = dynamic_cast<SquareRoot*>(rootNum);
 
+    /*
+        Typechecks the base and the exponent
+    */
     Exponentiate expo;
+
+    /*
+        Creates an Exponentiate object in order to handle fractional exponents.
+    */
     if(f1 && f2){
         double initialNumerator = f1->getNumerator();
         double initialDenominator = f1->getDenominator();
@@ -96,69 +88,84 @@ Value* NthRoot::simplify(){
         double comparisonNum = round((pow(initialNumerator,(double)(1/initialPowDen))));
         double comparisonDen = round((pow(initialDenominator,(double)(1/initialPowDen))));
         Value* newPower = new RationalNumber(initialPowNum);
-
+        /*
+            Sets initial values for the powers, values to be rooted, and the comparisons.
+        */
         if(fmod(numPow,comparisonNum) == 0 && fmod(numDem,comparisonDen) == 0){
            //(pow(initialDenominator,(1.0/initialPowDen))) == floor(pow(initialDenominator,(1.0/initialPowDen)))
             int newNumerator = pow(initialNumerator,(1.0/initialPowDen));
             int newDenominator = pow(initialDenominator,(1.0/initialPowDen));
-            ////cout<<newNumerator<<endl;
-            ////cout<<newDenominator<<endl;
+            //cout<<newNumerator<<endl;
+            //cout<<newDenominator<<endl;
             Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
             simpFrac = expo.exponentiate(simpFrac, newPower);
-            //simpFrac->printInfo();
+            simpFrac->printInfo();
             return simpFrac;
+            /*
+                If both the numerator and denominator have perfect roots, return the perfect roots.
+            */
         }
         else if(initialPowDen == 3){
             if(floor(cbrt(initialNumerator)) == (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) == cbrt(initialDenominator)){
                 int newNumerator = cbrt(initialNumerator);
                 int newDenominator = cbrt(initialDenominator);
-                ////cout<<newNumerator<<endl;
-                ////cout<<newDenominator<<endl;
+                //cout<<newNumerator<<endl;
+                //cout<<newDenominator<<endl;
                 Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
                 simpFrac = expo.exponentiate(simpFrac, newPower);
+                simpFrac->printInfo();
                 return simpFrac;
             }
             else if(floor(cbrt(initialNumerator)) == (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) != cbrt(initialDenominator)){
                 int simpNum = cbrt(initialNumerator);
                 Value* newNum = new RationalNumber(simpNum);
-                ////cout<<"Simp Num: "<<simpNum<<endl;
+                //cout<<"Simp Num: "<<simpNum<<endl;
                 int index = 2;
                 Value* newDen = new NthRoot();
                 vector<int> storeNum;
                 newDen = rootDenominator(initialDenominator, index, coefficient, initialPowDen, storeNum);
                 Value* simpIRF = new IrrationalFraction(newNum, newDen);
+                return simpIRF;
             }
             else if(floor(cbrt(initialNumerator)) != (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) == cbrt(initialDenominator)){
                 int simpDen = cbrt(initialDenominator);
                 Value* newDen = new RationalNumber(simpDen);
-                ////cout<<"SimpDen: " <<simpDen<<endl;
+                //cout<<"SimpDen: " <<simpDen<<endl;
                 int index = 2;
                 Value* newNum = new NthRoot();
                 vector<int> storeNums;
                 newNum = rootNumerator(initialNumerator, index, coefficient, initialPowDen, storeNums);
                 Value* simpIRF = new IrrationalFraction(newNum,newDen);
+                return simpIRF;
             }
+            /*
+                Since 1/3 does not have an accurate floating point, this section handles
+                any sort of combination of the cube root. Provided that at least one of the numbers are
+                not perfect cube roots, the numerator or denominator will simplify by pulling out prime factors.
+            */
         }
 
         else if(numPow == comparisonNum && numDem != comparisonDen){
             int simpNum = pow(initialNumerator,(1/initialPowDen));
             Value* newNum = new RationalNumber(simpNum);
-            ////cout<<"SimpNum: "<<simpNum<<endl;
+            //cout<<"SimpNum: "<<simpNum<<endl;
             int index = 2;
             Value* newDen = new NthRoot();
             vector<int> storeNum;
             newDen = rootDenominator(initialDenominator, index, coefficient, initialPowDen, storeNum);
             Value* simpIRF = new IrrationalFraction(newNum, newDen);
+            return simpIRF;
         }
         else if(numPow != comparisonNum && numDem == comparisonDen){
             int simpDen = pow(initialDenominator,(1/initialPowDen));
             Value* newDen = new RationalNumber(simpDen);
-            ////cout<<"SimpDen: " <<simpDen<<endl;
+            //cout<<"SimpDen: " <<simpDen<<endl;
             int index = 2;
             Value* newNum = new NthRoot();
             vector<int> storeNums;
             newNum = rootNumerator(initialNumerator, index, coefficient, initialPowDen, storeNums);
             Value* simpIRF = new IrrationalFraction(newNum,newDen);
+            return simpIRF;
         }
         else if(numPow != comparisonNum && numDem != comparisonDen){
             Value* newNum = new NthRoot();
@@ -169,9 +176,19 @@ Value* NthRoot::simplify(){
             newNum = rootNumerator(initialNumerator, index, coefficient, initialPowDen, storeNums);
             newDen = rootDenominator(initialDenominator, index, coefficient, initialPowDen, storeDens);
             Value* simpIRF = new IrrationalFraction(newNum, newDen);
+            return simpIRF;
         }
+        /*
+            These handle the simplification of other roots. One method calls with the numerator being a perfect root,
+            one calls with the denominator, and one calls with neither.
+        */
     }
    if(rN1 && rN2){
+        /*
+            This is the function if both the number to be rooted and the root are rational numbers.
+            Much like every other section, the methods are essentially the same combination of "perfect roots" vs.
+            "not at all a perfect root."
+        */
         double initialNumber = rN1->getNumValue();
         double initialPower = rN2->getNumValue();
         //cout<<initialNumber<<endl;
@@ -184,6 +201,7 @@ Value* NthRoot::simplify(){
             if(cbrt(initialNumber) == floor(cbrt(initialNumber))){
                 int simpValue = cbrt(initialNumber);
                 Value* simpRN = new RationalNumber(simpValue);
+                simpRN->printInfo();
                 return simpRN;
             }
             else{
@@ -209,7 +227,7 @@ Value* NthRoot::simplify(){
             return newVal;
         }
    }
-   if((f1 && rN2) || (rN1 && f2)){
+   if(f1 && rN2 || rN1 && f2){
         if(f1 && rN2){
             double initialNumerator = f1->getNumerator();
             double initialDenominator = f1->getDenominator();
@@ -223,9 +241,10 @@ Value* NthRoot::simplify(){
                 //(pow(initialDenominator,(1.0/initialPowDen))) == floor(pow(initialDenominator,(1.0/initialPowDen)))
                 int newNumerator = pow(initialNumerator,(1.0/initialPower));
                 int newDenominator = pow(initialDenominator,(1.0/initialPower));
-                //cout<<newNumerator<<endl;
-                //cout<<newDenominator<<endl;
+                cout<<newNumerator<<endl;
+                cout<<newDenominator<<endl;
                 Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
+                return simpFrac;
             }
             else if( initialPower == 3){
                 if (floor(cbrt(initialNumerator)) == (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) == cbrt(initialDenominator)){
@@ -234,6 +253,7 @@ Value* NthRoot::simplify(){
                     //cout<<newNumerator<<endl;
                     //cout<<newDenominator<<endl;
                     Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
+                    return simpFrac;
                 }
                 else if(floor(cbrt(initialNumerator)) == (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) != cbrt(initialDenominator)){
                     int simpNum = cbrt(initialNumerator);
@@ -244,6 +264,7 @@ Value* NthRoot::simplify(){
                     vector<int> storeNum;
                     newDen = rootDenominator(initialDenominator, index, coefficient, initialPower, storeNum);
                     Value* simpIRF = new IrrationalFraction(newNum, newDen);
+                    return simpIRF;
                 }
                 else if(floor(cbrt(initialNumerator)) != (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) == cbrt(initialDenominator)){
                     int simpDen = cbrt(initialDenominator);
@@ -254,6 +275,7 @@ Value* NthRoot::simplify(){
                     vector<int> storeNums;
                     newNum = rootNumerator(initialNumerator, index, coefficient, initialPower, storeNums);
                     Value* simpIRF = new IrrationalFraction(newNum,newDen);
+                    return simpIRF;
                 }
             }
 
@@ -266,6 +288,7 @@ Value* NthRoot::simplify(){
                 vector<int> storeNum;
                 newDen = rootDenominator(initialDenominator, index, coefficient, initialPower, storeNum);
                 Value* simpIRF = new IrrationalFraction(newNum, newDen);
+                return simpIRF;
             }
             else if(numPow != comparisonNum && numDem == comparisonDen){
                 int simpDen = pow(initialDenominator,(1/initialPower));
@@ -276,6 +299,7 @@ Value* NthRoot::simplify(){
                 vector<int> storeNums;
                 newNum = rootNumerator(initialNumerator, index, coefficient, initialPower, storeNums);
                 Value* simpIRF = new IrrationalFraction(newNum,newDen);
+                return simpIRF;
             }
             else if(numPow != comparisonNum && numDem != comparisonDen){
                 Value* newNum = new NthRoot();
@@ -286,6 +310,7 @@ Value* NthRoot::simplify(){
                 newNum = rootNumerator(initialNumerator, index, coefficient, initialPower, storeNums);
                 newDen = rootDenominator(initialDenominator, index, coefficient, initialPower, storeDens);
                 Value* simpIRF = new IrrationalFraction(newNum, newDen);
+                return simpIRF;
             }
         }
     if(rN1 && f2){
@@ -302,7 +327,7 @@ Value* NthRoot::simplify(){
                 Value* simpRN = new RationalNumber(simpValue);
                 Value* newExponent = new RationalNumber(initialPowNum);
                 simpRN = expo.exponentiate(simpRN, newExponent);
-                //simpRN->printInfo();
+                simpRN->printInfo();
                 return simpRN;
             }
            else{
@@ -394,7 +419,7 @@ Value* NthRoot::rootDenominator(int insideVal, int index, int co, int power, vec
 
             Value* simplifiedInside = new RationalNumber(finalInsideValue);
             Value* simplifiedRoot = new NthRoot(coeff, simplifiedInside, rootNum );
-            //simplifiedRoot->printInfo();
+            simplifiedRoot->printInfo();
             return simplifiedRoot;
         }
     }
@@ -457,7 +482,7 @@ Value* NthRoot::rootNumerator(int insideVal, int index, int co, int power, vecto
 
             Value* simplifiedInside = new RationalNumber(finalInsideValue);
             Value* simplifiedRoot = new NthRoot(coeff, simplifiedInside, rootNum );
-            //simplifiedRoot->printInfo();
+            simplifiedRoot->printInfo();
             return simplifiedRoot;
         }
     }
