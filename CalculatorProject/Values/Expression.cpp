@@ -70,25 +70,24 @@ Value* Expression::simplify(){
 }
 
 void Expression::zeroCheck() {
-	int i;
 	RationalNumber* rN;
 	IrrationalNumber* irN;
-	Value* v;
-	while (i < adds.size()) {
+	Log* l;
+	NthRoot* nrt;
+	int x = 1;
+	for (int i = adds.size() - 1; i >= 0; i--) {
 		rN = dynamic_cast<RationalNumber*>(adds[i]);
 		irN = dynamic_cast<IrrationalNumber*>(adds[i]);
-		if(rN) {
-			if (rN->getNumValue() == 0) {
-				popOffAt(i);
-			}
-		}
-		if(irN) {
-			if(irN->coefficient == 0) {
-				popOffAt(i);
-			}
-		}
+		l = dynamic_cast<Log*>(adds[i]);
+		nrt = dynamic_cast<NthRoot*>(adds[i]);
 
-		i++;
+		if(rN) x = rN->getNumValue();
+		if(irN) x = irN->coefficient;
+		if(l) x = l->coefficient;
+		if(nrt) x = nrt->coefficient;
+
+		if(x == 0) popOffAt(i);
+		x = 1;
 	}
 }
 
@@ -299,32 +298,32 @@ void Expression::makeNegative()
 {
 	for (int i = 0; i < adds.size(); i++) {
 
-		RationalNumber* rN1 = dynamic_cast<RationalNumber*>(adds[i]);
-	    RationalFraction* f1 = dynamic_cast<RationalFraction*>(adds[i]);
-	    Log* l1 = dynamic_cast<Log*>(adds[i]);
-	    Expression* ex1 = dynamic_cast<Expression*>(adds[i]);
-	    IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(adds[i]);
+		RationalNumber* rN = dynamic_cast<RationalNumber*>(adds[i]);
+	    RationalFraction* f = dynamic_cast<RationalFraction*>(adds[i]);
+	    Log* l = dynamic_cast<Log*>(adds[i]);
+	    Expression* ex = dynamic_cast<Expression*>(adds[i]);
+	    IrrationalNumber* iRN = dynamic_cast<IrrationalNumber*>(adds[i]);
+	    NthRoot* nrt = dynamic_cast<NthRoot*>(adds[i]);
 	    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(adds[i]);
 
-	    if (rN1) {
-			int x = (-1 * rN1->getNumValue());
-			adds[i] = new RationalNumber(x);
+	    if (rN) {
+			adds[i] = new RationalNumber(-1 * rN->getNumValue());
 	    }
-	    if (f1) {
-			int x = (-1 * f1->getNumerator());
-			adds[i] = new RationalFraction(x, f1->getDenominator());
+	    if (f) {
+			adds[i] = new RationalFraction(-1 * f->getNumerator(), f->getDenominator());
 	    }
-	    if (l1) {
-	    	//Cannot implement until log is implemented
+	    if (l) {
+	    	adds[i] = new Log(l->coefficient * -1, l->getNum1(), l->getNum2());
 	    }
-	    if (ex1) {
-	    	ex1->minusToPlus();
-	    	ex1->makeNegative();
-	    	ex1 = 0;
+	    if (ex) {
+	    	ex->minusToPlus();
+	    	ex->makeNegative();
 	    }
-	    if (iRN1) {
-	    	string s = iRN1->getIRNumValue();
-	    	adds[i] = new IrrationalNumber(iRN1->coefficient * -1, s);
+	    if (iRN) {
+	    	adds[i] = new IrrationalNumber(iRN->coefficient * -1, iRN->getIRNumValue());
+	    }
+	    if(nrt) {
+	    	adds[i] = new NthRoot(nrt->coefficient * -1, nrt->getNum1(), nrt->getNum2());
 	    }
 	    //if (iRF1) {
 

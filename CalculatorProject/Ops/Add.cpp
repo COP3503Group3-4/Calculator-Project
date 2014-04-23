@@ -65,6 +65,14 @@ Value* Add::add(Value* a, Value* b) {
 		return rF3->simplify();
     }
 
+    if(nrtA && rN2) {
+    	Expression* exp = new Expression(nrtA,rN2,'+');
+    	return exp;
+    }
+    if(nrtB && rN1) {
+    	return add(b,a);
+    }
+
     if(l1 && l2){
         Value* lB1 = l1->getNum1();
         Value* lB2 = l2->getNum1();
