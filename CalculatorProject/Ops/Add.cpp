@@ -73,6 +73,11 @@ Value* Add::add(Value* a, Value* b) {
     	return add(b,a);
     }
 
+    if(nrtA && nrtB) {
+    	cout << "Adding NthRoots is currently unsupported." << endl;
+    	return nrtA;
+    }
+
     if(l1 && l2){
         Value* lB1 = l1->getNum1();
         Value* lB2 = l2->getNum1();
