@@ -54,6 +54,22 @@ void NthRoot::printInfo(){
     cout<<")";
 }
 
+string NthRoot::toString(){
+	ostringstream c;
+	string s = "";
+	if(coefficient > 1 || coefficient < -1) {
+		c << coefficient;
+		s.append(c.str());
+		s.append("*");
+	}
+	if (coefficient == -1) s.append("-");
+	s.append(rootNum->toString());
+	s.append("rt:(");
+	s.append(insideRoot->toString());
+	s.append(")");
+	return s;
+}
+
 Value* NthRoot::simplify(){
     RationalFraction* f1 = dynamic_cast<RationalFraction*>(insideRoot);
     RationalFraction* f2 = dynamic_cast<RationalFraction*>(rootNum);
