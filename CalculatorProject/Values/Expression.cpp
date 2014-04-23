@@ -262,29 +262,27 @@ void Expression::minusToPlus()
 				Log* l1 = dynamic_cast<Log*>(adds[i+1]);
 				Expression* ex1 = dynamic_cast<Expression*>(adds[i+1]);
 				IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(adds[i+1]);
+				NthRoot* nrt = dynamic_cast<NthRoot*>(adds[i+1]);
 				//IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(adds[i+1]);
 
 				if (rN1) {
-					int x = (-1 * rN1->getNumValue());
-					adds[i+1] = new RationalNumber(x);
-					delete rN1;
+					adds[i+1] = new RationalNumber(-1 * rN1->getNumValue());
 				}
 				if (f1) {
-					int x = (-1 * f1->getNumerator());
-					adds[i+1] = new RationalFraction(x, f1->getDenominator());
-					delete f1;
+					adds[i+1] = new RationalFraction(-1 * f1->getNumerator(), f1->getDenominator());
 				}
 				if (l1) {
-					//Cannot implement until log is implemented
+					adds[i+1] = new Log(-1 * l1->coefficient, l1->getNum1(), l1->getNum2());
 				}
 				if (ex1) {
 					ex1->minusToPlus();
 					ex1->makeNegative();
 				}
 				if (iRN1) {
-					string s = iRN1->getIRNumValue();
-					adds[i+1] = new IrrationalNumber(-1, s);
-					delete iRN1;
+					adds[i+1] = new IrrationalNumber(-1 * iRN1->coefficient, iRN1->getIRNumValue());
+				}
+				if (nrt) {
+					adds[i+1] = new NthRoot(-1 * nrt->coefficient, nrt->getNum1(), nrt->getNum2());
 				}
 				//if (iRF1) {
 
@@ -339,34 +337,40 @@ void Expression::simplifyOps()
 	    Log* l1 = dynamic_cast<Log*>(adds[i+1]);
 	    Expression* ex1 = dynamic_cast<Expression*>(adds[i+1]);
 	    IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(adds[i+1]);
+	    NthRoot* nrt = dynamic_cast<NthRoot*>(adds[i+1]);
 	    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(adds[i+1]);
 
 		    if (rN1 && (rN1->getNumValue() < 0)) {
 		    	if (ops[i] == '+') ops[i] = '-';
 		    	else if (ops[i] == '-') ops[i] = '+';
-				int x = (-1 * rN1->getNumValue());
-				adds[i+1] = new RationalNumber(x);
+				adds[i+1] = new RationalNumber(-1 * rN1->getNumValue());
 		    }
 		    if (f1 && (f1->getNumerator() < 0)) {
 		    	if (ops[i] == '+') ops[i] = '-';
 		    	else if (ops[i] == '-') ops[i] = '+';
-				int x = (-1 * f1->getNumerator());
-				adds[i+1] = new RationalFraction(x, f1->getDenominator());
-				delete f1;
+				adds[i+1] = new RationalFraction(-1 * f1->getNumerator(), f1->getDenominator());
 		    }
 		    //If log coeff is negative
-		    if (l1) {
-		    	//Multiply it by -1 and swap the op
+		    if (l1 && l1->coefficient < 0) {
+		    	if (ops[i] == '+') ops[i] = '-';
+		    	else if (ops[i] == '-') ops[i] = '+';
+		    	adds[i+1] = new Log(l1->coefficient * -1, l1->getNum1(), l1->getNum2());
 		    }
+		    /*
 		    if (ex1 && ops[i] == '-') {
 		    	ex1->makeNegative();
 		    	ex1->simplifyOps();
 		    }
+		    */
 		    if (iRN1 && (iRN1->coefficient < 0)) {
 		    	if (ops[i] == '+') ops[i] = '-';
 		    	else if (ops[i] == '-') ops[i] = '+';
-		    	string s = iRN1->getIRNumValue();
-		    	adds[i+1] = new IrrationalNumber(-1 * iRN1->coefficient, s);
+		    	adds[i+1] = new IrrationalNumber(-1 * iRN1->coefficient, iRN1->getIRNumValue());
+		    }
+		    if (nrt && nrt->coefficient < 0) {
+		    	if (ops[i] == '+') ops[i] = '-';
+		    	else if (ops[i] == '-') ops[i] = '+';
+		    	adds[i+1] = new NthRoot(-1 * nrt->coefficient, nrt->getNum1(), nrt->getNum2());
 		    }
 		    //if (iRF1) {
 

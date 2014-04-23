@@ -202,6 +202,7 @@ Value* MathSys::calculate() {
 	if(rpnToCalc.empty()) return lastAnswer;
 	string current = rpnToCalc[rpnToCalc.size() - 1];
 	rpnToCalc.pop_back();
+	RationalNumber* zero = new RationalNumber(0);
 
 	if (current.length() == 1) {
 		if(current == "+" || current == "-" || current == "*" || current == "/" || current == "t" || current == "_" || current == "^") {
@@ -222,7 +223,7 @@ Value* MathSys::calculate() {
 				n = dynamic_cast<RationalNumber*>(v1);
 		}
 		if (current == "~") {
-			v1 = new RationalNumber("0");
+			v1 = zero;
 			v2 = calculate();
 		}
 		switch(current.at(0)) {
@@ -282,7 +283,6 @@ Value* MathSys::calculate() {
 			answer = lastAnswer;
 		}
 		else if(current == "-ans") {
-			RationalNumber* zero = new RationalNumber(0);
 			answer = Subtract::subtract(zero,lastAnswer);
 		}
 		else {
