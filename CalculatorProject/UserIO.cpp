@@ -380,14 +380,20 @@ void UserIO::rpnInput()
 		}
 		else if (working == "(")
 		{
+			/*
+			//Hayden, I(Cory) commented this out because I'm pretty this is what is causing
+			//The ~ - problems with your updated version of rpnInput.
 			if (opStack.size() != 0)
 			{
+
 				if (opStack.back() == "-")
 				{
 					opStack.pop_back();
 					opStack.push_back("~");
 				}
+
 			}
+			*/
 			opStack.push_back(working);
 		}
 		else if (working == ")")
