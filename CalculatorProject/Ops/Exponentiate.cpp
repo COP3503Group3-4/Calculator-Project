@@ -114,9 +114,9 @@ int Exponentiate::expo(int base, int exp)
    }
 }
 
- 
-   
-   
+
+
+
 
 //the function that does the exponentiation
 Value* Exponentiate::exponentiate(Value* base, Value* exp)
@@ -196,7 +196,39 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 
 	     }
 
-}
+	   if(f1 && f2) {
+	    	 int n = f1->getNumerator();
+	    	 int d = f1->getDenominator();
+	    	 RationalNumber* nn = new RationalNumber(n);
+	    	 RationalNumber* dd = new RationalNumber(d);
+	    	 if(f2->getNumerator() > 0) {
+		    	 Value* nnn = exponentiate(nn, f2);
+		    	 Value* ddd = exponentiate(dd, f2);
+		    	 Value* result = Divide::divide(nnn, ddd);
+		    	 //Simplify is crashing the program for some reason (IrrationalFraction)
+		    	 //result = result ->simplify();
+		    	 return result;
+	    	 }
+	    	 else {
+	    		 RationalFraction* rF3 = new RationalFraction(f2->getNumerator() * -1, f2->getDenominator());
+		    	 Value* nnn = exponentiate(nn, rF3);
+		    	 Value* ddd = exponentiate(dd, rF3);
+		    	 Value* result = Divide::divide(ddd, nnn);
+		    	 //Simplify is crashing the program for some reason (IrrationalFraction::simplify())
+		    	 //result = result ->simplify();
+		    	 return result;
+	    	 }
 
+	     }
+	   if(iRN1 && rN2) {
+		   cout << "Exponentiating irrational numbers is unsupported." << endl;
+		   return iRN1;
+	   }
+	   if(rN1 && iRN2) {
+		   cout << "Raising rational numbers to irrational powers is unsupported." << endl;
+		   return rN1;
+	   }
+
+}
 
 

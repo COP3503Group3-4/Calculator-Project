@@ -48,7 +48,7 @@ Value* Add::add(Value* a, Value* b) {
     	return rN3;
     }
     if(rN1 && rF2){
-    	RationalFraction* rF3 = new RationalFraction(rN1->getNumValue() + rF2->getNumerator(), rF2->getDenominator());
+    	RationalFraction* rF3 = new RationalFraction(rN1->getNumValue()*rF2->getDenominator() + rF2->getNumerator(), rF2->getDenominator());
     	return rF3->simplify();
     }
     if(rF1 && rN2) {
@@ -121,20 +121,28 @@ Value* Add::add(Value* a, Value* b) {
                 //log will be created. However, if one is a Rational Number and one is an Irrational Number,
                 //we need to perform a different set of steps to multiply them together.
                 if( rNIV1 && rNIV2 ){
-                    int value1 = rNIV1->getNumValue();
-                    int value2 = rNIV2->getNumValue();
-                    //cout<<value1<<endl;
-                    //cout<<value2<<endl;
-                    int finalVal = value1*value2;
-                    //cout<<finalVal<<endl;
-                    Value* finalRNIV = new RationalNumber(finalVal);
-                    Value* logSimp = new Log(lB1, finalRNIV);
-                    logSimp->printInfo();
-                    //cout<<endl;
-                    return logSimp;
-                    //Since we determined that the inside values are both rational numbers, they will be
-                    //returned and multiplied together. A new log object will be created which has the same
-                    //base and the inside value equivalent to the result of the multiplication.
+                    if(isEqual(rNIV1, rNIV2)){
+                        int co1 = l1->getCoefficient();
+                        int co2 = l2->getCoefficient();
+                        int newCo = co1 + co2;
+                        Value* simplifiedLog = new Log(newCo, lB1, lIV1);
+                    }
+                    else{
+                        int value1 = rNIV1->getNumValue();
+                        int value2 = rNIV2->getNumValue();
+                        //cout<<value1<<endl;
+                        //cout<<value2<<endl;
+                        int finalVal = value1*value2;
+                        //cout<<finalVal<<endl;
+                        Value* finalRNIV = new RationalNumber(finalVal);
+                        Value* logSimp = new Log(lB1, finalRNIV);
+                        logSimp->printInfo();
+                        //cout<<endl;
+                        return logSimp;
+                        //Since we determined that the inside values are both rational numbers, they will be
+                        //returned and multiplied together. A new log object will be created which has the same
+                        //base and the inside value equivalent to the result of the multiplication.
+                    }
                 }
             }
         }
@@ -327,6 +335,21 @@ Value* Add::add(Value* a, Value* b) {
 
         	return ex2->simplify();
         }
+		 if(l1 && ex2){
+			 if(ex2->getLog(ind,l1->getNum1(),l1->getNum2())) {
+				 Value* v = add(l1,ex2->get(ind));
+				 ex2->popOffAt(ind);
+				 ex2->addVal(v);
+			 }
+			 else {
+				 ex2->addVal(l1);
+			 }
+			 return ex2->simplify();
+		 }
+		 if(ex1 && l2){
+			 return add(b,a);
+		 }
+
    }
 
    if(sqrA && sqrB){
@@ -370,17 +393,6 @@ Value* Add::add(Value* a, Value* b) {
                 int simpCoeff = coefrF1 + coefrF2;
                 Value* addedRoot = new SquareRoot(simpCoeff, sqrAInside);
             }
-        }
-   }
-
-   if( l1 && ex2 || ex1 && l2 ){
-        if(l1 && ex2){
-            Value* newExp = new Expression(l1, ex2, '+');
-            return newExp;
-        }
-        if(ex1 && l2){
-            Value* newExp = new Expression(ex1, l2, '+');
-            return newExp;
         }
    }
 

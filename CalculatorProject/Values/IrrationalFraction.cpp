@@ -113,10 +113,19 @@ Value* IrrationalFraction::simplify(){
 }
 
 void IrrationalFraction::printInfo(){
-
+	cout << "((";
+	numerator->printInfo();
+	cout << ") / (";
+	denominator->printInfo();
+	cout << "))";
 }
 string IrrationalFraction::toString()
 {
-	string s = " ";
+	string s = "";
+	s.append("((");
+	s.append(numerator->toString());
+	s.append(") / (");
+	s.append(denominator->toString());
+	s.append("))");
 	return s;
 }

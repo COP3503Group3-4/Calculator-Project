@@ -105,6 +105,19 @@ Value* Log::simplifyLog(Value* a, Value* b){
         Here, the checks are only for Rational Number bases and inside Values. In the first if statement, 1 is returned,
         provided they are both equivalent. The else statement will call factor to split the log up into its components.
     */
+
+    if(iRN1 && iRN2) {
+    	//Need to perform power checking
+    	if(iRN1->getIRNumValue() == iRN2->getIRNumValue()) {
+    		return new RationalNumber(1);
+    	}
+    }
+    if(iRN1 && rN2) {
+    	return this;
+    }
+    if(rN1 && iRN2) {
+    	return this;
+    }
 }
 
 Value* Log::getNum1(){
@@ -124,6 +137,7 @@ Value* Log::getNum2(){
 
 void Log::printInfo(){
     if(coefficient != 1) cout<<coefficient;
+    if(coefficient == -1) cout << "-";
     cout<<"log_";
     base->printInfo();
     cout<<":";
@@ -171,10 +185,20 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
 }
 
 string Log::toString(){
-    //ostringstream logString;
-    //logString << "log_" << base->printInfo() <<":" <<insideValue->printInfo();
-    //return logString.str();
-    return "";
+	string s = "";
+	ostringstream c;
+    if(coefficient > 1 && coefficient < -1) {
+    	c << coefficient;
+    	s.append(c.str());
+    	c.str("");
+    	c.clear();
+    }
+    if(coefficient == -1) s.append("-");
+    s.append("log_");
+    s.append(base->toString());
+    s.append(":");
+    s.append(insideValue->toString());
+    return s;
 
     /*
         This was the "failed to be implemented" toString method. This was kind of a slip-up on our parts.
