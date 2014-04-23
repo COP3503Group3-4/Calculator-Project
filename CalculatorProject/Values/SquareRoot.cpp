@@ -1,12 +1,13 @@
 #include <SquareRoot.h>
 #include <RationalFraction.h>
 #include <IrrationalNumber.h>
-#include <IrrationalFraction.h>
 #include <RationalNumber.h>
+#include <IrrationalFraction.h>
 #include <Log.h>
 #include <NthRoot.h>
 #include <Expression.h>
 #include <cmath>
+#include <sstream>
 
 SquareRoot::SquareRoot()
 {
@@ -14,6 +15,7 @@ SquareRoot::SquareRoot()
 }
 
 SquareRoot::SquareRoot(Value* a){
+	coefficient = 1;
     insideRoot = a;
 }
 
@@ -33,35 +35,33 @@ Value* SquareRoot::simplify(){
     RationalNumber* rN1 = dynamic_cast<RationalNumber*>(insideRoot);
     Expression* ex1 = dynamic_cast<Expression*>(insideRoot);
     IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(insideRoot);
-    IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(insideRoot);
-    SquareRoot* sqr1 = dynamic_cast<SquareRoot*>(insideRoot);
-
+    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(insideRoot);
 
     if(f1){
         int numer = f1->getNumerator();
         int denom = f1->getDenominator();
-        if(sqrt(numer) == floor(sqrt(numer)) && sqrt(denom) == floor(sqrt(denom))){
+        if(sqrt(numer) == float(sqrt(numer)) && sqrt(denom) == float(sqrt(denom))){
             int simpNum = sqrt(numer);
             int simpDem = sqrt(denom);
-            cout<<simpNum<<'/'<<simpDem;
+            //cout<<simpNum<<'/'<<simpDem;
             Value* rootSim = new RationalFraction(simpNum,simpDem);
             return rootSim;
         }
-        else if(sqrt(numer) == floor(sqrt(numer)) && sqrt(denom) != floor(sqrt(denom))){
+        else if(sqrt(numer) == float(sqrt(numer)) && sqrt(denom) != float(sqrt(denom))){
             int simpNum = sqrt(numer);
             Value* newNum = new RationalNumber(simpNum);
             int index = 2;
-            cout<<simpNum<<'/';
+            //cout<<simpNum<<'/';
             Value* newDem = new SquareRoot();
             newDem = simplifyDenominator(denom, index, coefficient);
             Value* simpRoot = new IrrationalFraction(newNum, newDem);
             return simpRoot;
         }
-        else if(sqrt(denom) == floor(sqrt(denom)) && sqrt(numer) != floor(sqrt(numer))){
+        else if(sqrt(denom) == float(sqrt(denom)) && sqrt(numer) != float(sqrt(numer))){
             int simpDem = sqrt(denom);
             Value* newDem = new RationalNumber(simpDem);
             int index = 2;
-            cout<<simpDem<<'/';
+            //cout<<simpDem<<'/';
             Value* newNum = new SquareRoot();
             newNum = simplifyNumerator(numer, index, coefficient);
             Value* simpRoot = new IrrationalFraction(newNum,newDem);
@@ -82,10 +82,10 @@ Value* SquareRoot::simplify(){
     }
     if(rN1){
         int inside = rN1->getNumValue();
-        cout<<inside<<endl;
+        //cout<<inside<<endl;
         if (sqrt(inside) == floor(sqrt(inside))){
             int simpRoot = sqrt(inside);
-            cout<<simpRoot;
+            //cout<<simpRoot;
             Value* rootSim = new RationalNumber(simpRoot);
             return rootSim;
         }
@@ -124,7 +124,24 @@ Value* SquareRoot::getNum2(){
 }
 
 void SquareRoot::printInfo(){
+	if(coefficient != 1) cout << coefficient << "*";
+	cout << "sqrt(";
+	insideRoot->printInfo();
+	cout << ")";
+}
 
+string SquareRoot::toString()
+{
+	string s = "";
+	ostringstream c;
+	if (coefficient != 1) {
+		c << coefficient;
+		s.append(c.str());
+		s.append("*");
+	}
+	s.append("sqrt(");
+	s.append(insideRoot->toString());
+	s.append(")");
 }
 
 Value* SquareRoot::simplifyNumerator(int a, int b, int c){
@@ -167,7 +184,7 @@ Value* SquareRoot::simplifyDenominator(int a, int b, int c){
         Value* insideSimp = new RationalNumber(inside);
         Value* power = new RationalNumber(2);
         Value* simplifiedRoot = new NthRoot(coeff, insideSimp, power);
-        cout<<coeff<<"sqrt("<<inside<<")";
+        //cout<<coeff<<"sqrt("<<inside<<")";
         return simplifiedRoot;
     }
     else if((sqrt(i) == floor(sqrt(i))) && ((compare) == floor(compare))){
@@ -182,8 +199,6 @@ Value* SquareRoot::simplifyDenominator(int a, int b, int c){
         return simplifyDenominator(inside, i, coeff);
     }
 }
-
 int SquareRoot::getCoefficient(){
     return coefficient;
 }
-
