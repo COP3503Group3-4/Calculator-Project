@@ -105,6 +105,19 @@ Value* Log::simplifyLog(Value* a, Value* b){
         Here, the checks are only for Rational Number bases and inside Values. In the first if statement, 1 is returned,
         provided they are both equivalent. The else statement will call factor to split the log up into its components.
     */
+
+    if(iRN1 && iRN2) {
+    	//Need to perform power checking
+    	if(iRN1->getIRNumValue() == iRN2->getIRNumValue()) {
+    		return new RationalNumber(1);
+    	}
+    }
+    if(iRN1 && rN2) {
+    	return this;
+    }
+    if(rN1 && iRN2) {
+    	return this;
+    }
 }
 
 Value* Log::getNum1(){

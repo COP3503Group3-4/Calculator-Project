@@ -214,12 +214,20 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 		    	 Value* nnn = exponentiate(nn, rF3);
 		    	 Value* ddd = exponentiate(dd, rF3);
 		    	 Value* result = Divide::divide(ddd, nnn);
-		    	 //Simplify is crashing the program for some reason (IrrationalFraction)
+		    	 //Simplify is crashing the program for some reason (IrrationalFraction::simplify())
 		    	 //result = result ->simplify();
 		    	 return result;
 	    	 }
 
 	     }
+	   if(iRN1 && rN2) {
+		   cout << "Exponentiating irrational numbers is unsupported." << endl;
+		   return iRN1;
+	   }
+	   if(rN1 && iRN2) {
+		   cout << "Raising rational numbers to irrational powers is unsupported." << endl;
+		   return rN1;
+	   }
 
 }
 
