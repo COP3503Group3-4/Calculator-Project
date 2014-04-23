@@ -209,7 +209,7 @@ Value* MathSys::calculate() {
 			v2 = calculate();
 			v1 = calculate();
 
-
+				/*
 				cout << "V1= ";
 				v1->printInfo();
 				cout << endl;
@@ -217,7 +217,7 @@ Value* MathSys::calculate() {
 				cout << "V2= ";
 				v2->printInfo();
 				cout << endl;
-
+				*/
 
 
 				n = dynamic_cast<RationalNumber*>(v1);
