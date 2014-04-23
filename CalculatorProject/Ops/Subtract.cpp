@@ -43,6 +43,8 @@ Subtract::~Subtract() {}
     IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
     //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
     //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
+    NthRoot* nrtA = dynamic_cast<NthRoot*>(a);
+    NthRoot* nrtB = dynamic_cast<NthRoot*>(b);
     SquareRoot* sqrA = dynamic_cast<SquareRoot*>(a);
     SquareRoot* sqrB = dynamic_cast<SquareRoot*>(b);
 
@@ -221,7 +223,7 @@ Subtract::~Subtract() {}
         }
     }
 	
-    /*if((f1 && l2) || (f1 && l1) || (f2 && l1) || (f2 && l2)){
+    if((f1 && l2) || (f1 && l1) || (f2 && l1) || (f2 && l2)){
         if(f1 && l1){
             Value* exp1 = new Expression(f1, l1, '-');
             return exp1;
@@ -238,10 +240,10 @@ Subtract::~Subtract() {}
             Value* exp1 = new Expression(f2, l2, '-');
             return exp1;
         }
-    }*/
+    }
 
 
-    /*if((rN1 && l1) || (rN2 && l1) || (rN1 && l2) || (rN2 && l2)){
+    if((rN1 && l1) || (rN2 && l1) || (rN1 && l2) || (rN2 && l2)){
         if(rN1 && l1){
             Value* exp1 = new Expression(rN1, l1, '-');
             return exp1;
@@ -258,7 +260,7 @@ Subtract::~Subtract() {}
             Value* exp1 = new Expression(rN2, l2, '-');
         }
     }
-    */
+
 
    if(iRN1 && iRN2){
         if(iRN1->getIRNumValue() == iRN2->getIRNumValue()){
@@ -434,6 +436,27 @@ Subtract::~Subtract() {}
                 Value* addedRoot = new SquareRoot(simpCoeff, sqrAInside);
             }
         }
+   }
+
+   if(nrtA && nrtB) {
+	   cout << "Subtracting NthRoots is currently unsupported." << endl;
+	   return nrtA;
+   }
+   if(nrtA && rN2) {
+	   Expression* exp = new Expression(nrtA, rN2, '-');
+	   return exp->simplify();
+   }
+   if(rN1 && nrtB) {
+	   Expression* exp = new Expression(rN1, nrtB, '-');
+	   return exp->simplify();
+   }
+   if(f1 && nrtB) {
+	   Expression* exp = new Expression(f1, nrtB, '-');
+	   return exp->simplify();
+   }
+   if(nrtA && f2) {
+	   Expression* exp = new Expression(nrtA, f2, '-');
+	   return exp->simplify();
    }
 }
 

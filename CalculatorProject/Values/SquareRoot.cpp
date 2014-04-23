@@ -90,7 +90,8 @@ Value* SquareRoot::simplify(){
         }
         else{
             int index = 2;
-            Value* newRoot = new SquareRoot(simplifyNumerator(inside, index, coefficient));
+            Value* newRoot = new SquareRoot();
+            newRoot = simplifyNumerator(inside, index, coefficient);
             return newRoot;
         }
     }
