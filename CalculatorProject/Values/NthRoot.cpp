@@ -1,4 +1,4 @@
-#include "NthRoot.h"
+#include <NthRoot.h>
 #include <RationalFraction.h>
 #include <IrrationalNumber.h>
 #include <IrrationalFraction.h>
@@ -11,6 +11,8 @@
 #include <tgmath.h>
 #include <vector>
 #include <sstream>
+#include <map>
+
 
 NthRoot::NthRoot()
 {
@@ -36,11 +38,11 @@ NthRoot::~NthRoot()
 }
 
 Value* NthRoot::getNum1(){
-
+	return insideRoot;
 }
 
 Value* NthRoot::getNum2(){
-
+	return rootNum;
 }
 
 void NthRoot::printInfo(){
@@ -102,7 +104,7 @@ Value* NthRoot::simplify(){
             ////cout<<newDenominator<<endl;
             Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
             simpFrac = expo.exponentiate(simpFrac, newPower);
-            simpFrac->printInfo();
+            //simpFrac->printInfo();
             return simpFrac;
         }
         else if(initialPowDen == 3){
@@ -206,7 +208,7 @@ Value* NthRoot::simplify(){
             return newVal;
         }
    }
-   if(f1 && rN2 || rN1 && f2){
+   if((f1 && rN2) || (rN1 && f2)){
         if(f1 && rN2){
             double initialNumerator = f1->getNumerator();
             double initialDenominator = f1->getDenominator();
@@ -299,7 +301,7 @@ Value* NthRoot::simplify(){
                 Value* simpRN = new RationalNumber(simpValue);
                 Value* newExponent = new RationalNumber(initialPowNum);
                 simpRN = expo.exponentiate(simpRN, newExponent);
-                simpRN->printInfo();
+                //simpRN->printInfo();
                 return simpRN;
             }
            else{
@@ -354,61 +356,45 @@ Value* NthRoot::rootDenominator(int insideVal, int index, int co, int power, vec
             return simplified;
         }
         else{
-            vector<int> storedNumbers;
-            storedNumbers.push_back (storedInts[0]);
+            map<int, int> keepCount;
+
             for(int i = 0; i < storedInts.size(); i++){
-                int checkNum = storedInts[i];
-                //cout<<"Check Num: "<<checkNum<<endl;
-                for(int j = 0; j < storedNumbers.size(); j++){
-                    int checkRN = storedNumbers[j];
-                    //cout<<"Check RN: "<<checkRN<<endl;
-                    for(int k = 0; k < storedNumbers.size(); k++){
-                        if( checkRN != storedNumbers[k]){
-                            storedNumbers.push_back(checkNum);
-                            //cout<<storedNumbers[k];
-                        }
-                    }
+                int numToInsert = storedInts[i];
+                if(keepCount.count (numToInsert) > 0){
+                    keepCount[numToInsert]++;
+                }
+                else{
+                    keepCount[numToInsert] = 1;
                 }
             }
-            //cout<<"StoredInts Size: "<<storedInts.size()<<endl;
-            //cout<<"StoredNumbers Size: "<< storedNumbers.size()<<endl;
-            int comparison = storedInts.size() - storedNumbers.size();
-            if(comparison == power){
-                int newCoeff = storedInts[0];
-                int newInside = storedInts[comparison];
-                Value* newInsideVal = new RationalNumber(newInside);
-                Value* newPower = new RationalNumber(power);
-                Value* simpRoot = new NthRoot(newCoeff, newInsideVal, newPower );
-                //cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
-                return simpRoot;
+            vector<int> finalValues;
+            for (map<int,int>::iterator it=keepCount.begin(); it!=keepCount.end(); ++it){
+                ////cout << "the number: "<< it->first << " apears " << it->second << "times" <<'\n';
+                if(it->second == power){
+                    coeff = coeff*it->first;
+                }
+                else if( it->second > power ){
+                    int newPower = it->second - power;
+                    coeff = coeff*it->first;
+                    int newInside = pow(it->first,newPower);
+                    finalValues.push_back(newInside);
+                }
+                else if( it->second < power){
+                    //cout<<it->first<<" "<<it->second<<endl;
+                    int newInside = pow(it->first, it->second);
+                    finalValues.push_back(newInside);
+                }
             }
-            else if( comparison > power ){
-                int newCoeff = storedInts[0];
-                int num1 = 1;
-                for(int i = comparison; i > storedNumbers.size() + 1; i--){
-                    int num2 = storedInts[i];
-                    num1 = num1 * num2;
 
-                }
-                int newInside = num1;
-                Value* newInsideValue = new RationalNumber(newInside);
-                Value* newPower = new RationalNumber(power);
-                Value* simpRoot = new NthRoot(newCoeff, newInsideValue, newPower);
-                //cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
-                return simpRoot;
+            int finalInsideValue = 1;
+            for(int i = 0; i < finalValues.size(); i++){
+                finalInsideValue = finalInsideValue * finalValues[i];
+            }
 
-            }
-            else if( comparison < power){
-                int newInside = 1;
-                for(int i = 0; i < storedInts.size(); i++){
-                    newInside = newInside * storedInts[i];
-                }
-                //cout<<power<<"rt:"<<newInside;
-                Value* simpInside = new RationalNumber(newInside);
-                Value* simpPower = new RationalNumber(power);
-                Value* simplified = new NthRoot(simpInside, simpPower);
-                return simplified;
-            }
+            Value* simplifiedInside = new RationalNumber(finalInsideValue);
+            Value* simplifiedRoot = new NthRoot(coeff, simplifiedInside, rootNum );
+            //simplifiedRoot->printInfo();
+            return simplifiedRoot;
         }
     }
 }
@@ -433,58 +419,45 @@ Value* NthRoot::rootNumerator(int insideVal, int index, int co, int power, vecto
             return simplified;
         }
         else{
-            vector<int> storedNumbers;
-            storedNumbers.push_back (storedInts[0]);
+            map<int, int> keepCount;
+
             for(int i = 0; i < storedInts.size(); i++){
-                int checkNum = storedInts[i];
-                ////cout<<checkNum;
-                for(int j = 0; j < storedNumbers.size(); j++){
-                    int checkRN = storedNumbers[j];
-                    for(int k = 0; k < storedNumbers.size(); k++){
-                        if( checkRN != storedNumbers[k]){
-                            storedNumbers.push_back(checkRN);
-                        }
-                    }
+                int numToInsert = storedInts[i];
+                if(keepCount.count (numToInsert) > 0){
+                    keepCount[numToInsert]++;
+                }
+                else{
+                    keepCount[numToInsert] = 1;
                 }
             }
-            int comparison = storedInts.size() - storedNumbers.size();
-
-            if(comparison == power){
-                int newCoeff = storedInts[0];
-                int newInside = storedInts[comparison];
-                Value* newInsideVal = new RationalNumber(newInside);
-                Value* newPower = new RationalNumber(power);
-                Value* simpRoot = new NthRoot(newCoeff, newInsideVal, newPower );
-                //cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
-                return simpRoot;
-            }
-            else if( comparison > power ){
-                int newCoeff = storedInts[0];
-                int num1 = 1;
-                for(int i = comparison; i > storedNumbers.size() + 1; i--){
-                    int num2 = storedInts[i];
-                    num1 = num1 * num2;
-
+            vector<int> finalValues;
+            for (map<int,int>::iterator it=keepCount.begin(); it!=keepCount.end(); ++it){
+                ////cout << "the number: "<< it->first << " apears " << it->second << "times" <<'\n';
+                if(it->second == power){
+                    coeff = coeff*it->first;
                 }
-                int newInside = num1;
-                Value* newInsideValue = new RationalNumber(newInside);
-                Value* newPower = new RationalNumber(power);
-                Value* simpRoot = new NthRoot(newCoeff, newInsideValue, newPower);
-                //cout<<newCoeff<<"("<<power<<"rt"<<newInside<<")";
-                return simpRoot;
-
-            }
-            else if( comparison < power){
-                int newInside = 1;
-                for(int i = 0; i < storedInts.size(); i++){
-                    newInside = newInside * storedInts[i];
+                else if( it->second > power ){
+                    int newPower = it->second - power;
+                    coeff = coeff*it->first;
+                    int newInside = pow(it->first,newPower);
+                    finalValues.push_back(newInside);
                 }
-                //cout<<power<<"rt:"<<newInside;
-                Value* simpInside = new RationalNumber(newInside);
-                Value* simpPower = new RationalNumber(power);
-                Value* simplified = new NthRoot(simpInside, simpPower);
-                return simplified;
+                else if( it->second < power){
+                    //cout<<it->first<<" "<<it->second<<endl;
+                    int newInside = pow(it->first, it->second);
+                    finalValues.push_back(newInside);
+                }
             }
+
+            int finalInsideValue = 1;
+            for(int i = 0; i < finalValues.size(); i++){
+                finalInsideValue = finalInsideValue * finalValues[i];
+            }
+
+            Value* simplifiedInside = new RationalNumber(finalInsideValue);
+            Value* simplifiedRoot = new NthRoot(coeff, simplifiedInside, rootNum );
+            //simplifiedRoot->printInfo();
+            return simplifiedRoot;
         }
     }
 }
