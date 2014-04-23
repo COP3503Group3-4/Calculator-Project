@@ -267,7 +267,9 @@ Value* Divide::divide(Value* a, Value* b){
             }
         }
    }*/
-
+   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   //Need to simplify irF when irF simplify is working and not crashing the program
+   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    if(nR1 && nR2) {
 	   IrrationalFraction* irF = new IrrationalFraction(nR1,nR2);
 	   return irF;
@@ -281,14 +283,14 @@ Value* Divide::divide(Value* a, Value* b){
 	   return irF;
    }
    if(nR1 && f2) {
-	   cout << "Dividing NthRoots by fractions is currently unsupported." << endl;
-	   cout <<"Operations that are currently unsupported will automatically return 0"<< endl;
-	   return 0;
+	   NthRoot* nR = new NthRoot(nR1->coefficient * f2->getDenominator(), nR1->getNum1(), nR1->getNum2());
+	   RationalNumber* denom = new RationalNumber(f2->getNumerator());
+	   IrrationalFraction* irF = new IrrationalFraction(nR,denom);
+	   return irF;
    }
    if(f1 && nR2) {
 	   cout << "Dividing fractions by NthRoots is currently unsupported." << endl;
-	   cout <<"Operations that are currently unsupported will automatically return 0"<< endl;
-	   return 0;
+	   return f1;
    }
 }
 
