@@ -20,6 +20,7 @@ NthRoot::NthRoot()
 }
 
 NthRoot::NthRoot(Value* a, Value* b){
+	coefficient = 1;
     insideRoot = a;
     rootNum = b;
 
@@ -47,11 +48,12 @@ Value* NthRoot::getNum2(){
 }
 
 void NthRoot::printInfo(){
-    cout<<coefficient<<"*";
-    rootNum->printInfo();
-    cout<<"rt:(";
-    insideRoot->printInfo();
-    cout<<")";
+	if(coefficient > 1 || coefficient < -1) cout << coefficient << "*";
+	if(coefficient == -1) cout << "-";
+	rootNum->printInfo();
+	cout << "rt:(";
+	insideRoot->printInfo();
+	cout << ")";
 }
 
 string NthRoot::toString(){
@@ -116,7 +118,7 @@ Value* NthRoot::simplify(){
             //cout<<newDenominator<<endl;
             Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
             simpFrac = expo.exponentiate(simpFrac, newPower);
-            simpFrac->printInfo();
+            //simpFrac->printInfo();
             return simpFrac;
             /*
                 If both the numerator and denominator have perfect roots, return the perfect roots.
@@ -130,7 +132,7 @@ Value* NthRoot::simplify(){
                 //cout<<newDenominator<<endl;
                 Value* simpFrac = new RationalFraction(newNumerator, newDenominator);
                 simpFrac = expo.exponentiate(simpFrac, newPower);
-                simpFrac->printInfo();
+                //simpFrac->printInfo();
                 return simpFrac;
             }
             else if(floor(cbrt(initialNumerator)) == (cbrt(initialNumerator)) && floor(cbrt(initialDenominator)) != cbrt(initialDenominator)){
@@ -218,7 +220,7 @@ Value* NthRoot::simplify(){
             if(cbrt(initialNumber) == floor(cbrt(initialNumber))){
                 int simpValue = cbrt(initialNumber);
                 Value* simpRN = new RationalNumber(simpValue);
-                simpRN->printInfo();
+                //simpRN->printInfo();
                 return simpRN;
             }
             else{
@@ -344,7 +346,7 @@ Value* NthRoot::simplify(){
                 Value* simpRN = new RationalNumber(simpValue);
                 Value* newExponent = new RationalNumber(initialPowNum);
                 simpRN = expo.exponentiate(simpRN, newExponent);
-                simpRN->printInfo();
+                //simpRN->printInfo();
                 return simpRN;
             }
            else{
@@ -436,7 +438,7 @@ Value* NthRoot::rootDenominator(int insideVal, int index, int co, int power, vec
 
             Value* simplifiedInside = new RationalNumber(finalInsideValue);
             Value* simplifiedRoot = new NthRoot(coeff, simplifiedInside, rootNum );
-            simplifiedRoot->printInfo();
+            //simplifiedRoot->printInfo();
             return simplifiedRoot;
         }
     }
@@ -499,7 +501,7 @@ Value* NthRoot::rootNumerator(int insideVal, int index, int co, int power, vecto
 
             Value* simplifiedInside = new RationalNumber(finalInsideValue);
             Value* simplifiedRoot = new NthRoot(coeff, simplifiedInside, rootNum );
-            simplifiedRoot->printInfo();
+            //simplifiedRoot->printInfo();
             return simplifiedRoot;
         }
     }
