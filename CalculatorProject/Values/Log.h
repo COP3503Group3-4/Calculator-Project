@@ -31,8 +31,10 @@ class Log : public Value
         string toString();
         Value* createSimpExpression(vector<int> a, Value* b);
         Value* addToCombine(vector<Value*> &a);
+        bool isWholeLog(int b, int c);
     protected:
     private:
+        int perfectLog;
 };
 
 #endif // LOG_H
