@@ -306,7 +306,7 @@ Value* Multiply::multiply(Value* a, Value* b) {
    		int multInsideNumber = insideNumber1 * insideNumber2;
    		Value* preSimpInside = new RationalNumber(multInsideNumber);
    		
-   		Value* preSimpRoot = new NthRoot(newCoefficient, preSimpInside, power );
+   		Value* preSimpRoot = new NthRoot(newCoefficient, preSimpInside, nrt1->getNum2() );
    		Value* finalSimpRoot = new NthRoot();
    		finalSimpRoot = preSimpRoot->simplify();
    		finalSimpRoot->printInfo();
