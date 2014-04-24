@@ -202,6 +202,7 @@ Value* Divide::divide(Value* a, Value* b){
 	   {return l2;}
 	 if(f2 && l1)
 	   {return f2;}
+    }
         /*
         if(f1 && l1){
             Value* exp1 = new Expression(f1, l1, '/');
@@ -227,6 +228,8 @@ Value* Divide::divide(Value* a, Value* b){
 	   {return rN2;}
 	if(rN1 && l2)
 	   {return l2;}
+	   
+    }
     	/*
         if(rN1 && l1){
             Value* exp1 = new Expression(rN1, l1, '/');
@@ -275,6 +278,8 @@ Value* Divide::divide(Value* a, Value* b){
 	   {return f2;}
 	if(ex2 && f1)
 	   {return ex2;}
+	   
+        }
         
         /*
             if(ex1 && f1){
