@@ -6,17 +6,21 @@
  */
 
 #include <MathSys.h>
-#include <iostream>
 #include <UserIO.h>
-#include <Value.h>
+
+#include <iostream>
+
 #include <Add.h>
 #include <Multiply.h>
 #include <Subtract.h>
 #include <Divide.h>
+
 #include <Exponentiate.h>
 #include <SquareRoot.h>
 #include <NthRoot.h>
 #include <RationalNumber.h>
+#include <IrrationalNumber.h>
+#include <RationalFraction.h>
 #include <Log.h>
 
 using namespace std;
