@@ -9,6 +9,7 @@
 #include <RationalNumber.h>
 #include <IrrationalNumber.h>
 #include <Value.h>
+#include <NthRoot.h>
 #include <sstream>
 
 class Multiply
