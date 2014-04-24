@@ -317,3 +317,24 @@ Value* Log::addToCombine(vector<Value*>& a){
         addToCombine(a);
     }
 }
+
+bool Log::isWholeLog(int b, int c){
+    int baseVal = b;
+    int insideVal = c;
+    int properNum;
+    bool even = false;
+
+    for(int i = 0; i < (insideVal/2); i++){
+        if(pow(baseVal, i) == insideVal){
+            even = true;
+            perfectLog = i;
+        }
+    }
+
+    if(even == true){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
