@@ -144,7 +144,7 @@ void MathSys::menu()
 				else if (c == 6)
 				{
 					cout << endl << "Logarithm Syntax."
-						<< endl << "log((base),(number))" << endl
+						<< endl << "log_(base):(number)" << endl
 						<< endl << "Please choose an option: ";
 					cin >> c;
 				}
