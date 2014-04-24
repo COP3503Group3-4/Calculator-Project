@@ -86,6 +86,8 @@ Value* Log::simplifyLog(Value* a, Value* b){
         */
     }
     if(rN1 && rN2){
+        int baseRN = rN1->getNumValue();
+        int insideRN = rN2->getNumValue();
         if(rN1->getNumValue() == rN2->getNumValue()){
             Value* rNSimp = new RationalNumber(1);
             return rNSimp;
@@ -93,6 +95,14 @@ Value* Log::simplifyLog(Value* a, Value* b){
         else if( rN1->getNumValue() > rN2->getNumValue() && rN2->getNumValue() != 1){
             Value* simpLog = new Log(base, insideValue);
             return simpLog;
+        }
+        else if(rN2->getNumValue() == 1){
+            Value* rNSimp = new RationalNumber(0);
+            return rNSimp;
+        }
+        else if(isWholeLog(baseRN, insideRN)){
+            Value* rNSimp = new RationalNumber(perfectLog);
+            return rNSimp;
         }
         else{
             vector<int> storedVal;
