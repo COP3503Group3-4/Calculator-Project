@@ -49,9 +49,11 @@ Value* Divide::divide(Value* a, Value* b){
 		f3 = f3->simplify();
         return f3;
     }
-    /*
+    
     if(l1 && l2){
-        Value* lB1 = l1->getNum1();
+    	cout << "Division between logs is currently unsupported." << endl;
+	   return l2;}
+        /*Value* lB1 = l1->getNum1();
         Value* lB2 = l2->getNum1();
         Value* lIV1 = l1->getNum2();
         Value* lIV2 = l2->getNum2();
@@ -194,7 +196,13 @@ Value* Divide::divide(Value* a, Value* b){
     }
 
 
-    /*if((f1 && l2) || (f1 && l1) || (f2 && l1) || (f2 && l2)){
+    if((f1 && l2)||(f2 && l1)){
+        cout << "Division between fraction and log is currently unsupported." << endl;
+	 if(f1 && l2)
+	   {return l2;}
+	 if(f2 && l1)
+	   {return f2;}
+        /*
         if(f1 && l1){
             Value* exp1 = new Expression(f1, l1, '/');
             return exp1;
@@ -213,7 +221,13 @@ Value* Divide::divide(Value* a, Value* b){
         }
     }*/
 
-    /*if((rN1 && l1) || (rN2 && l1) || (rN1 && l2) || (rN2 && l2)){
+    if((rN2 && l1) || (rN1 && l2)){
+    	cout << "Division between rational number and log is currently unsupported." << endl;
+    	if(rN2 && l1)
+	   {return rN2;}
+	if(rN1 && l2)
+	   {return l2;}
+    	/*
         if(rN1 && l1){
             Value* exp1 = new Expression(rN1, l1, '/');
             return exp1;
