@@ -257,12 +257,26 @@ Value* Divide::divide(Value* a, Value* b){
 	   return irF->simplify();
    }
 
-   /*if( ex1 || ex2 ){
+   if( ex1 || ex2 ){
+   	cout << "Division between expressions is currently unsupported." << endl;
+	   return ex2;}
+   	
+   	/*
         if(ex1 && ex2){
             Value* exp1 = new Expression(ex1, ex2, '/');
             return exp1;
         }
-        if((ex1 && f1) || (ex1 && f2) || (ex2 && f1) || (ex2 && f2)){
+        
+        */
+        
+        if((ex1 && f2) || (ex2 && f1)){
+         cout << "Division between expression and fraction is currently unsupported." << endl;
+    	if(ex1 && f2)
+	   {return f2;}
+	if(ex2 && f1)
+	   {return ex2;}
+        
+        /*
             if(ex1 && f1){
                 Value* exp1 = new Expression(ex1, f1, '/');
                 return exp1;
