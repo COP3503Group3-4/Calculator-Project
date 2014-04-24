@@ -149,9 +149,9 @@ Value* SquareRoot::simplifyNumerator(int a, int b, int c){
     int i = b;
     int coeff = c;
     double compare = inside/(double)i;
-    cout<<"C: "<<coeff<<endl;
-    cout<<"I: "<<inside<<endl;
-    cout<<"Compare: "<<compare<<endl;
+    //cout<<"C: "<<coeff<<endl;
+    //cout<<"I: "<<inside<<endl;
+    //cout<<"Compare: "<<compare<<endl;
     if(i >= inside){
         Value* insideSimp = new RationalNumber(inside);
         Value* power = new RationalNumber(2);
@@ -162,8 +162,8 @@ Value* SquareRoot::simplifyNumerator(int a, int b, int c){
     else if((sqrt(i) == floor(sqrt(i))) && ((compare) == floor(compare))){
         int newCo = coeff*sqrt(i);
         int newInside = inside/i;
-        cout<<"C: "<<newCo<<endl;
-        cout<<"I: "<<newInside<<endl;
+        //cout<<"C: "<<newCo<<endl;
+        //cout<<"I: "<<newInside<<endl;
         return simplifyNumerator(newInside, i, newCo);
     }
     else{
@@ -177,9 +177,9 @@ Value* SquareRoot::simplifyDenominator(int a, int b, int c){
     int i = b;
     int coeff = c;
     double compare = inside/(double)i;
-    cout<<"C: "<<coeff<<endl;
-    cout<<"I: "<<inside<<endl;
-    cout<<"Compare: "<<compare<<endl;
+    //cout<<"C: "<<coeff<<endl;
+    //cout<<"I: "<<inside<<endl;
+    //cout<<"Compare: "<<compare<<endl;
     if(i >= inside){
         Value* insideSimp = new RationalNumber(inside);
         Value* power = new RationalNumber(2);
@@ -190,8 +190,8 @@ Value* SquareRoot::simplifyDenominator(int a, int b, int c){
     else if((sqrt(i) == floor(sqrt(i))) && ((compare) == floor(compare))){
         int newCo = coeff*sqrt(i);
         int newInside = inside/i;
-        cout<<"C: "<<newCo<<endl;
-        cout<<"I: "<<newInside<<endl;
+        //cout<<"C: "<<newCo<<endl;
+        //cout<<"I: "<<newInside<<endl;
         return simplifyDenominator(newInside, i, newCo);
     }
     else{

@@ -4,7 +4,6 @@
 #include <IrrationalNumber.h>
 #include <IrrationalFraction.h>
 #include <Log.h>
-#include <NthRoot.h>
 #include <Expression.h>
 #include <SquareRoot.h>
 #include <Exponentiate.h>
@@ -14,6 +13,7 @@
 #include <set>
 #include <map>
 #include <algorithm>
+
 NthRoot::NthRoot()
 {
     //ctor
@@ -40,11 +40,11 @@ NthRoot::~NthRoot()
 }
 
 Value* NthRoot::getNum1(){
-
+	return insideRoot;
 }
 
 Value* NthRoot::getNum2(){
-
+	return rootNum;
 }
 
 void NthRoot::printInfo(){
@@ -505,4 +505,8 @@ Value* NthRoot::rootNumerator(int insideVal, int index, int co, int power, vecto
             return simplifiedRoot;
         }
     }
+}
+
+int NthRoot::getCoefficient() {
+	return coefficient;
 }

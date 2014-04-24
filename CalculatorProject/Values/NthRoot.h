@@ -3,6 +3,7 @@
 
 #include <Value.h>
 #include <vector>
+#include <string>
 
 class NthRoot : public Value
 {

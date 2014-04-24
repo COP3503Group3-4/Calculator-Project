@@ -1,4 +1,13 @@
 #include <Multiply.h>
+#include <Fraction.h>
+#include <RationalFraction.h>
+#include <Log.h>
+#include <Expression.h>
+#include <Number.h>
+#include <RationalNumber.h>
+#include <IrrationalNumber.h>
+#include <NthRoot.h>
+#include <sstream>
 
 /*
  *  Created on: Apr 5, 2014
@@ -293,12 +302,12 @@ Value* Multiply::multiply(Value* a, Value* b) {
    }
    
    if( nrt1 && nrt2 ){
-   	if(isEqual(nrt1->getNum2(), nrt2->getNum2)){
+   	if(isEqual(nrt1->getNum2(), nrt2->getNum2())) {
    		int newCoefficient = nrt1->getCoefficient() * nrt2->getCoefficient();
    		Value* inside1 = new RationalNumber();
    		Value* inside2 = new RationalNumber();
    		inside1 = nrt1->getNum1();
-   		inside2 = nrt2->getNum2();
+   		inside2 = nrt2->getNum1();
    		RationalNumber* newInsideVal1 = dynamic_cast<RationalNumber*>(inside1);
    		RationalNumber* newInsideVal2 = dynamic_cast<RationalNumber*>(inside2);
    		int insideNumber1 = newInsideVal1->getNumValue();
@@ -309,7 +318,7 @@ Value* Multiply::multiply(Value* a, Value* b) {
    		Value* preSimpRoot = new NthRoot(newCoefficient, preSimpInside, nrt1->getNum2() );
    		Value* finalSimpRoot = new NthRoot();
    		finalSimpRoot = preSimpRoot->simplify();
-   		finalSimpRoot->printInfo();
+   		//finalSimpRoot->printInfo();
    		return finalSimpRoot;
    	}
    }
@@ -389,6 +398,6 @@ bool Multiply::isEqual(Value* a, Value* b){
     		return true;
     	    }
     	}*/
-    else{ return false; }
+    else return false;
 
 }
