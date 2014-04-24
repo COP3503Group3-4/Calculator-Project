@@ -1,13 +1,4 @@
 #include <Multiply.h>
-#include <Fraction.h>
-#include <RationalFraction.h>
-#include <Log.h>
-#include <Expression.h>
-#include <Number.h>
-#include <RationalNumber.h>
-#include <IrrationalNumber.h>
-#include <NthRoot.h>
-#include <sstream>
 
 /*
  *  Created on: Apr 5, 2014
@@ -36,6 +27,8 @@ Value* Multiply::multiply(Value* a, Value* b) {
     IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
     //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
     //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
+    NthRoot* nrt1 = dynamic_cast<NthRoot*>(a);
+    NthRoot* nrt2 = dynamic_cast<NthRoot*>(b);
 
     //Type Checks the Initial Values passed into the function
     if(f1 && f2){
@@ -297,6 +290,28 @@ Value* Multiply::multiply(Value* a, Value* b) {
 		if(ex2 && f1){
 			return multiply(b,a);
 		}
+   }
+   
+   if( nrt1 && nrt2 ){
+   	if(isEqual(nrt1->getNum2(), nrt2->getNum2)){
+   		int newCoefficient = nrt1->getCoefficient() * nrt2->getCoefficient();
+   		Value* inside1 = new RationalNumber();
+   		Value* inside2 = new RationalNumber();
+   		inside1 = nrt1->getNum1();
+   		inside2 = nrt2->getNum2();
+   		RationalNumber* newInsideVal1 = dynamic_cast<RationalNumber*>(inside1);
+   		RationalNumber* newInsideVal2 = dynamic_cast<RationalNumber*>(inside2);
+   		int insideNumber1 = newInsideVal1->getNumValue();
+   		int insideNumber2 = newInsideVal2->getNumValue();
+   		int multInsideNumber = insideNumber1 * insideNumber2;
+   		Value* preSimpInside = new RationalNumber(multInsideNumber);
+   		
+   		Value* preSimpRoot = new NthRoot(newCoefficient, preSimpInside, power );
+   		Value* finalSimpRoot = new NthRoot();
+   		finalSimpRoot = preSimpRoot->simplify();
+   		finalSimpRoot->printInfo();
+   		return finalSimpRoot;
+   	}
    }
 
     //If an Expression is used at all, the Value created is always going to be an expression. Why? Because that's the only one
