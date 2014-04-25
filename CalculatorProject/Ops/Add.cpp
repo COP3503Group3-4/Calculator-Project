@@ -362,6 +362,14 @@ Value* Add::add(Value* a, Value* b) {
 		 if(ex1 && l2){
 			 return add(b,a);
 		 }
+		 if(ex1 && nrtB) {
+			 cout << "Adding expressions and NthRoots is currently unsupported." << endl;
+			 return ex1;
+		 }
+		 if(nrtA && ex2) {
+			 cout << "Adding expressions and NthRoots is currently unsupported." << endl;
+			 return nrtA;
+		 }
 
    }
 

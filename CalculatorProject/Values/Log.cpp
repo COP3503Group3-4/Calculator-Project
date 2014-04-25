@@ -10,6 +10,8 @@
 #include <string>
 #include <Add.h>
 #include <vector>
+#include <cmath>
+
 
 Log::Log(Value* b, Value* insideVal)
 {
@@ -325,7 +327,7 @@ bool Log::isWholeLog(int b, int c){
     bool even = false;
 
     for(int i = 0; i < (insideVal/2); i++){
-        if(pow(baseVal, i) == insideVal){
+    	if(pow((double)baseVal,(double)i) == insideVal) {
             even = true;
             perfectLog = i;
         }
