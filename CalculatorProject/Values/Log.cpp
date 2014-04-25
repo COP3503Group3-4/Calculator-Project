@@ -167,6 +167,7 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
 
     vector<int> storedRoots = a;
     int numToSimp = index1;
+    cout<<"Inside: "<<numToSimp<<endl;
     int index = index2;
     //base->printInfo();
     vector<Value*> storedLogValues;
@@ -175,12 +176,13 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
         storedRoots.push_back(index);
         return logFactor(storedRoots, numToSimp/index, index);
     }
-    else if(index < numToSimp - 1){
+    else if(index < numToSimp){
         index++;
+        cout<<index<<endl;
         return logFactor(storedRoots, numToSimp, index);
     }
     else{
-        if(storedRoots.size() == 0){
+        if(storedRoots.size() == 1){
             Value* alreadySimp = new Log(coefficient, base, insideValue);
             return alreadySimp;
         }
@@ -196,7 +198,7 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
         Value* simpLog = new Log();
         simpLog = initLog->simplify();
         storedLogs.push_back(simpLog);
-        storedLogs[i]->printInfo();
+        //storedLogs[i]->printInfo();
     }
     Value* finalSimplify = addToCombine(storedLogs);
     return finalSimplify;
@@ -220,87 +222,8 @@ string Log::toString(){
     s.append(insideValue->toString());
     return s;
 
-    /*
-        This was the "failed to be implemented" toString method. This was kind of a slip-up on our parts.
-    */
 }
 
-/*Value* Log::simplifyLogFactor(vector<Log> a, int index){
-    vector<Log> storedLogs = a;
-
-    if(index == storedLogs.size() - 1){
-        Value* simpNum = new RationalNumber(1);
-        return simpNum;
-
-    }
-
-    */
-    /*
-        This would pass in the recursive method, and simpNum would temporarily be returned (in order to show that it worked).
-        The final implementation would have an expression type passed back to the other functions.
-    */
-
-    /*else{
-        Log logSimp;
-        logSimp = storedLogs[index];
-        Log logSimp2;
-        logSimp2 = storedLogs[index+1];*/
-        /*
-            This created log type objects according to their position in the log vector.
-        */
-        /*if((logSimp.getBaseValue() == logSimp2.getBaseValue()) &&
-           (logSimp.getInsideValue() == logSimp2.getInsideValue())){
-            int sum1 = logSimp.getCoefficient();
-            int sum2 =logSimp2.getCoefficient();
-            int finalSum = sum1 + sum2;
-            Log simplifiedLog(finalSum, base, insideValue);
-            storedLogs.erase (0);
-            storedLogs.erase (1);
-            storedLogs.insert (simplifiedLog, 0);
-            storedLogs.shrink_to_fit();
-            return simplifyLogFactor(storedLogs, index++);*/
-            /*
-                This part of the method, would add the logs together if their bases and inside values were the same to produce
-                one log with a coefficient. Then, the vector would shrink, and this piece would be placed at index 0.
-            */
-      /*  }
-        else{
-            return simplifyLogFactor(storedLogs, index++);
-        }
-    }
-}
-*/
-/*Value* Log::createSimpExpression(vector<int> a, Value* b ){
-    vector<int> storedVals = a;
-    Value* expressionSimp = b;
-
-    if(storedVals.size() > 1){
-        int newNum1 = storedVals.back();
-        Value* logSimp1 = new Log(baseNum, newNum1);
-        storedVals.pop_back();
-
-        int newNum2 = storedVals.back();
-        Value* logSimp2 = new Log(baseNum,newNum2);
-        storedVals.pop_back();
-
-        Value* simpExp = new Expression(logSimp1,logSimp2, "+");
-
-        return createSimpExpression(storedVals, simpExp);
-    }
-    else if(storedVals.size() == 1){
-        int newNum1 = storedVals.back();
-        storedVals.pop_back();
-        Value* logSimp = new Log(baseNum, newNum1);
-        Value* simpExp = new Expression(expressionSimp, logSimp, "+");
-        return simpExp;
-    }
-    else{
-        return expressionSimp;
-    }
-
-    This was a preliminary idea for simplifying the logs by producing an Expression straight out of the gate. As I'm sure you can well
-    imagine, it didn't work.
-}*/
 
 int Log::getCoefficient(){
     return coefficient;
