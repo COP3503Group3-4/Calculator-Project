@@ -133,6 +133,11 @@ Value* Log::simplifyLog(Value* a, Value* b){
     if(rN1 && iRN2) {
     	return this;
     }
+    else{
+        Value* simpLog = new Log(a, b);
+        cout<<"This operation for logs is not supported."<<endl;
+        return simpLog;
+    }
 }
 
 Value* Log::getNum1(){
