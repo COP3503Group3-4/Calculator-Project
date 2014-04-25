@@ -33,8 +33,8 @@ Value* Divide::divide(Value* a, Value* b){
     Expression* ex2 = dynamic_cast<Expression*>(b);
     IrrationalNumber* iRN1 = dynamic_cast<IrrationalNumber*>(a);
     IrrationalNumber* iRN2 = dynamic_cast<IrrationalNumber*>(b);
-    //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
-    //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
+    IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
+    IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
     NthRoot* nR1 = dynamic_cast<NthRoot*>(a);
     NthRoot* nR2 = dynamic_cast<NthRoot*>(b);
 
@@ -324,6 +324,14 @@ Value* Divide::divide(Value* a, Value* b){
    if(f1 && nR2) {
 	   cout << "Dividing fractions by NthRoots is currently unsupported." << endl;
 	   return f1;
+   }
+   if(iRF1) {
+	   cout << "Division involving IrrationalFractions is unsupported." << endl;
+	   return iRF1;
+   }
+   if(iRF2) {
+	   cout << "Division involving IrrationalFractions is unsupported." << endl;
+	   return iRF2;
    }
 }
 
