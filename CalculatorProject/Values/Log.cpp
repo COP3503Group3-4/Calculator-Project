@@ -110,7 +110,9 @@ Value* Log::simplifyLog(Value* a, Value* b){
             vector<int> storedVal;
             int index = 2;
             int newVal = rN2->getNumValue();
-            return logFactor(storedVal,newVal, index);
+            Value* simplifiedLog = new Log();
+            simplifiedLog = logFactor(storedVal,newVal, index);
+            return simplifiedLog;
         }
     }
     /*
@@ -173,10 +175,15 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
         storedRoots.push_back(index);
         return logFactor(storedRoots, numToSimp/index, index);
     }
-    else if(index < numToSimp){
-        return logFactor(storedRoots, numToSimp, index + 1);
+    else if(index < numToSimp - 1){
+        index++;
+        return logFactor(storedRoots, numToSimp, index);
     }
     else{
+        if(storedRoots.size() == 0){
+            Value* alreadySimp = new Log(coefficient, base, insideValue);
+            return alreadySimp;
+        }
         for(int i = 0; i < storedRoots.size(); i++){
             Value* logNum = new RationalNumber(storedRoots[i]);
             storedLogValues.push_back(logNum);
@@ -189,12 +196,13 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
         Value* simpLog = new Log();
         simpLog = initLog->simplify();
         storedLogs.push_back(simpLog);
-        //storedLogs[i]->printInfo();
+        storedLogs[i]->printInfo();
     }
     Value* finalSimplify = addToCombine(storedLogs);
     return finalSimplify;
 
 }
+
 
 string Log::toString(){
 	string s = "";
