@@ -152,11 +152,23 @@ void MathSys::menu()
 					{
 						cin.clear();
 						cin.ignore();
-						cout << endl << "Invalid Input, Please Try Again:" << endl << endl << "Please choose an option: ";
+						cout << endl << "Invalid Input, Please Try Again:" << endl
+							<< endl << "-----------------------------------"
+							<< endl << "1. Addition" << endl << "2. Subtraction"
+							<< endl << "3. Multiplication" << endl << "4. Division" << endl
+							<< "5. Root" << endl << "6. Logarithm" << endl << "7. Quit"
+							<< endl << "-----------------------------------" << endl
+							<< endl << "Please choose an option: ";
 						cin >> c;
 					}
 			}
-			cout << endl << "-----------------------------------" << endl << "Syntax Quit." << endl << endl << "Please choose an option: ";
+			cout << endl << "-----------------------------------" << endl << "Syntax Quit." << endl << endl
+					<< "Welcome to MathSys."
+					<< endl << "-----------------------------------"
+					<< endl << "1. Calculation" << endl << "2. View Syntax"
+					<< endl << "3. View Stored Data" << endl << "4. Quit" << endl
+					<< "-----------------------------------" << endl
+					<< "Please choose an option: ";
 			cin >> c;
 		}
 
@@ -175,7 +187,12 @@ void MathSys::menu()
 			{
 				cin.clear();
 				cin.ignore();
-				cout << endl << "Invalid Input, Please Try Again:" << endl << endl << "Please choose an option: ";
+				cout << endl << "Invalid Input, Please Try Again:" << endl
+						<< endl << "-----------------------------------"
+						<< endl << "1. Calculation" << endl << "2. View Syntax"
+						<< endl << "3. View Stored Data" << endl << "4. Quit" << endl
+						<< "-----------------------------------" << endl
+						<< endl << "Please choose an option: ";
 				cin >> c;
 			}
 	}
