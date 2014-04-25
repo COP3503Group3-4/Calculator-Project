@@ -80,6 +80,7 @@ Value* Log::simplifyLog(Value* a, Value* b){
         }
         if(rN1 && f2){
             Value* rnSimp = new Log(rN1, f2);
+            return rnSimp;
         }
         /*
             Here, check to see if the base and inside values are either a fraction and Rational Number (in that order) or a
