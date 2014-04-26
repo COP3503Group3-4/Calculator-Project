@@ -16,9 +16,9 @@ UserIO::UserIO(string userInput, Value* lastAnswer)
 	userIn = userInput;
 	lastAns = lastAnswer;
 	splitInput();
-	printSplit();
+	//printSplit();
 	rpnInput();
-	printRPN();
+	//printRPN();
 }
 
 UserIO::~UserIO() {

@@ -67,7 +67,7 @@ void MathSys::menu()
 			cin.ignore();
 			getline (cin, data);
 
-			cout << endl << "Input:" << endl << data << endl;
+			cout << endl << "Input: " << data << endl;
 
 			UserIO calculation = UserIO(data, lastAnswer);
 
@@ -75,12 +75,11 @@ void MathSys::menu()
 			lastAnswer = calculate();
 			cout << "= ";
 			lastAnswer->printInfo();
-			//Value* v = lastAnswer->simplify();
-			//cout << endl;
-			//v->printInfo();
-			//cout << endl;
 
 			cout << endl << "Calculation complete." << endl
+					<< "-----------------------------------" << endl
+					<< "1. Calculation" << endl << "2. View Syntax"
+					<< endl << "3. View Stored Data" << endl << "4. Quit" << endl
 					<< "-----------------------------------" << endl
 					<< "Please choose an option: ";
 			cin >> c;

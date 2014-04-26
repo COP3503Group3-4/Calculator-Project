@@ -173,7 +173,7 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
 
     vector<int> storedRoots = a;
     int numToSimp = index1;
-    cout<<"Inside: "<<numToSimp<<endl;
+    //cout<<"Inside: "<<numToSimp<<endl;
     int index = index2;
     //base->printInfo();
     vector<Value*> storedLogValues;
@@ -184,7 +184,7 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
     }
     else if(index < numToSimp){
         index++;
-        cout<<index<<endl;
+        //cout<<index<<endl;
         return logFactor(storedRoots, numToSimp, index);
     }
     else{
