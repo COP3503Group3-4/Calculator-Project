@@ -1,4 +1,4 @@
-#include "RationalNumber.h"
+#include <RationalNumber.h>
 #include <stdlib.h>
 #include <sstream>
 
