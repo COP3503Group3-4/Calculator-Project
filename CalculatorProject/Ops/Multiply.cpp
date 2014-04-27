@@ -53,8 +53,12 @@ Value* Multiply::multiply(Value* a, Value* b) {
     }
 
     //I did not see log multiplication anywhere in the specs.
-    /*
+    
     if(l1 && l2){
+    	cout << "Multiplication between logs is currently unsupported." << endl;
+    return l2;}
+
+    	/*
         Value* lB1 = l1->getNum1();
         Value* lB2 = l2->getNum1();
         Value* lIV1 = l1->getNum2();
@@ -172,7 +176,18 @@ Value* Multiply::multiply(Value* a, Value* b) {
         //if we input 1/2 * 6, it will become 1/2 * 6/1, and then the same process as Rational Fraction
         //multiplication will occur.
     }
-    /*if((f1 && l2) || (f1 && l1) || (f2 && l1) || (f2 && l2)){
+    
+    if((f1 && l2) || (l1 && f2)){
+    	cout << "Multiplication between fraction and log is currently unsupported." << endl;
+    	if(f1 && l2)
+	   {return l2;}
+	if(l1 && f2)
+	   {return f2;}
+    }
+
+    	
+    	
+    	/*
         if(f1 && l1){
             Value* exp1 = new Expression(f1, l1, '*');
             return exp1;
@@ -195,7 +210,15 @@ Value* Multiply::multiply(Value* a, Value* b) {
     //be passed into the method, and they will be solved later on anyways, so all we need to do now is return an expression
     //with both values. No need to worry about the actual simplification right now.
 
-    /*if((rN1 && l1) || (rN2 && l1) || (rN1 && l2) || (rN2 && l2)){
+    if((rN1 && l2) || (l1 && rN2)){
+    	cout << "Multiplication between rational number and log is currently unsupported." << endl;
+    	if(rN1 && l2)
+	   {return l2;}
+	if(l1 && rN2)
+	   {return rN2;}
+    }
+
+    	/*
         if(rN1 && l1){
             Value* exp1 = new Expression(rN1, l1, '*');
             return exp1;
