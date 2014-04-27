@@ -339,9 +339,8 @@ Value* Add::add(Value* a, Value* b) {
 
    if( ex1 || ex2 ){
 	   int ind;
-	   Value* newEx;
+	   Value* newEx = new Expression(*ex1);
         if(ex1 && ex2){
-     	   newEx = ex1;
      	   ex2->minusToPlus();
             for(int i = 0; i < ex2->size(); i++) {
             	newEx = add(newEx, ex2->get(i));
