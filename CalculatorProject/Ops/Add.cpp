@@ -159,7 +159,7 @@ Value* Add::add(Value* a, Value* b) {
                         //cout<<finalVal<<endl;
                         Value* finalRNIV = new RationalNumber(finalVal);
                         Value* logSimp = new Log(lB1, finalRNIV);
-                        logSimp->printInfo();
+                        //logSimp->printInfo();
                         //cout<<endl;
                         return logSimp;
                         //Since we determined that the inside values are both rational numbers, they will be
