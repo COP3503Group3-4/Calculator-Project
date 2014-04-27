@@ -302,7 +302,7 @@ Subtract::~Subtract() {}
                    	   return exp1->simplify();
             	   }
             	   else {
-            		   IrrationalNumber* iRN = new IrrationalNumber(iRN2->coefficient * -1, iRN2->getIRNumValue(), iRN1->getNum2());
+            		   IrrationalNumber* iRN = new IrrationalNumber(iRN2->coefficient * -1, iRN2->getIRNumValue(), iRN2->getNum2());
             		   return iRN->simplify();
             	   }
                }
