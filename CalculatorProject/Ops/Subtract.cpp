@@ -92,17 +92,24 @@ Subtract::~Subtract() {}
                 //IrrationalFraction* iRF1 = dynamic_cast<IrrationalFraction*>(a);
                 //IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
                 if( rNIV1 && rNIV2 ){
-                    int value1 = rNIV1->getNumValue();
-                    int value2 = rNIV2->getNumValue();
-                    //cout<<value1<<endl;
-                    //cout<<value2<<endl;
-                    int finalVal = value1/value2;
-                    //cout<<finalVal<<endl;
-                    Value* finalRNIV = new RationalNumber(finalVal);
-                    Value* logSimp = new Log(lB1, finalRNIV);
-                    logSimp->printInfo();
-                    //cout<<endl;
-                    return logSimp;
+                    if(isEqual(rNIV1, rNIV2)){
+                        int coeff1 = l1->getCoefficient();
+                        int coeff2 = (l2->getCoefficient() * -1);
+                        int newCoefficient = coeff1 + coeff2;
+                        Value* simplifiedLog = new Log(newCoefficient, lB1, lIV1);
+                        return simplifiedLog;
+                    }
+                    else{
+                        int coeff1 = rNIV1->getNumValue();
+                        int coeff2 = rNIV2->getNumValue();
+                        Value* value1 = new RationalNumber(coeff1);
+                        Value* value2 = new RationalNumber(coeff2);
+                        Value* coeffRTF = new RationalFraction(value1, value2);
+                        coeffRTF = coeffRTF->simplify();
+                        Value* logSimp = new Log(lB1, coeffRTF);
+                        return logSimp;
+                    }
+
                 }
             }
         }
