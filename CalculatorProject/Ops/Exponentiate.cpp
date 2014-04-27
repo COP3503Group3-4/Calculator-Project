@@ -16,6 +16,7 @@
 #include <IrrationalFraction.h>
 #include <NthRoot.h>
 #include <Divide.h>
+#include <Multiply.h>
 #include <sstream>
 #include <cmath>
 using namespace std;
@@ -221,11 +222,23 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 
 	     }
 	   if(iRN1 && rN2) {
-		   cout << "Exponentiating irrational numbers is unsupported." << endl;
-		   return iRN1;
+		   Value* newExpo = Multiply::multiply(iRN1->getNum2(),rN2);
+		   return new IrrationalNumber(iRN1->coefficient, iRN1->getIRNumValue(), newExpo);
 	   }
 	   if(rN1 && iRN2) {
 		   cout << "Raising rational numbers to irrational powers is unsupported." << endl;
+		   return rN1;
+	   }
+
+	   if(ex1 && rN2) {
+		   Value* v = new Expression(*ex1);
+		   for (int i = 1; i < rN2->getNumValue(); i++) {
+			   v = Multiply::multiply(v,ex1);
+		   }
+		   return v;
+	   }
+	   if(rN1 && ex2) {
+		   cout << "Exponentiating by an Expression is not supported." << endl;
 		   return rN1;
 	   }
 

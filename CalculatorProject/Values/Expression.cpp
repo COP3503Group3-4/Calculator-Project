@@ -53,6 +53,7 @@ Expression::~Expression()
 }
 
 Value* Expression::simplify(){
+
 	minusToPlus();
 	simplifyOps();
 	zeroCheck();
@@ -143,6 +144,7 @@ bool Expression::getValue(string typeName, Value* v, int* ind)
 }
 Value* Expression::get(int i)
 {
+	minusToPlus();
 	return adds[i];
 }
 int Expression::size()
@@ -178,7 +180,7 @@ bool Expression::getRational(int& ind) {
 	return false;
 }
 
-bool Expression::getIrrational(int& ind, string irrType)
+bool Expression::getIrrational(int& ind, string irrType, Value* expo)
 {
 	minusToPlus();
 	IrrationalNumber* iN;
@@ -186,8 +188,57 @@ bool Expression::getIrrational(int& ind, string irrType)
 	    iN = dynamic_cast<IrrationalNumber*>(adds[i]);
 	    if(iN) {
 	    	if (iN->storedVal == irrType) {
-	    		ind = i;
-	    		return true;
+	    		if(typeid(iN->getNum2()) == typeid(expo)) {
+
+	            	bool sameExpo = false;
+
+	                RationalFraction* rF = dynamic_cast<RationalFraction*>(iN->getNum2());
+	                Log* l = dynamic_cast<Log*>(iN->getNum2());
+	                RationalNumber* rN = dynamic_cast<RationalNumber*>(iN->getNum2());
+	                Expression* ex = dynamic_cast<Expression*>(iN->getNum2());
+	                IrrationalNumber* iRN = dynamic_cast<IrrationalNumber*>(iN->getNum2());
+	                //IrrationalFraction* irF = dynamic_cast<IrrationalFraction*>(iRN1->getNum2());
+	                SquareRoot* sqr = dynamic_cast<SquareRoot*>(iN->getNum2());
+	                NthRoot* nrt = dynamic_cast<NthRoot*>(iN->getNum2());
+
+	                if(rF){
+	                	RationalFraction* expRF2 = dynamic_cast<RationalFraction*>(expo);
+	                	if(expRF2->getNumerator() == rF->getNumerator()) {
+	                		if(expRF2->getDenominator() == rF->getDenominator())sameExpo = true;
+	                	}
+	                }
+	                if(l) {
+	                	cout << "Adding irrationals with Log exponents is unsupported." << endl;
+	                	return false;
+	                }
+	                if(rN) {
+	                	RationalNumber* expRN2 = dynamic_cast<RationalNumber*>(expo);
+	                	if(expRN2->getNumValue() == rN->getNumValue()) {
+	                		sameExpo = true;
+	                	}
+	                }
+	                if(ex) {
+	                	cout << "Adding irrationals with Expression exponents is unsupported." << endl;
+	                	return false;
+	                }
+	                if(iRN) {
+	                	cout << "Adding irrationals with Irrational exponents is unsupported." << endl;
+	                	return false;
+	                }
+	                if(sqr) {
+	                	cout << "Adding irrationals with Log exponents is unsupported." << endl;
+	                	return false;
+	                }
+	                if(nrt) {
+	                	cout << "Adding irrationals with Log exponents is unsupported." << endl;
+	                	return false;
+	                }
+
+	                if(sameExpo) {
+	    	    		ind = i;
+	    	    		return true;
+	                }
+	        	}
 	    	}
 	    }
 	}
@@ -279,7 +330,7 @@ void Expression::minusToPlus()
 					ex1->makeNegative();
 				}
 				if (iRN1) {
-					adds[i+1] = new IrrationalNumber(-1 * iRN1->coefficient, iRN1->getIRNumValue());
+					adds[i+1] = new IrrationalNumber(-1 * iRN1->coefficient, iRN1->getIRNumValue(), iRN1->getNum2());
 				}
 				if (nrt) {
 					adds[i+1] = new NthRoot(-1 * nrt->coefficient, nrt->getNum1(), nrt->getNum2());
@@ -318,7 +369,7 @@ void Expression::makeNegative()
 	    	ex->makeNegative();
 	    }
 	    if (iRN) {
-	    	adds[i] = new IrrationalNumber(iRN->coefficient * -1, iRN->getIRNumValue());
+	    	adds[i] = new IrrationalNumber(iRN->coefficient * -1, iRN->getIRNumValue(), iRN->getNum2());
 	    }
 	    if(nrt) {
 	    	adds[i] = new NthRoot(nrt->coefficient * -1, nrt->getNum1(), nrt->getNum2());
@@ -365,7 +416,7 @@ void Expression::simplifyOps()
 		    if (iRN1 && (iRN1->coefficient < 0)) {
 		    	if (ops[i] == '+') ops[i] = '-';
 		    	else if (ops[i] == '-') ops[i] = '+';
-		    	adds[i+1] = new IrrationalNumber(-1 * iRN1->coefficient, iRN1->getIRNumValue());
+		    	adds[i+1] = new IrrationalNumber(-1 * iRN1->coefficient, iRN1->getIRNumValue(), iRN1->getNum2());
 		    }
 		    if (nrt && nrt->coefficient < 0) {
 		    	if (ops[i] == '+') ops[i] = '-';
@@ -377,13 +428,6 @@ void Expression::simplifyOps()
 		    //}
 	}
 }
-bool Expression::hasValue(string typeName)
-{
-	for(int i = 0; i < adds.size(); i++) {
-		if (typeid(adds[i]).name() == typeName) return true;
-	}
-	return false;
-}
 void Expression::add(Value* v)
 {
 	cout << "Expression->add() no longer supported." << endl;
@@ -391,4 +435,7 @@ void Expression::add(Value* v)
 void Expression::subtract(Value* v)
 {
 	cout << "Expression->subtract() no longer supported." << endl;
+}
+void Expression::makePretty() {
+	//Might make expressions print out in order of descending exponents if I have time.
 }

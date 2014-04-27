@@ -6,15 +6,23 @@ IrrationalNumber::IrrationalNumber()
 {
     //ctor
 	coefficient = 0;
+	expo = new RationalNumber(1);
 }
 IrrationalNumber::IrrationalNumber(string s){
 	coefficient = 1;
     storedVal = s;
+	expo = new RationalNumber(1);
 }
 
 IrrationalNumber::IrrationalNumber(int coeff, string s){
     coefficient = coeff;
     storedVal = s;
+	expo = new RationalNumber(1);
+}
+IrrationalNumber::IrrationalNumber(int coeff, string s, Value* pow) {
+    coefficient = coeff;
+    storedVal = s;
+	expo = pow;
 }
 IrrationalNumber::~IrrationalNumber()
 {
@@ -27,14 +35,20 @@ Value* IrrationalNumber::getNum1(){
 }
 
 Value* IrrationalNumber::getNum2(){
-    Value* IR = new IrrationalNumber(getIRNumValue());
-    return IR;
+    return expo;
 }
 
 Value* IrrationalNumber::simplify(){
 	if(coefficient == 0) {
 		return new RationalNumber(0);
 	}
+	RationalNumber* rN = dynamic_cast<RationalNumber*>(expo);
+	if (rN) {
+		if(rN->getNumValue() == 0) {
+			return new RationalNumber(1);
+		}
+	}
+	return this;
 }
 
 string IrrationalNumber::getIRNumValue(){
@@ -45,6 +59,17 @@ void IrrationalNumber::printInfo(){
     if (coefficient > 1 || coefficient < -1) cout << coefficient << "*";
     if (coefficient == -1) cout << "-";
     cout<<storedVal;
+    RationalNumber* rN = dynamic_cast<RationalNumber*>(expo);
+    if (rN) {
+    	if(rN->getNumValue() != 1) {
+    		cout << "^";
+    		expo->printInfo();
+    	}
+    }
+    else {
+    	cout << "^"; expo->printInfo();
+    }
+
 }
 string IrrationalNumber::toString() {
 	string s = "";

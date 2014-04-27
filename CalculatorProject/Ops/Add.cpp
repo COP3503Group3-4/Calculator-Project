@@ -223,15 +223,70 @@ Value* Add::add(Value* a, Value* b) {
 
 
    if(iRN1 && iRN2){
-        if(iRN1->getIRNumValue()==iRN2->getIRNumValue()){
-        	//get coeffecients and add them so 2pi + pi = 3pi
-        	int coef = iRN1->coefficient + iRN2->coefficient;
-        	IrrationalNumber* iRN3 = new IrrationalNumber(coef, iRN1->getIRNumValue());
-        	return iRN3;
+        if(iRN1->getIRNumValue() == iRN2->getIRNumValue()){
+
+        	bool sameExpo = false;
+
+        	if(typeid(iRN1->getNum2()) == typeid(iRN1->getNum2())) {
+                RationalFraction* rF = dynamic_cast<RationalFraction*>(iRN1->getNum2());
+                Log* l = dynamic_cast<Log*>(iRN1->getNum2());
+                RationalNumber* rN = dynamic_cast<RationalNumber*>(iRN1->getNum2());
+                Expression* ex = dynamic_cast<Expression*>(iRN1->getNum2());
+                IrrationalNumber* iRN = dynamic_cast<IrrationalNumber*>(iRN1->getNum2());
+                //IrrationalFraction* irF = dynamic_cast<IrrationalFraction*>(iRN1->getNum2());
+                SquareRoot* sqr = dynamic_cast<SquareRoot*>(iRN1->getNum2());
+                NthRoot* nrt = dynamic_cast<NthRoot*>(iRN1->getNum2());
+                if(rF){
+                	RationalFraction* expRF2 = dynamic_cast<RationalFraction*>(iRN2->getNum2());
+                	if(expRF2->getNumerator() == rF->getNumerator()) {
+                		if(expRF2->getDenominator() == rF->getDenominator())sameExpo = true;
+                	}
+                }
+                if(l) {
+                	cout << "Adding irrationals with Log exponents is unsupported." << endl;
+                	return iRN1;
+                }
+                if(rN) {
+                	RationalNumber* expRN2 = dynamic_cast<RationalNumber*>(iRN2->getNum2());
+                	if(expRN2->getNumValue() == rN->getNumValue()) {
+                		sameExpo = true;
+                	}
+                }
+                if(ex) {
+                	cout << "Adding irrationals with Expression exponents is unsupported." << endl;
+                	return iRN1;
+                }
+                if(iRN) {
+                	cout << "Adding irrationals with Irrational exponents is unsupported." << endl;
+                	return iRN1;
+                }
+                if(sqr) {
+                	cout << "Adding irrationals with Log exponents is unsupported." << endl;
+                	return iRN1;
+                }
+                if(nrt) {
+                	cout << "Adding irrationals with Log exponents is unsupported." << endl;
+                	return iRN1;
+                }
+        	}
+        	else {
+        		sameExpo = false;
+        	}
+
+            if(sameExpo) {
+            	//get coeffecients and add them so 2pi + pi = 3pi
+            	int coef = iRN1->coefficient + iRN2->coefficient;
+            	IrrationalNumber* iRN3 = new IrrationalNumber(coef, iRN1->getIRNumValue(), iRN1->getNum2());
+            	return iRN3;
+            }
+            else {
+            	Expression* nEx = new Expression(iRN1, iRN2, '+');
+            	return nEx;
+            }
         }
         else{
-	    Expression* exp1 = new Expression(iRN1, iRN2, '+');
-        return exp1->simplify();
+			Expression* exp1 = new Expression(iRN1, iRN2, '+');
+			return exp1->simplify();
         }
    }
    if((iRN1 && rN2) || (iRN2 && rN1)){
@@ -329,7 +384,7 @@ Value* Add::add(Value* a, Value* b) {
 			}
         }
         if(ex1 && iRN2) {
-        	if(ex1->getIrrational(ind, iRN2->getIRNumValue())) {
+        	if(ex1->getIrrational(ind, iRN2->getIRNumValue(), iRN2->getNum2())) {
         		Value* v = add(iRN2, ex1->get(ind));
         		ex1->popOffAt(ind);
         		ex1->addVal(v);
@@ -339,7 +394,7 @@ Value* Add::add(Value* a, Value* b) {
         	return ex1->simplify();
         }
         if(ex2 && iRN1) {
-        	if(ex2->getIrrational(ind, iRN1->getIRNumValue())) {
+        	if(ex2->getIrrational(ind, iRN1->getIRNumValue(), iRN1->getNum2())) {
         		Value* v = add(iRN1, ex2->get(ind));
         		ex2->popOffAt(ind);
         		ex2->addVal(v);

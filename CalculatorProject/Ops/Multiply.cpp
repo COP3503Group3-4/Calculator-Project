@@ -8,6 +8,7 @@
 #include <IrrationalNumber.h>
 #include <NthRoot.h>
 #include <sstream>
+#include <Add.h>
 
 /*
  *  Created on: Apr 5, 2014
@@ -217,42 +218,39 @@ Value* Multiply::multiply(Value* a, Value* b) {
     //but it wouldn't make a difference if we did it at the end of calculate or in here. It's not programmed in because it isn't
     //written yet, and I really didn't want to get too far ahead of myself.
 
-   /* if(ex1 && ex2){
-        Value* exp1 = new Expression(ex1, ex2, '*');
-        return exp1;
-    }*/
-
     //do we need to be able to foil out expressions in this class? Or will that be handled somewhere else?
 
-    if(iRN1 && iRN2){
-           if(iRN1->getIRNumValue()==iRN2->getIRNumValue()){
-           	//get powers and add them so pi * pi becomes pi^2
-           	int coef = iRN1->coefficient * iRN2->coefficient;
-           	IrrationalNumber* iRN3 = new IrrationalNumber(coef, iRN1->getIRNumValue());
-           	return iRN3;
+	if(iRN1 && iRN2){
+		if(iRN1->getIRNumValue()==iRN2->getIRNumValue()){
+
+			Value* newExpo = Add::add(iRN1->getNum2(),iRN2->getNum2());
+
+			// Multiply coefficients
+			int coef = iRN1->coefficient * iRN2->coefficient;
+			IrrationalNumber* iRN3 = new IrrationalNumber(coef, iRN1->getIRNumValue(), newExpo->simplify());
+			return iRN3;
            }
            else{
-        	   cout << "Expressions with irrationals not supported. Use coefficients instead." << endl;
-   	    //Value* exp1 = new Expression(iRN1, iRN2, '*');
-           //return exp1;
+        	   cout << "Multiplying Irrationals of different types is currently unsupported." << endl;
+        	   return iRN1;
            }
       }
       if((iRN1 && rN1) || (iRN1 && rN2) || (iRN2 && rN1) || (iRN2 && rN2)){
                   if(iRN1 && rN2){
                 	  int coeff = rN2->getNumValue() * iRN1->coefficient;
-                      IrrationalNumber* iRN3 = new IrrationalNumber(coeff,iRN1->getIRNumValue());
+                      IrrationalNumber* iRN3 = new IrrationalNumber(coeff,iRN1->getIRNumValue(),iRN1->getNum2());
                       return iRN3;
                   }
                   if(iRN2 && rN1){
                 	  int coeff = rN1->getNumValue() * iRN2->coefficient;
-                      IrrationalNumber* iRN3 = new IrrationalNumber(coeff,iRN2->getIRNumValue());
+                      IrrationalNumber* iRN3 = new IrrationalNumber(coeff,iRN2->getIRNumValue(), iRN2->getNum2());
                       return iRN3;
                   }
               }
       if((iRN1 && f2) || (iRN2 && f1)){
     	  cout << "IrrationalNumbers currently only support integer coefficients." << endl;
 			 if(iRN1 && f2){
-				 return new IrrationalNumber(f2->getNumerator() * iRN1->coefficient / f2->getDenominator(), iRN1->getIRNumValue());
+				 return new IrrationalNumber(f2->getNumerator() * iRN1->coefficient / f2->getDenominator(), iRN1->getIRNumValue(), iRN1->getNum2());
 			 }
 			 if(iRN2 && f1){
 				 return multiply(b,a);
@@ -272,33 +270,58 @@ Value* Multiply::multiply(Value* a, Value* b) {
    //In simplifying, I will distribute that coefficient onto the values inside the expression
 
    if( ex1 || ex2 ){
-	   Expression* ex3;
+
         if(ex1 && ex2){
-            Value* exp1 = new Expression(ex1, ex2, '*');
-            return exp1;
+        	Value* v2;
+            Value* v = multiply(ex2->get(ex2->size() - 1), ex1);
+            for(int i = ex2->size() - 2; i >= 0; i--) {
+            	v = Add::add(multiply(ex2->get(i), ex1), v);
+            }
+            return v->simplify();
         }
+
         if(ex1 && rN2) {
-        	for(int i = ex1->size()-1; i >= 0; i--) {
-        		Value* v = multiply(ex1->get(i),rN2);
-        		ex1->popOffAt(i);
-        		ex1->addVal(v);
+        	Expression* ex = new Expression(*ex1);
+        	for(int i = ex->size()-1; i >= 0; i--) {
+        		Value* v = multiply(ex->get(i),rN2);
+        		ex->popOffAt(i);
+        		ex->addVal(v);
         	}
-        	return ex1->simplify();
+        	return ex->simplify();
         }
+
         if(rN1 && ex2) {
         	return multiply(b,a);
         }
+
 		if(ex1 && f2){
-        	for(int i = ex1->size()-1; i >= 0; i--) {
-        		Value* v = multiply(ex1->get(i),f2);
-        		ex1->popOffAt(i);
-        		ex1->addVal(v);
+			Expression* ex = new Expression(*ex1);
+        	for(int i = ex->size()-1; i >= 0; i--) {
+        		Value* v = multiply(ex->get(i),f2);
+        		ex->popOffAt(i);
+        		ex->addVal(v);
         	}
-        	return ex1->simplify();
+        	return ex->simplify();
 		}
+
 		if(ex2 && f1){
 			return multiply(b,a);
 		}
+
+        if(ex1 && iRN2) {
+        	Expression* ex = new Expression(*ex1);
+        	for(int i = ex->size()-1; i >= 0; i--) {
+        		Value* v = multiply(ex->get(i),iRN2);
+        		ex->popOffAt(i);
+        		ex->addVal(v);
+        	}
+        	return ex->simplify();
+        }
+
+        if(iRN1 && ex2) {
+        	return multiply(b,a);
+        }
+
    }
    
    if( nrt1 && nrt2 ){

@@ -32,8 +32,9 @@ class Expression : public Value
         void popOffAt(int ind);
         void simplifyOps();
         bool getRational(int& ind);
-        bool getIrrational(int& ind, string type);
+        bool getIrrational(int& ind, string type, Value* expo);
         bool getLog(int& ind, Value* base, Value* val);
+        void makePretty();
 
     protected:
     private:

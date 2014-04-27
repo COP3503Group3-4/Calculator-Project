@@ -24,7 +24,7 @@ int RationalNumber::getNumValue(){
 }
 
 Value* RationalNumber::getNum1(){
-    getNumValue();
+    return this;
 }
 
 Value* RationalNumber::getNum2(){
@@ -32,7 +32,7 @@ Value* RationalNumber::getNum2(){
 }
 
 Value* RationalNumber::simplify(){
-    getNumValue();
+    return this;
 }
 
 void RationalNumber::printInfo(){
