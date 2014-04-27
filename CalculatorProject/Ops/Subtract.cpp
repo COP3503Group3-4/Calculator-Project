@@ -102,9 +102,7 @@ Subtract::~Subtract() {}
                     else{
                         int coeff1 = rNIV1->getNumValue();
                         int coeff2 = rNIV2->getNumValue();
-                        Value* value1 = new RationalNumber(coeff1);
-                        Value* value2 = new RationalNumber(coeff2);
-                        Value* coeffRTF = new RationalFraction(value1, value2);
+                        Value* coeffRTF = new RationalFraction(coeff1, coeff2);
                         coeffRTF = coeffRTF->simplify();
                         Value* logSimp = new Log(lB1, coeffRTF);
                         return logSimp;

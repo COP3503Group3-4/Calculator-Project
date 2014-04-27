@@ -515,11 +515,7 @@ bool Add::isEqual(Value* a, Value* b){
 
     //This typechecks whatever to see if they're equivalent.
     if(rnTestA && rnTestB){
-        Value* num1 = new RationalNumber();
-        Value* num2 = new RationalNumber();
-        num1 = a;
-        num2 = b;
-        if(num1->getNum1() == num2->getNum1()){
+        if(rnTestA->getNumValue() == rnTestB->getNumValue()){
             return true;
         }
         //If both of the numbers we're testing are Rational Numbers, we execute this.
