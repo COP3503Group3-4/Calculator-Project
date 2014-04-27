@@ -174,7 +174,7 @@ Value* Add::add(Value* a, Value* b) {
             newExp1 = l1->simplify();
             Value* newExp2 = new Log();
             newExp2 = l2->simplify();
-            return Add:add(newExp1, newExp2);
+            return Add::add(newExp1, newExp2);
         }
 
         //If the bases are different, we just return an expression with the two logs, since there's nothing
