@@ -74,8 +74,18 @@ Value* Add::add(Value* a, Value* b) {
     }
 
     if(nrtA && nrtB) {
-    	cout << "Adding NthRoots is currently unsupported." << endl;
-    	return nrtA;
+        Value* InsideNthRt1 = nrtA->getNum1();
+        Value* InsideNthRt2 = nrtB->getNum1();
+        Value* NthPow1 = nrtA->getNum2();
+        Value* NthPow2 = nrtB->getNum2();
+        
+        if(isEqual(InsideNthRt1, InsideNthRt2) && isEqual(NthPow1, NthPow2)){
+            int coefficient1 = nrtA->getCoefficient();
+            int coefficient2 = nrtB->getCoefficient();
+            int finalCoefficient = coefficient1+coefficient2;
+            Value* finalNthRoot = new NthRoot(finalCoefficient, InsideNthRt1, NthPow1);
+            return finalNthRoot; 
+        }
     }
 
     if(l1 && l2){
