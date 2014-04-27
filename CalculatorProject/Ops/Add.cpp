@@ -180,7 +180,7 @@ Value* Add::add(Value* a, Value* b) {
                 return add(newExp1, newExp2);
             }
             else{
-                Value* finalExpression = new Expression(newExp1, newExp2);
+                Value* finalExpression = new Expression(newExp1, newExp2, '+');
                 return finalExpression;
             }
         }
@@ -347,8 +347,8 @@ Value* Add::add(Value* a, Value* b) {
 
    if( ex1 || ex2 ){
 	   int ind;
-	   Value* newEx = new Expression(*ex1);
         if(ex1 && ex2){
+        	Value* newEx = new Expression(*ex1);
      	   ex2->minusToPlus();
             for(int i = 0; i < ex2->size(); i++) {
             	newEx = add(newEx, ex2->get(i));
