@@ -377,6 +377,26 @@ Value* Multiply::multiply(Value* a, Value* b) {
    	}
    }
 
+   if(nrt1 && rN2){
+	   cout << "This function is currently unsupported." << endl;
+	   return nrt1;
+   }
+
+   else if(nrt2 && rN1){
+	   cout << "This function is currently unsupported." << endl;
+	  	   return rN1;
+   }
+
+   if(nrt1 && f2){
+	   cout << "This function is currently unsupported." << endl;
+	   return nrt1;
+   }
+
+   else if(nrt2 && f1){
+	   cout << "This function is currently unsupported." << endl;
+	  	   return f1;
+   }
+
     //If an Expression is used at all, the Value created is always going to be an expression. Why? Because that's the only one
     //that simplify isn't very simple to do.
 

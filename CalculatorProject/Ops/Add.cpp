@@ -85,6 +85,7 @@ Value* Add::add(Value* a, Value* b) {
             int finalCoefficient = coefficient1+coefficient2;
             Value* finalNthRoot = new NthRoot(finalCoefficient, InsideNthRt1, NthPow1);
             return finalNthRoot; 
+
         }
     }
 
