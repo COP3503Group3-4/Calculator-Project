@@ -399,11 +399,7 @@ bool Multiply::isEqual(Value* a, Value* b){
     //IrrationalFraction* irfTestA = dynamic_cast<IrrationalFraction*>(a);
     //IrrationalFraction* irfTestB = dynamic_cast<IrrationalFraction*>(b);
     if(rnTestA && rnTestB){
-        Value* num1 = new RationalNumber();
-        Value* num2 = new RationalNumber();
-        num1 = a;
-        num2 = b;
-        if(num1->getNum1() == num2->getNum1()){
+        if(rnTestA->getNumValue() == rnTestB->getNumValue()){
             return true;
         }
     }
