@@ -103,7 +103,7 @@ Value* Log::simplifyLog(Value* a, Value* b){
             return rNSimp;
         }
         else if(isWholeLog(baseRN, insideRN)){
-            if(coefficient != 0){
+            if(this->coefficient != 0){
                 int finalNum = coefficient * perfectLog;
                 Value* rNSimp = new RationalNumber(finalNum);
                 return rNSimp;
