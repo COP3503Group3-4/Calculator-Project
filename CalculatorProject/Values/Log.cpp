@@ -153,9 +153,8 @@ Value* Log::simplifyLog(Value* a, Value* b){
     	return this;
     }
     else{
-        Value* simpLog = new Log(a, b);
         cout<<"This operation for logs is not supported."<<endl;
-        return simpLog;
+        return this;
     }
 }
 
