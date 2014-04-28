@@ -1,6 +1,6 @@
 /* subtract.cpp
  *  Created on: Apr 3, 2014
- *      Author: guorui
+ *      Author: Cory and Damian
  */
 
 #include <Subtract.h>
@@ -94,18 +94,32 @@ Subtract::~Subtract() {}
                 if( rNIV1 && rNIV2 ){
                     if(isEqual(rNIV1, rNIV2)){
                         int coeff1 = l1->getCoefficient();
-                        int coeff2 = (l2->getCoefficient() * -1);
-                        int newCoefficient = coeff1 + coeff2;
-                        Value* simplifiedLog = new Log(newCoefficient, lB1, lIV1);
-                        return simplifiedLog;
+                        int coeff2 = l2->getCoefficient();
+                        int newCoefficient = coeff1 - coeff2;
+                        if(newCoefficient == 0){
+                        	Value* actualSimp = new RationalNumber(0);
+                        	return actualSimp;
+                        }
+                        else{
+                        	Value* simplifiedLog = new Log(newCoefficient, lB1, lIV1);
+                        	return simplifiedLog;	
+                        }
+                        
                     }
                     else{
                         int coeff1 = rNIV1->getNumValue();
                         int coeff2 = rNIV2->getNumValue();
                         Value* coeffRTF = new RationalFraction(coeff1, coeff2);
                         coeffRTF = coeffRTF->simplify();
-                        Value* logSimp = new Log(lB1, coeffRTF);
-                        return logSimp;
+                        if(coeffRTF->getNumerator == 0){
+                        	Value* simpZero = new RationalNumber(0);
+                        	return simpZero;
+                        }
+                        else{
+                        	Value* logSimp = new Log(lB1, coeffRTF);
+                        	return logSimp;
+                        }
+                        
                     }
 
                 }
