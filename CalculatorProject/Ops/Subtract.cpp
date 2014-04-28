@@ -109,7 +109,7 @@ Subtract::~Subtract() {}
                     else{
                         int coeff1 = rNIV1->getNumValue();
                         int coeff2 = rNIV2->getNumValue();
-                        Value* coeffRTF = new RationalFraction(coeff1, coeff2);
+                        RationalFraction* coeffRTF = new RationalFraction(coeff1, coeff2);
                         coeffRTF = coeffRTF->simplify();
                         if(coeffRTF->getNumerator == 0){
                         	Value* simpZero = new RationalNumber(0);
