@@ -149,6 +149,7 @@ Value* Add::add(Value* a, Value* b) {
                         int co2 = l2->getCoefficient();
                         int newCo = co1 + co2;
                         Value* simplifiedLog = new Log(newCo, lB1, lIV1);
+                        return simplifiedLog;
                     }
                     else{
                         int value1 = rNIV1->getNumValue();
