@@ -50,12 +50,13 @@ Subtract::~Subtract() {}
 
 
     if(f1 && f2){
+    	cout << "test" << endl;
         int n1 = f1->getNumerator() * f2->getDenominator();
-        //cout<<"N1: "<<n1<<endl;
+        cout<<"N1: "<<n1<<endl;
         int n2 = f2->getNumerator() * f1->getDenominator();
-        //cout<<"N2: "<<n2<<endl;
+        cout<<"N2: "<<n2<<endl;
         int d = f1->getDenominator() * f2->getDenominator();
-        //cout<<"D: "<<d<<endl;
+        cout<<"D: "<<d<<endl;
         Value* f3 = new RationalFraction(n1-n2,d);
 		f3 = f3->simplify();
         return f3;
@@ -124,7 +125,7 @@ Subtract::~Subtract() {}
         //cout<<numAdded<<endl;
         return Num;
     }
-    if((f1 && rN1) ||  (f1 && rN2) || (f2 && rN1) || (f2 && rN2) ){
+    if((f1 && rN2) || (f2 && rN1)){
         if( f1 && rN2 ){
             Value* f3 = new RationalFraction(f1->getNumerator() - rN2->getNumValue()*f1->getDenominator(),f1->getDenominator());
             return f3->simplify();
@@ -135,57 +136,6 @@ Subtract::~Subtract() {}
         }
     }
 
-	if((rN1 && f1) ||  (rN2 && f1) || (rN1 && f2) || (rN2 && f2) ){
-        if( rN1 && f1 ){
-            int numerFN = rN1->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f1->getNumerator() * fN2->getDenominator();
-            int n2 = fN2->getNumerator() * f1->getDenominator();
-            int d = f1->getDenominator() * fN2->getDenominator();
-            Value* f3 = new RationalFraction(n1-n2,d);
-			f3 = f3->simplify();
-            return f3;
-        }
-        if( rN2 && f1 ){
-            int numerFN = rN2->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f1->getNumerator() * fN2->getDenominator();
-            //cout<<"N1: "<<n1<<endl;
-            int n2 = fN2->getNumerator() * f1->getDenominator();
-            //cout<<"N2: "<<n2<<endl;
-            int d = f1->getDenominator() * fN2->getDenominator();
-            //cout<<"d: "<<d<<endl;
-            Value* f3 = new RationalFraction(n1-n2,d);
-			f3 = f3->simplify();
-            return f3;
-        }
-        if( rN1 && f2 ){
-            int numerFN = rN1->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f2->getNumerator() * fN2->getDenominator();
-            //cout<<"N1: "<<n1<<endl;
-            int n2 = fN2->getNumerator() * f2->getDenominator();
-            //cout<<"N2: "<<n2<<endl;
-            int d = f2->getDenominator() * fN2->getDenominator();
-            //cout<<"d: "<<d<<endl;
-            Value* f3 = new RationalFraction(n1-n2,d);
-			f3 = f3->simplify();
-            return f3;
-        }
-        if( rN2 && f2 ){
-            int numerFN = rN2->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f2->getNumerator() * fN2->getDenominator();
-            //cout<<"N1: "<<n1<<endl;
-            int n2 = fN2->getNumerator() * f2->getDenominator();
-            //cout<<"N2: "<<n2<<endl;
-            int d = f2->getDenominator() * fN2->getDenominator();
-            //cout<<"d: "<<d<<endl;
-            Value* f3 = new RationalFraction(n1-n2,d);
-			f3 = f3->simplify();
-            return f3;
-        }
-    }
 	
     if((f1 && l2) || (f1 && l1) || (f2 && l1) || (f2 && l2)){
         if(f1 && l1){
