@@ -41,6 +41,20 @@ Value* Multiply::multiply(Value* a, Value* b) {
     NthRoot* nrt2 = dynamic_cast<NthRoot*>(b);
 
     //Type Checks the Initial Values passed into the function
+    if(rN1 && !rN2 || !rN1 && rN2){
+    	if(rN1){
+    		if(rN1->getNumValue() == 0){
+    			Value* zero = new RationalNumber(0);
+    			return zero;
+    		}
+    	}
+    	if(rN2){
+    		if(rN2->getNumValue() == 0){
+    			Value* zero = new RationalNumber(0);
+    			return zero;
+    		}
+    	}
+    }
     if(f1 && f2){
         int n = f1->getNumerator() * f2->getNumerator();
         //cout<<"N: "<<n<<endl;
