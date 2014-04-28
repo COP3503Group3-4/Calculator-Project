@@ -141,9 +141,8 @@ Value* Log::simplifyLog(Value* a, Value* b){
     */
 
     if(iRN1 && iRN2) {
-    	//Need to perform power checking
     	if(iRN1->getIRNumValue() == iRN2->getIRNumValue()) {
-    		return new RationalNumber(1);
+    		return iRN2->getNum2();
     	}
     }
     if(iRN1 && rN2) {
