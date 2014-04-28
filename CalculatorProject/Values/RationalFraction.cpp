@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -38,7 +39,7 @@ int RationalFraction::simplifyNum(int n, int d, int index){
             tempNum = numerator/i;
         }
     }*/
-    if(i > numerator){
+    if(i > abs(numerator)){
         //cout<<numerator<<endl;;
         return numerator;
     }
@@ -67,7 +68,7 @@ int RationalFraction::simplifyDen(int n, int d, int index){
             tempNum = numerator/i;
         }
     }*/
-    if(i > denominator){
+    if(i > abs(denominator)){
         //cout<<denominator<<endl;
         return denominator;
     }
