@@ -261,8 +261,10 @@ Value* Divide::divide(Value* a, Value* b){
    }
 
    if( ex1 || ex2 ){
-   	cout << "Division between expressions is currently unsupported." << endl;
-	   return ex2;}
+   	cout << "Division involving expressions is currently unsupported." << endl;
+	   if(ex2) return ex2;
+	   if(ex1) return ex1;
+   }
    	
    	/*
         if(ex1 && ex2){
