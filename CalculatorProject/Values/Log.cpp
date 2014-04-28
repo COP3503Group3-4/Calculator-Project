@@ -88,7 +88,7 @@ Value* Log::simplifyLog(Value* a, Value* b){
             return a new log with the inside value equivalent to the fraction.
         */
     }
-    if(rN1 && rN2){
+        if(rN1 && rN2){
         int baseRN = rN1->getNumValue();
         int insideRN = rN2->getNumValue();
         if(rN1->getNumValue() == rN2->getNumValue()){
@@ -96,16 +96,23 @@ Value* Log::simplifyLog(Value* a, Value* b){
             return rNSimp;
         }
         else if( rN1->getNumValue() > rN2->getNumValue() && rN2->getNumValue() != 1){
-            Value* simpLog = new Log(base, insideValue);
-            return simpLog;
+            return this;
         }
         else if(rN2->getNumValue() == 1){
             Value* rNSimp = new RationalNumber(0);
             return rNSimp;
         }
         else if(isWholeLog(baseRN, insideRN)){
-            Value* rNSimp = new RationalNumber(perfectLog);
-            return rNSimp;
+            if(coefficient != 0){
+                int finalNum = coefficient * perfectLog;
+                Value* rNSimp = new RationalNumber(finalNum);
+                return rNSimp;
+            }
+            else{
+                Value* rNSimp = new RationalNumber(perfectLog);
+                return rNSimp;
+            }
+
         }
         else{
             vector<int> storedVal;
@@ -113,7 +120,19 @@ Value* Log::simplifyLog(Value* a, Value* b){
             int newVal = rN2->getNumValue();
             Value* simplifiedLog = new Log();
             simplifiedLog = logFactor(storedVal,newVal, index);
-            return simplifiedLog;
+            if(coefficient != 1){
+                Multiply* m1 = new Multiply();
+                Log* actualLog = dynamic_cast<Log*>(simplifiedLog);
+                int logCo = actualLog->getCoefficient();
+                int finalCo = coefficient * logCo;
+                Value* rnCoeff = new RationalNumber(finalCo);
+                simplifiedLog = m1->multiply(rnCoeff, simplifiedLog);
+                return simplifiedLog;
+            }
+            else{
+                return simplifiedLog;
+            }
+
         }
     }
     /*
