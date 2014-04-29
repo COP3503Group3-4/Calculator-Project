@@ -37,7 +37,15 @@ Value* Divide::divide(Value* a, Value* b){
     IrrationalFraction* iRF2 = dynamic_cast<IrrationalFraction*>(b);
     NthRoot* nR1 = dynamic_cast<NthRoot*>(a);
     NthRoot* nR2 = dynamic_cast<NthRoot*>(b);
-
+	
+	
+    if(rN2){
+    	if(rN2->getNumValue() == 0){
+    		cout<<"Dividing by zero is not allowed!";
+    		Value* zero = RationalNumber(0);
+    		return zero;
+    	}
+    }	
     if(f1 && f2){
         int n1 = f1->getNumerator();
 		int n2 = f2->getNumerator();
