@@ -201,7 +201,7 @@ Value* Log::getNum2(){
 */
 
 void Log::printInfo(){
-    if(coefficient != 1) cout<<coefficient;
+    if(coefficient > 1 && coefficient < -1) cout<<coefficient;
     if(coefficient == -1) cout << "-";
     cout<<"log_";
     base->printInfo();

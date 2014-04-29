@@ -60,7 +60,7 @@ Subtract::~Subtract() {}
 		f3 = f3->simplify();
         return f3;
     }
-    if(l1 && l2){
+    else if(l1 && l2){
         Value* lB1 = l1->getNum1();
         Value* lB2 = l2->getNum1();
         Value* lIV1 = l1->getNum2();
@@ -136,7 +136,7 @@ Subtract::~Subtract() {}
             return exp1;
         }*/
     }
-    if(rN1 && rN2){
+    else if(rN1 && rN2){
         int num1 = rN1->getNumValue();
         int num2 = rN2->getNumValue();
         int numSub = num1 - num2;
@@ -144,154 +144,67 @@ Subtract::~Subtract() {}
         //cout<<numAdded<<endl;
         return Num;
     }
-    if((f1 && rN1) ||  (f1 && rN2) || (f2 && rN1) || (f2 && rN2) ){
-        if( f1 && rN2 ){
-            Value* f3 = new RationalFraction(f1->getNumerator() - rN2->getNumValue()*f1->getDenominator(),f1->getDenominator());
-            return f3->simplify();
-        }
-        if( f2 && rN1 ){
-            Value* f3 = new RationalFraction(rN1->getNumValue()*f2->getDenominator() - f2->getNumerator(),f2->getDenominator());
-            return f3->simplify();
-        }
-    }
 
-	if((rN1 && f1) ||  (rN2 && f1) || (rN1 && f2) || (rN2 && f2) ){
-        if( rN1 && f1 ){
-            int numerFN = rN1->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f1->getNumerator() * fN2->getDenominator();
-            int n2 = fN2->getNumerator() * f1->getDenominator();
-            int d = f1->getDenominator() * fN2->getDenominator();
-            Value* f3 = new RationalFraction(n1-n2,d);
-			f3 = f3->simplify();
-            return f3;
-        }
-        if( rN2 && f1 ){
-            int numerFN = rN2->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f1->getNumerator() * fN2->getDenominator();
-            //cout<<"N1: "<<n1<<endl;
-            int n2 = fN2->getNumerator() * f1->getDenominator();
-            //cout<<"N2: "<<n2<<endl;
-            int d = f1->getDenominator() * fN2->getDenominator();
-            //cout<<"d: "<<d<<endl;
-            Value* f3 = new RationalFraction(n1-n2,d);
-			f3 = f3->simplify();
-            return f3;
-        }
-        if( rN1 && f2 ){
-            int numerFN = rN1->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f2->getNumerator() * fN2->getDenominator();
-            //cout<<"N1: "<<n1<<endl;
-            int n2 = fN2->getNumerator() * f2->getDenominator();
-            //cout<<"N2: "<<n2<<endl;
-            int d = f2->getDenominator() * fN2->getDenominator();
-            //cout<<"d: "<<d<<endl;
-            Value* f3 = new RationalFraction(n1-n2,d);
-			f3 = f3->simplify();
-            return f3;
-        }
-        if( rN2 && f2 ){
-            int numerFN = rN2->getNumValue();
-            RationalFraction* fN2 = new RationalFraction(numerFN,1);
-            int n1 = f2->getNumerator() * fN2->getDenominator();
-            //cout<<"N1: "<<n1<<endl;
-            int n2 = fN2->getNumerator() * f2->getDenominator();
-            //cout<<"N2: "<<n2<<endl;
-            int d = f2->getDenominator() * fN2->getDenominator();
-            //cout<<"d: "<<d<<endl;
-            Value* f3 = new RationalFraction(n1-n2,d);
-			f3 = f3->simplify();
-            return f3;
-        }
-    }
-	
-    if((f1 && l2) || (f1 && l1) || (f2 && l1) || (f2 && l2)){
-        if(f1 && l1){
-            Value* exp1 = new Expression(f1, l1, '-');
-            return exp1;
-        }
-        if(f1 && l2){
-            Value* exp1 = new Expression(f1, l2, '-');
-            return exp1;
-        }
-        if(f2 && l1){
-            Value* exp1 = new Expression(f2, l1, '-');
-            return exp1;
-        }
-        if(f2 && l2){
-            Value* exp1 = new Expression(f2, l2, '-');
-            return exp1;
-        }
-    }
+    else if( f1 && rN2 ){
+		Value* f3 = new RationalFraction(f1->getNumerator() - rN2->getNumValue()*f1->getDenominator(),f1->getDenominator());
+		return f3->simplify();
+	}
+    else if( f2 && rN1 ){
+		Value* f3 = new RationalFraction(rN1->getNumValue()*f2->getDenominator() - f2->getNumerator(),f2->getDenominator());
+		return f3->simplify();
+	}
+
+    else if(f1 && l2){
+		Value* exp1 = new Expression(f1, l2, '-');
+		return exp1;
+	}
+    else if(f2 && l1){
+		Value* exp1 = new Expression(f2, l1, '-');
+		return exp1;
+	}
+
+    else if(rN1 && l2){
+		Value* exp1 = new Expression(rN1, l2, '-');
+		return exp1;
+	}
+    else if(rN2 && l1){
+		Value* exp1 = new Expression(rN2, l1, '-');
+		return exp1;
+	}
 
 
-    if((rN1 && l1) || (rN2 && l1) || (rN1 && l2) || (rN2 && l2)){
-        if(rN1 && l1){
-            Value* exp1 = new Expression(rN1, l1, '-');
-            return exp1;
-        }
-        if(rN1 && l2){
-            Value* exp1 = new Expression(rN1, l2, '-');
-            return exp1;
-        }
-        if(rN2 && l1){
-            Value* exp1 = new Expression(rN2, l1, '-');
-            return exp1;
-        }
-        if(rN2 && l2){
-            Value* exp1 = new Expression(rN2, l2, '-');
-        }
-    }
-
-
-   if(iRN1 && iRN2){
+    else if(iRN1 && iRN2){
        if(iRN1->getIRNumValue() == iRN2->getIRNumValue()){
 
        	bool sameExpo = false;
 
        	if(typeid(iRN1->getNum2()) == typeid(iRN1->getNum2())) {
-               RationalFraction* rF = dynamic_cast<RationalFraction*>(iRN1->getNum2());
-               Log* l = dynamic_cast<Log*>(iRN1->getNum2());
-               RationalNumber* rN = dynamic_cast<RationalNumber*>(iRN1->getNum2());
-               Expression* ex = dynamic_cast<Expression*>(iRN1->getNum2());
-               IrrationalNumber* iRN = dynamic_cast<IrrationalNumber*>(iRN1->getNum2());
-               //IrrationalFraction* irF = dynamic_cast<IrrationalFraction*>(iRN1->getNum2());
-               SquareRoot* sqr = dynamic_cast<SquareRoot*>(iRN1->getNum2());
-               NthRoot* nrt = dynamic_cast<NthRoot*>(iRN1->getNum2());
-               if(rF){
-               	RationalFraction* expRF2 = dynamic_cast<RationalFraction*>(iRN2->getNum2());
-               	if(expRF2->getNumerator() == rF->getNumerator()) {
-               		if(expRF2->getDenominator() == rF->getDenominator())sameExpo = true;
-               	}
-               }
-               if(l) {
-               	cout << "Adding irrationals with Log exponents is unsupported." << endl;
-               	return iRN1;
-               }
-               if(rN) {
-               	RationalNumber* expRN2 = dynamic_cast<RationalNumber*>(iRN2->getNum2());
-               	if(expRN2->getNumValue() == rN->getNumValue()) {
-               		sameExpo = true;
-               	}
-               }
-               if(ex) {
-               	cout << "Adding irrationals with Expression exponents is unsupported." << endl;
-               	return iRN1;
-               }
-               if(iRN) {
-               	cout << "Adding irrationals with Irrational exponents is unsupported." << endl;
-               	return iRN1;
-               }
-               if(sqr) {
-               	cout << "Adding irrationals with Log exponents is unsupported." << endl;
-               	return iRN1;
-               }
-               if(nrt) {
-               	cout << "Adding irrationals with Log exponents is unsupported." << endl;
-               	return iRN1;
-               }
+			RationalFraction* rF = dynamic_cast<RationalFraction*>(iRN1->getNum2());
+			Log* l = dynamic_cast<Log*>(iRN1->getNum2());
+			RationalNumber* rN = dynamic_cast<RationalNumber*>(iRN1->getNum2());
+			Expression* ex = dynamic_cast<Expression*>(iRN1->getNum2());
+			IrrationalNumber* iRN = dynamic_cast<IrrationalNumber*>(iRN1->getNum2());
+			//IrrationalFraction* irF = dynamic_cast<IrrationalFraction*>(iRN1->getNum2());
+			SquareRoot* sqr = dynamic_cast<SquareRoot*>(iRN1->getNum2());
+			NthRoot* nrt = dynamic_cast<NthRoot*>(iRN1->getNum2());
+
+			if(rF){
+				RationalFraction* expRF2 = dynamic_cast<RationalFraction*>(iRN2->getNum2());
+				if(expRF2->getNumerator() == rF->getNumerator()) {
+					if(expRF2->getDenominator() == rF->getDenominator())sameExpo = true;
+				}
+			}
+			else if(rN) {
+				RationalNumber* expRN2 = dynamic_cast<RationalNumber*>(iRN2->getNum2());
+				if(expRN2->getNumValue() == rN->getNumValue()) {
+					sameExpo = true;
+				}
+			}
+			else {
+            	cout << "Subtracting irrational numbers with exponents of " << iRN1->getNum2()->toString() << " and "
+            			<< iRN2->getNum2()->toString() << " is currently unsupported" << endl;
+            	return iRN1;
+			}
        	}
        	else {
        		sameExpo = false;
@@ -313,35 +226,33 @@ Subtract::~Subtract() {}
 			return exp1->simplify();
        }
    }
-   if((iRN1 && rN2) || (iRN2 && rN1)){
-               if(iRN1 && rN2){
-            	   if(!rN2->getNumValue() == 0) {
-            		   Expression* exp1 = new Expression(iRN1, rN2, '-');
-                   	   return exp1;
-            	   }
-            	   else return iRN1->simplify();
-               }
-               if(iRN2 && rN1){
-            	   if(!rN1->getNumValue() == 0) {
-            		   Expression* exp1 = new Expression(rN1, iRN2, '-');
-                   	   return exp1->simplify();
-            	   }
-            	   else {
-            		   IrrationalNumber* iRN = new IrrationalNumber(iRN2->coefficient * -1, iRN2->getIRNumValue(), iRN2->getNum2());
-            		   return iRN->simplify();
-            	   }
-               }
-           }
-   if((iRN1 && f2) || (iRN2 && f1)){
-                  if(iRN1 && f2){
-                      Expression* exp1 = new Expression(iRN1, f2, '-');
-                      return exp1;
-                  }
-                  if(f1 && iRN2){
-                      Expression* exp1 = new Expression(f1, iRN2, '-');
-                      return exp1;
-                  }
-              }
+
+    else if(iRN1 && rN2){
+		if(!rN2->getNumValue() == 0) {
+		   Expression* exp1 = new Expression(iRN1, rN2, '-');
+		   return exp1;
+		}
+		else return iRN1->simplify();
+    }
+    else if(iRN2 && rN1){
+		if(!rN1->getNumValue() == 0) {
+		   Expression* exp1 = new Expression(rN1, iRN2, '-');
+		   return exp1->simplify();
+		}
+		else {
+		   IrrationalNumber* iRN = new IrrationalNumber(iRN2->coefficient * -1, iRN2->getIRNumValue(), iRN2->getNum2());
+		   return iRN->simplify();
+		}
+	}
+
+	else if(iRN1 && f2){
+		Expression* exp1 = new Expression(iRN1, f2, '-');
+		return exp1;
+	}
+	else if(f1 && iRN2){
+		Expression* exp1 = new Expression(f1, iRN2, '-');
+		return exp1;
+	}
 
    if(ex1 && iRN2) {
 	   if(ex1->getIrrational(ind,iRN2->getIRNumValue(), iRN2->getNum2())) {
@@ -372,8 +283,6 @@ Subtract::~Subtract() {}
 		Value* newEx = ex1;
 		ex2->minusToPlus();
 		ex2->makeNegative();
-
-		cout << endl << "ex&&ex subtraction not working properly until Hayden fixes RPN ~" << endl;
 
 		for(int i = 0; i < ex2->size(); i++) {
 		   newEx = Add::add(newEx, ex2->get(i));

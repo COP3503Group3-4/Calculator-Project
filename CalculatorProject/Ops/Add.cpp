@@ -246,8 +246,8 @@ Value* Add::add(Value* a, Value* b) {
                 	}
                 }
                 else {
-                	cout << "Adding irrational numbers with exponent of type " << typeid(iRN2->getNum2()).name()
-                			<< " is currently unsupported." << endl;
+                	cout << "Adding irrational numbers with exponents of " << iRN1->getNum2()->toString() << " and "
+                			<< iRN2->getNum2()->toString() << " is currently unsupported" << endl;
                 	return iRN1;
                 }
 
