@@ -41,20 +41,22 @@ Value* Add::add(Value* a, Value* b) {
     NthRoot* nrtA = dynamic_cast<NthRoot*>(a);
     NthRoot* nrtB = dynamic_cast<NthRoot*>(b);
 
+    int ind;
+
     //Type Checks the Initial Values passed into the function
 
     if(rN1 && rN2){
     	RationalNumber* rN3 = new RationalNumber(rN1->getNumValue() + rN2->getNumValue());
     	return rN3;
     }
-    if(rN1 && rF2){
+    else if(rN1 && rF2){
     	RationalFraction* rF3 = new RationalFraction(rN1->getNumValue()*rF2->getDenominator() + rF2->getNumerator(), rF2->getDenominator());
     	return rF3->simplify();
     }
-    if(rF1 && rN2) {
+    else if(rF1 && rN2) {
     	return add(rN2,rF1);
     }
-    if(rF1 && rF2){
+    else if(rF1 && rF2){
     	int n1 = rF1->getNumerator() * rF2->getDenominator();
 		//cout<<"N1: "<<n1<<endl;
 		int n2 = rF2->getNumerator() * rF1->getDenominator();
@@ -65,15 +67,15 @@ Value* Add::add(Value* a, Value* b) {
 		return rF3->simplify();
     }
 
-    if(nrtA && rN2) {
+    else if(nrtA && rN2) {
     	Expression* exp = new Expression(nrtA,rN2,'+');
     	return exp;
     }
-    if(nrtB && rN1) {
+    else if(nrtB && rN1) {
     	return add(b,a);
     }
 
-    if(nrtA && nrtB) {
+    else if(nrtA && nrtB) {
         Value* InsideNthRt1 = nrtA->getNum1();
         Value* InsideNthRt2 = nrtB->getNum1();
         Value* NthPow1 = nrtA->getNum2();
@@ -89,7 +91,7 @@ Value* Add::add(Value* a, Value* b) {
         }
     }
 
-    if(l1 && l2){
+    else if(l1 && l2){
         Value* lB1 = l1->getNum1();
         Value* lB2 = l2->getNum1();
         Value* lIV1 = l1->getNum2();
@@ -191,61 +193,33 @@ Value* Add::add(Value* a, Value* b) {
         //we can do with addition. With Division, however, we will need to use the change of base formula and
         //there will be actual simplification.
     }
-    if(rN1 && rN2){
-        int num1 = rN1->getNumValue();
-        int num2 = rN2->getNumValue();
-        int numAdded = num1 + num2;
-        Value* summedNum = new RationalNumber(numAdded);
-        //cout<<numAdded<<endl;
-        return summedNum;
-    }
     //If both of the values to be added are Rational Numbers, all we need to do is get their values,
     //add them, and return a RationalNumber object equivalent to the sum.
 
-    if((rF1 && l2) || (rF1 && l1) || (rF2 && l1) || (rF2 && l2)){
-		if(rF1 && l1){
-			Value* exp1 = new Expression(rF1, l1, '+');
-			return exp1;
-		}
-		if(rF1 && l2){
-			Value* exp1 = new Expression(rF1, l2, '+');
-			return exp1;
-		}
-		if(rF2 && l1){
-			Value* exp1 = new Expression(rF2, l1, '+');
-			return exp1;
-		}
-		if(rF2 && l2){
-			Value* exp1 = new Expression(rF2, l2, '+');
-			return exp1;
-		}
-    }
+    else if(rF1 && l2){
+		Value* exp1 = new Expression(rF1, l2, '+');
+		return exp1;
+	}
+    else if(rF2 && l1){
+		Value* exp1 = new Expression(rF2, l1, '+');
+		return exp1;
+	}
 
         //All of the above is the combination of a rational fraction and an expression. Expression types will not INITALLY
         //be passed into the method, and they will be solved later on anyways, so all we need to do now is return an expression
         //with both values. No need to worry about the actual simplification right now.
 
-	if((rN1 && l1) || (rN2 && l1) || (rN1 && l2) || (rN2 && l2)){
-		if(rN1 && l1){
-			Value* exp1 = new Expression(rN1, l1, '+');
-			return exp1;
-		}
-		if(rN1 && l2){
-			Value* exp1 = new Expression(rN1, l2, '+');
-			return exp1;
-		}
-		if(rN2 && l1){
-			Value* exp1 = new Expression(rN2, l1, '+');
-			return exp1;
-		}
-		if(rN2 && l2){
-			Value* exp1 = new Expression(rN2, l2, '+');
-			return exp1;
-		}
+    else if(rN1 && l2){
+		Value* exp1 = new Expression(rN1, l2, '+');
+		return exp1;
+	}
+    else if(rN2 && l1){
+		Value* exp1 = new Expression(rN2, l1, '+');
+		return exp1;
 	}
 
 
-   if(iRN1 && iRN2){
+    else if(iRN1 && iRN2){
         if(iRN1->getIRNumValue() == iRN2->getIRNumValue()){
 
         	bool sameExpo = false;
@@ -265,32 +239,18 @@ Value* Add::add(Value* a, Value* b) {
                 		if(expRF2->getDenominator() == rF->getDenominator())sameExpo = true;
                 	}
                 }
-                if(l) {
-                	cout << "Adding irrationals with Log exponents is unsupported." << endl;
-                	return iRN1;
-                }
-                if(rN) {
+                else if(rN) {
                 	RationalNumber* expRN2 = dynamic_cast<RationalNumber*>(iRN2->getNum2());
                 	if(expRN2->getNumValue() == rN->getNumValue()) {
                 		sameExpo = true;
                 	}
                 }
-                if(ex) {
-                	cout << "Adding irrationals with Expression exponents is unsupported." << endl;
+                else {
+                	cout << "Adding irrational numbers with exponent of type " << typeid(iRN2->getNum2()).name()
+                			<< " is currently unsupported." << endl;
                 	return iRN1;
                 }
-                if(iRN) {
-                	cout << "Adding irrationals with Irrational exponents is unsupported." << endl;
-                	return iRN1;
-                }
-                if(sqr) {
-                	cout << "Adding irrationals with Log exponents is unsupported." << endl;
-                	return iRN1;
-                }
-                if(nrt) {
-                	cout << "Adding irrationals with Log exponents is unsupported." << endl;
-                	return iRN1;
-                }
+
         	}
         	else {
         		sameExpo = false;
@@ -312,7 +272,7 @@ Value* Add::add(Value* a, Value* b) {
 			return exp1->simplify();
         }
    }
-   if((iRN1 && rN2) || (iRN2 && rN1)){
+    else if((iRN1 && rN2) || (iRN2 && rN1)){
 	   if(iRN1 && rN2){
 		   if (rN2->getNumValue() == 0) return iRN1;
 		   Expression* exp1 = new Expression(iRN1, rN2, '+');
@@ -324,7 +284,7 @@ Value* Add::add(Value* a, Value* b) {
 		   return exp1->simplify();
 	   }
    }
-   if((iRN1 && rF2) || (iRN2 && rF1)){
+    else if((iRN1 && rF2) || (iRN2 && rF1)){
                   if(iRN1 && rF2){
                       Expression* exp1 = new Expression(iRN1, rF2, '+');
                       return exp1->simplify();
@@ -347,110 +307,94 @@ Value* Add::add(Value* a, Value* b) {
 
    //Lol hell no. You actually have to add.
 
-   if( ex1 || ex2 ){
-	   int ind;
-        if(ex1 && ex2){
-        	Value* newEx = new Expression(*ex1);
-     	   ex2->minusToPlus();
-            for(int i = 0; i < ex2->size(); i++) {
-            	newEx = add(newEx, ex2->get(i));
-            }
-            return newEx->simplify();
-        }
-        if((ex1 && rF2) || (ex2 && rF1)){
-            if(ex1 && rF2){
-				if(ex1->getRational(ind)) {
-					Value* v = add(rF2, ex1->get(ind));
-					ex1->popOffAt(ind);
-					ex1->addVal(v);
-				}
-				else {
-					ex1->addVal(rF2);
-				}
-                return ex1->simplify();
-            }
-            if(ex2 && rF1){
-				if(ex1->getRational(ind)) {
-					Value* v = add(rF1, ex2->get(ind));
-					ex2->popOffAt(ind);
-					ex2->addVal(v);
-				}
-				else {
-					ex2->addVal(rF1);
-				}
-                return ex2->simplify();
-            }
-        }
-        if((ex1 && rN2) || (ex2 && rN1)) {
-			if(ex1 && rN2){
-				if(ex1->getRational(ind)) {
-					Value* v = add(rN2, ex1->get(ind));
-					ex1->popOffAt(ind);
-					ex1->addVal(v);
-				}
-				else {
-					ex1->addVal(rN2);
-				}
-				return ex1->simplify();
-			}
-			if(ex2 && rN1){
-				if(ex2->getRational(ind)) {
-					Value* v = add(rN1, ex2->get(ind));
-					ex2->popOffAt(ind);
-					ex2->addVal(v);
-				}
-				else {
-					ex2->addVal(rN1);
-				}
-				return ex2->simplify();
-			}
-        }
-        if(ex1 && iRN2) {
-        	if(ex1->getIrrational(ind, iRN2->getIRNumValue(), iRN2->getNum2())) {
-        		Value* v = add(iRN2, ex1->get(ind));
-        		ex1->popOffAt(ind);
-        		ex1->addVal(v);
-        	}
-        	else ex1->addVal(iRN2);
+    else if(ex1 && ex2){
+		Value* newEx = new Expression(*ex1);
+	   ex2->minusToPlus();
+		for(int i = 0; i < ex2->size(); i++) {
+			newEx = add(newEx, ex2->get(i));
+		}
+		return newEx->simplify();
+	}
+    else if(ex1 && rF2){
+		if(ex1->getRational(ind)) {
+			Value* v = add(rF2, ex1->get(ind));
+			ex1->popOffAt(ind);
+			ex1->addVal(v);
+		}
+		else {
+			ex1->addVal(rF2);
+		}
+		return ex1->simplify();
+	}
+    else if(ex2 && rF1){
+		if(ex1->getRational(ind)) {
+			Value* v = add(rF1, ex2->get(ind));
+			ex2->popOffAt(ind);
+			ex2->addVal(v);
+		}
+		else {
+			ex2->addVal(rF1);
+		}
+		return ex2->simplify();
+	}
+    else if(ex1 && rN2){
+		if(ex1->getRational(ind)) {
+			Value* v = add(rN2, ex1->get(ind));
+			ex1->popOffAt(ind);
+			ex1->addVal(v);
+		}
+		else {
+			ex1->addVal(rN2);
+		}
+		return ex1->simplify();
+    }
+    else if(ex2 && rN1){
+		if(ex2->getRational(ind)) {
+			Value* v = add(rN1, ex2->get(ind));
+			ex2->popOffAt(ind);
+			ex2->addVal(v);
+		}
+		else {
+			ex2->addVal(rN1);
+		}
+		return ex2->simplify();
+	}
+    else if(ex1 && iRN2) {
+		if(ex1->getIrrational(ind, iRN2->getIRNumValue(), iRN2->getNum2())) {
+			Value* v = add(iRN2, ex1->get(ind));
+			ex1->popOffAt(ind);
+			ex1->addVal(v);
+		}
+		else ex1->addVal(iRN2);
 
-        	return ex1->simplify();
-        }
-        if(ex2 && iRN1) {
-        	if(ex2->getIrrational(ind, iRN1->getIRNumValue(), iRN1->getNum2())) {
-        		Value* v = add(iRN1, ex2->get(ind));
-        		ex2->popOffAt(ind);
-        		ex2->addVal(v);
-        	}
-        	else ex2->addVal(iRN1);
+		return ex1->simplify();
+	}
+    else if(ex2 && iRN1) {
+		if(ex2->getIrrational(ind, iRN1->getIRNumValue(), iRN1->getNum2())) {
+			Value* v = add(iRN1, ex2->get(ind));
+			ex2->popOffAt(ind);
+			ex2->addVal(v);
+		}
+		else ex2->addVal(iRN1);
 
-        	return ex2->simplify();
-        }
-		 if(l1 && ex2){
-			 if(ex2->getLog(ind,l1->getNum1(),l1->getNum2())) {
-				 Value* v = add(l1,ex2->get(ind));
-				 ex2->popOffAt(ind);
-				 ex2->addVal(v);
-			 }
-			 else {
-				 ex2->addVal(l1);
-			 }
-			 return ex2->simplify();
+		return ex2->simplify();
+	}
+    else if(l1 && ex2){
+		 if(ex2->getLog(ind,l1->getNum1(),l1->getNum2())) {
+			 Value* v = add(l1,ex2->get(ind));
+			 ex2->popOffAt(ind);
+			 ex2->addVal(v);
 		 }
-		 if(ex1 && l2){
-			 return add(b,a);
+		 else {
+			 ex2->addVal(l1);
 		 }
-		 if(ex1 && nrtB) {
-			 cout << "Adding expressions and NthRoots is currently unsupported." << endl;
-			 return ex1;
-		 }
-		 if(nrtA && ex2) {
-			 cout << "Adding expressions and NthRoots is currently unsupported." << endl;
-			 return nrtA;
-		 }
+		 return ex2->simplify();
+	 }
+    else if(ex1 && l2){
+		 return add(b,a);
+	 }
 
-   }
-
-   if(sqrA && sqrB){
+    else if(sqrA && sqrB){
         Value* sqrAInside = sqrA->getNum2();
         Value* sqrBInside = sqrB->getNum2();
         RationalFraction* insideRTrF1 = dynamic_cast<RationalFraction*>(sqrAInside);
@@ -493,6 +437,10 @@ Value* Add::add(Value* a, Value* b) {
             }
         }
    }
+    else {
+    	cout << "This operation is currently unsupported: " << a->toString() << " + " << b->toString() << endl;
+    	return a;
+    }
 
     //If an Expression is used at all, the Value created is always going to be an expression. Why? Because that's the only one
     //that simplify isn't very simple to do.
