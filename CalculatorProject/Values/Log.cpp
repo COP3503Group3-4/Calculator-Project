@@ -62,6 +62,22 @@ Value* Log::simplifyLog(Value* a, Value* b){
         This section is for type-checking both the base and the value contained within the log. The Vector "logValues"
         was to be implemented within the method to factor the log.
     */
+    if(f1 || rN1){
+    	if(f1){
+    		if(f1->getNumerator() < 0){
+    			cout<<"Negative bases? C'mon man, ain't nobody got time for that.";
+    			return this;
+    		}	
+    	}
+    	if(rN1){
+    		if(rN1->getNumValue() < 0){
+    			cout<<"Negative bases? C'mon man, ain't nobody got time for that.";
+    			return this;
+    		}
+    	}
+    	
+    	
+    }
     if( f1 && f2 ){
         if((f1->getNumerator() && f1->getDenominator()) == (f2->getNumerator() && f2->getDenominator())){
             Value* rNSimp = new RationalNumber(1);
