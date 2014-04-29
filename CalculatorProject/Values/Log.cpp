@@ -131,6 +131,17 @@ Value* Log::simplifyLog(Value* a, Value* b){
             }
 
         }
+        else if(isPerfectLogRTF(baseRN, insideRN)){
+            if(this->coefficient != 0){
+                int finalNum = coefficient * perfectLogRTF.getNumerator();
+                Value* rtfSimp = new RationalFraction(finalNum, perfectLogRTF.getDenominator());
+                return rtfSimp;
+            }
+            else{
+                Value* zero = new RationalNumber(0);
+                return zero;
+            }
+        }
         else{
             vector<int> storedVal;
             int index = 2;
