@@ -421,12 +421,12 @@ Value* NthRoot::rootDenominator(int insideVal, int index, int co, int power, vec
                 else if( it->second > power ){
                     int newPower = it->second - power;
                     coeff = coeff*it->first;
-                    int newInside = pow(it->first,newPower);
+                    int newInside = pow((double)it->first,(double)newPower);
                     finalValues.push_back(newInside);
                 }
                 else if( it->second < power){
                     //cout<<it->first<<" "<<it->second<<endl;
-                    int newInside = pow(it->first, it->second);
+                    int newInside = pow((double)it->first, (double)it->second);
                     finalValues.push_back(newInside);
                 }
             }
@@ -484,12 +484,12 @@ Value* NthRoot::rootNumerator(int insideVal, int index, int co, int power, vecto
                 else if( it->second > power ){
                     int newPower = it->second - power;
                     coeff = coeff*it->first;
-                    int newInside = pow(it->first,newPower);
+                    int newInside = pow((double)it->first, (double)newPower);
                     finalValues.push_back(newInside);
                 }
                 else if( it->second < power){
                     //cout<<it->first<<" "<<it->second<<endl;
-                    int newInside = pow(it->first, it->second);
+                    int newInside = pow((double)it->first, (double)it->second);
                     finalValues.push_back(newInside);
                 }
             }

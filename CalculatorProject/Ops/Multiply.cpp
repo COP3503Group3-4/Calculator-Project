@@ -378,22 +378,21 @@ Value* Multiply::multiply(Value* a, Value* b) {
    }
 
    if(nrt1 && rN2){
-	   cout << "This function is currently unsupported." << endl;
-	   return nrt1;
+	   NthRoot* nrt = new NthRoot(rN2->getNumValue() * nrt1->getCoefficient() , nrt1->getNum1(), nrt1->getNum2());
+	   return nrt->simplify();
    }
 
    else if(nrt2 && rN1){
-	   cout << "This function is currently unsupported." << endl;
-	  	   return rN1;
+	   return multiply(b,a);
    }
 
    if(nrt1 && f2){
-	   cout << "This function is currently unsupported." << endl;
+	   cout << "NthRoot does not support fractional coefficients." << endl;
 	   return nrt1;
    }
 
    else if(nrt2 && f1){
-	   cout << "This function is currently unsupported." << endl;
+	   cout << "NthRoot does not support fractional coefficients." << endl;
 	  	   return f1;
    }
 

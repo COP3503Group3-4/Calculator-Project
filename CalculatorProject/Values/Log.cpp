@@ -9,6 +9,7 @@
 #include <sstream>
 #include <string>
 #include <Add.h>
+#include <Multiply.h>
 #include <vector>
 #include <cmath>
 
