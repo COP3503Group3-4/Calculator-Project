@@ -199,37 +199,15 @@ Value* Multiply::multiply(Value* a, Value* b) {
 	   {return f2;}
     }
 
-    	
-    	
-    	/*
-        if(f1 && l1){
-            Value* exp1 = new Expression(f1, l1, '*');
-            return exp1;
-        }
-        if(f1 && l2){
-            Value* exp1 = new Expression(f1, l2, '*');
-            return exp1;
-        }
-        if(f2 && l1){
-            Value* exp1 = new Expression(f2, l1, '*');
-            return exp1;
-        }
-        if(f2 && l2){
-            Value* exp1 = new Expression(f2, l2, '*');
-            return exp1;
-        }
-    }*/
-
     //All of the above is the combination of a rational fraction and an expression. Expression types will not INITALLY
     //be passed into the method, and they will be solved later on anyways, so all we need to do now is return an expression
     //with both values. No need to worry about the actual simplification right now.
 
-    if((rN1 && l2) || (l1 && rN2)){
-    	cout << "Multiplication between rational number and log is currently unsupported." << endl;
-    	if(rN1 && l2)
-	   {return l2;}
-	if(l1 && rN2)
-	   {return rN2;}
+    if (l1 && rN2) {
+    	return new Log(l1->getCoefficient() * rN2->getNumValue(), l1->getNum1(), l1->getNum2());
+    }
+    if (rN1 && l2) {
+    	return multiply(b,a);
     }
 
     	/*
