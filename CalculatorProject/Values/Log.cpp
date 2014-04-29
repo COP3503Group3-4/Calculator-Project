@@ -311,3 +311,20 @@ bool Log::isWholeLog(int b, int c){
         return false;
     }
 }
+bool Log::isPerfectLogRTF(int b, int c){
+    int baseVal = b;
+    int insideVal = c;
+    bool even = false;
+
+    for(int i = 0; i < (baseVal/2); i++){
+        if(pow((double)insideVal, (double)i) == baseVal){
+            even = true;
+            RationalFraction simpRTF(1, i);
+            perfectLogRTF = simpRTF;
+        }
+    }
+    if(even == true){
+        return true;
+    }
+    else{ return false; }
+}
