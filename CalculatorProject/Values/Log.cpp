@@ -176,7 +176,7 @@ Value* Log::simplifyLog(Value* a, Value* b){
     	return this;
     }
     else{
-        cout<<"This operation for logs is not supported."<<endl;
+    	cout << "This operation is currently unsupported: " << "log_" << base->toString() << ":(" << b->toString() << ")" << endl;
         return this;
     }
 }

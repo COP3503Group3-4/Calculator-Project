@@ -29,11 +29,9 @@ Exponentiate::~Exponentiate() {
 }
 
 Value* Exponentiate::simplifyNumerator(int a, int b, int c){
-  //waiting for Damian's function definition for simplifyNumerator for NthRoot
 }
 
 Value* Exponentiate::simplifyDenominator(int a, int b, int c){
-//waiting for Damian's function definition for simplifyNumerator for NthRoot
     }
 /*
 //helper method to take the Nthroot of a rational vaule
@@ -163,7 +161,7 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 
 	    }
 
-	    if(rN1 && rN2){
+	    else if(rN1 && rN2){
 			int base = rN1->getNumValue();
 			int exp = rN2->getNumValue();
 			if(exp>=0) {                  //if the exponent is not negative, just take the nth power and return the result
@@ -180,7 +178,7 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 
 	        }
 
-	     if(rN1 && f2) {
+	    else if(rN1 && f2) {
 	    	 int pow = f2->getNumerator();
 	    	 RationalNumber* rN3 = new RationalNumber(expo(rN1->getNumValue(), pow));
 	    	 RationalNumber* rN4 = new RationalNumber(f2->getDenominator());
@@ -197,7 +195,7 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 
 	     }
 
-	   if(f1 && f2) {
+	    else if(f1 && f2) {
 	    	 int n = f1->getNumerator();
 	    	 int d = f1->getDenominator();
 	    	 RationalNumber* nn = new RationalNumber(n);
@@ -221,26 +219,30 @@ Value* Exponentiate::exponentiate(Value* base, Value* exp)
 	    	 }
 
 	     }
-	   if(iRN1 && rN2) {
+	    else if(iRN1 && rN2) {
 		   Value* newExpo = Multiply::multiply(iRN1->getNum2(),rN2);
 		   return new IrrationalNumber(iRN1->coefficient, iRN1->getIRNumValue(), newExpo);
 	   }
-	   if(rN1 && iRN2) {
+	    else if(rN1 && iRN2) {
 		   cout << "Raising rational numbers to irrational powers is unsupported." << endl;
 		   return rN1;
 	   }
 
-	   if(ex1 && rN2) {
+	    else if(ex1 && rN2) {
 		   Value* v = new Expression(*ex1);
 		   for (int i = 1; i < rN2->getNumValue(); i++) {
 			   v = Multiply::multiply(v,ex1);
 		   }
 		   return v;
 	   }
-	   if(rN1 && ex2) {
+	    else if(rN1 && ex2) {
 		   cout << "Exponentiating by an Expression is not supported." << endl;
 		   return rN1;
 	   }
+	    else{
+	    	cout << "This operation is currently unsupported: " << base->toString() << " ^ " << exp->toString() << endl;
+	    	return base;
+	    }
 
 }
 
