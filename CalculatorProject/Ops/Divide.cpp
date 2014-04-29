@@ -42,7 +42,7 @@ Value* Divide::divide(Value* a, Value* b){
     if(rN2){
     	if(rN2->getNumValue() == 0){
     		cout<<"Dividing by zero is not allowed!";
-    		Value* zero = RationalNumber(0);
+    		RationalNumber* zero = new RationalNumber(0);
     		return zero;
     	}
     }	
