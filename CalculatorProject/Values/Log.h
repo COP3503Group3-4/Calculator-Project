@@ -2,6 +2,7 @@
 #define LOG_H
 
 #include <Value.h>
+#include <RationalFraction.h>
 #include <vector>
 
 class Log : public Value
@@ -36,6 +37,7 @@ class Log : public Value
     protected:
     private:
         int perfectLog;
+        RationalFraction perfectLogRTF;
 };
 
 #endif // LOG_H

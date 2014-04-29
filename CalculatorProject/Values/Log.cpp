@@ -1,5 +1,4 @@
 #include <Log.h>
-#include <RationalFraction.h>
 #include <RationalNumber.h>
 #include <IrrationalNumber.h>
 #include <IrrationalFraction.h>
@@ -112,9 +111,6 @@ Value* Log::simplifyLog(Value* a, Value* b){
             Value* rNSimp = new RationalNumber(1);
             return rNSimp;
         }
-        else if( rN1->getNumValue() > rN2->getNumValue() && rN2->getNumValue() != 1){
-            return this;
-        }
         else if(rN2->getNumValue() == 1){
             Value* rNSimp = new RationalNumber(0);
             return rNSimp;
@@ -201,7 +197,7 @@ Value* Log::getNum2(){
 */
 
 void Log::printInfo(){
-    if(coefficient > 1 && coefficient < -1) cout<<coefficient;
+    if(coefficient != 1) cout<<coefficient;
     if(coefficient == -1) cout << "-";
     cout<<"log_";
     base->printInfo();
@@ -327,8 +323,8 @@ bool Log::isPerfectLogRTF(int b, int c){
     int insideVal = c;
     bool even = false;
 
-    for(int i = 0; i < (baseVal/2); i++){
-        if(pow((double)insideVal, (double)i) == baseVal){
+    for(int i = 0; i <= sqrt(baseVal); i++){
+        if(pow((double)insideVal, i) == baseVal){
             even = true;
             RationalFraction simpRTF(1, i);
             perfectLogRTF = simpRTF;
