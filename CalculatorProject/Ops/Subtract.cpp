@@ -254,7 +254,7 @@ Subtract::~Subtract() {}
 		return exp1;
 	}
 
-   if(ex1 && iRN2) {
+	else if(ex1 && iRN2) {
 	   if(ex1->getIrrational(ind,iRN2->getIRNumValue(), iRN2->getNum2())) {
 		   Value* v = subtract(ex1->get(ind), iRN2);
 		   ex1->popOffAt(ind);
@@ -267,7 +267,7 @@ Subtract::~Subtract() {}
 	   return ex1->simplify();
    }
    
-   if(iRN1 && ex2){
+	else if(iRN1 && ex2){
 	   ex2->makeNegative();
 	   if(ex2->getIrrational(ind, iRN1->getIRNumValue(), iRN1->getNum2())) {
 		   Value* v = Add::add(iRN1, ex2->get(ind));
@@ -279,7 +279,7 @@ Subtract::~Subtract() {}
    }
    
 
-	if(ex1 && ex2){
+	else if(ex1 && ex2){
 		Value* newEx = ex1;
 		ex2->minusToPlus();
 		ex2->makeNegative();
@@ -290,7 +290,7 @@ Subtract::~Subtract() {}
 		return newEx->simplify();
 	}
 
-	if(ex1 && f2){
+	else if(ex1 && f2){
 		if(ex1->getRational(ind)) {
 			Value* v = subtract(ex1->get(ind), f2);
 			ex1->popOffAt(ind);
@@ -302,7 +302,7 @@ Subtract::~Subtract() {}
 		}
 		return ex1->simplify();
 	}
-	if(f1 && ex2){
+	else if(f1 && ex2){
 		ex2->makeNegative();
 
 		if(ex1->getRational(ind)) {
@@ -316,7 +316,7 @@ Subtract::~Subtract() {}
 		return ex2->simplify();
 	}
 
-	if(ex1 && rN2){
+	else if(ex1 && rN2){
 		if(ex1->getRational(ind)) {
 			Value* v = subtract(ex1->get(ind),rN2);
 			ex1->popOffAt(ind);
@@ -329,7 +329,7 @@ Subtract::~Subtract() {}
 		return ex1->simplify();
 	}
 
-	if(ex2 && rN1){
+	else if(ex2 && rN1){
 		ex2->makeNegative();
 
 		if(ex2->getRational(ind)) {
@@ -343,7 +343,7 @@ Subtract::~Subtract() {}
 		return ex2->simplify();
 	}
 
-   if(sqrA && sqrB){
+	else if(sqrA && sqrB){
         Value* sqrAInside = sqrA->getNum2();
         Value* sqrBInside = sqrB->getNum2();
         RationalFraction* insideRTrF1 = dynamic_cast<RationalFraction*>(sqrAInside);
@@ -387,26 +387,30 @@ Subtract::~Subtract() {}
         }
    }
 
-   if(nrtA && nrtB) {
+	else if(nrtA && nrtB) {
 	   cout << "Subtracting NthRoots is currently unsupported." << endl;
 	   return nrtA;
    }
-   if(nrtA && rN2) {
-	   Expression* exp = new Expression(nrtA, rN2, '-');
-	   return exp->simplify();
+	else if(nrtA && rN2) {
+		Expression* exp = new Expression(nrtA, rN2, '-');
+		return exp->simplify();
+	}
+	else if(rN1 && nrtB) {
+		Expression* exp = new Expression(rN1, nrtB, '-');
+		return exp->simplify();
+	}
+	else if(f1 && nrtB) {
+		Expression* exp = new Expression(f1, nrtB, '-');
+		return exp->simplify();
    }
-   if(rN1 && nrtB) {
-	   Expression* exp = new Expression(rN1, nrtB, '-');
-	   return exp->simplify();
-   }
-   if(f1 && nrtB) {
-	   Expression* exp = new Expression(f1, nrtB, '-');
-	   return exp->simplify();
-   }
-   if(nrtA && f2) {
-	   Expression* exp = new Expression(nrtA, f2, '-');
-	   return exp->simplify();
-   }
+	else if(nrtA && f2) {
+		Expression* exp = new Expression(nrtA, f2, '-');
+		return exp->simplify();
+	}
+    else {
+    	cout << "This operation is currently unsupported: " << a->toString() << " - " << b->toString() << endl;
+    	return a;
+    }
 }
 
 bool Subtract::isEqual(Value* a, Value* b){
