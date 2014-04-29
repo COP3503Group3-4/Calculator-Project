@@ -30,7 +30,7 @@ class Log : public Value
         int insideNum;
         void printInfo();
         string toString();
-        Value* createSimpExpression(vector<int> a, Value* b);
+        Value* createSimpExpression(vector<int> &a, Value* b);
         Value* addToCombine(vector<Value*> &a);
         bool isWholeLog(int b, int c);
         bool isPerfectLogRTF(int b, int c);

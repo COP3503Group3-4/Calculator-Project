@@ -66,7 +66,7 @@ Value* Log::simplifyLog(Value* a, Value* b){
     		if(f1->getNumerator() < 0){
     			cout<<"Negative bases? C'mon man, ain't nobody got time for that."<<endl;
     			return this;
-    		}	
+    		}
     	}
     	if(rN1){
     		if(rN1->getNumValue() < 0){
@@ -74,8 +74,8 @@ Value* Log::simplifyLog(Value* a, Value* b){
     			return this;
     		}
     	}
-    	
-    	
+
+
     }
     if( f1 && f2 ){
         if((f1->getNumerator() && f1->getDenominator()) == (f2->getNumerator() && f2->getDenominator())){
@@ -144,11 +144,11 @@ Value* Log::simplifyLog(Value* a, Value* b){
             int newVal = rN2->getNumValue();
             Value* simplifiedLog = new Log();
             simplifiedLog = logFactor(storedVal,newVal, index);
-            if(coefficient != 1){
+            if(this->coefficient != 1){
                 Multiply* m1 = new Multiply();
                 Log* actualLog = dynamic_cast<Log*>(simplifiedLog);
                 int logCo = actualLog->getCoefficient();
-                int finalCo = coefficient * logCo;
+                int finalCo = this->coefficient * logCo;
                 Value* rnCoeff = new RationalNumber(finalCo);
                 simplifiedLog = m1->multiply(rnCoeff, simplifiedLog);
                 return simplifiedLog;
@@ -197,8 +197,9 @@ Value* Log::getNum2(){
 */
 
 void Log::printInfo(){
-    if(coefficient > 1 && coefficient < -1) cout<<coefficient;
+    if(coefficient > 1 || coefficient < -1) cout<<coefficient<< '*';
     if(coefficient == -1) cout << "-";
+
     cout<<"log_";
     base->printInfo();
     cout<<":";
@@ -221,9 +222,10 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
 
     if(numToSimp % index == 0){
         storedRoots.push_back(index);
-        return logFactor(storedRoots, numToSimp/index, index);
+        return logFactor(storedRoots, (numToSimp/index), index);
     }
     else if(index < numToSimp){
+
         index++;
         //cout<<index<<endl;
         return logFactor(storedRoots, numToSimp, index);
@@ -233,9 +235,11 @@ Value* Log::logFactor(vector<int> a, int index1, int index2){
             Value* alreadySimp = new Log(coefficient, base, insideValue);
             return alreadySimp;
         }
-        for(int i = 0; i < storedRoots.size(); i++){
+        else{
+        	for(int i = 0; i < storedRoots.size(); i++){
             Value* logNum = new RationalNumber(storedRoots[i]);
             storedLogValues.push_back(logNum);
+        	}
         }
     }
 
@@ -279,7 +283,7 @@ int Log::getCoefficient(){
     All this method would do is return the coefficient in front of the log object.
 */
 
-Value* Log::addToCombine(vector<Value*>& a){
+Value* Log::addToCombine(vector<Value*> &a){
     //vector<Value*> simpVector = a;
     int simpSize = a.size();
 
@@ -301,7 +305,6 @@ Value* Log::addToCombine(vector<Value*>& a){
 bool Log::isWholeLog(int b, int c){
     int baseVal = b;
     int insideVal = c;
-    int properNum;
     bool even = false;
 
     for(int i = 0; i < (insideVal/2); i++){

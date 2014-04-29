@@ -437,6 +437,14 @@ Value* Add::add(Value* a, Value* b) {
             }
         }
    }
+    else if(nrtA && l2){
+    	Value* exp = new Expression(nrtA, l2, '+');
+    	exp = exp->simplify();
+    	return exp;
+    }
+    else if(l1 && nrtB){
+    	Add::add(nrtB, l1);
+    }
     else {
     	cout << "This operation is currently unsupported: " << a->toString() << " + " << b->toString() << endl;
     	return a;
