@@ -65,13 +65,13 @@ Value* Log::simplifyLog(Value* a, Value* b){
     if(f1 || rN1){
     	if(f1){
     		if(f1->getNumerator() < 0){
-    			cout<<"Negative bases? C'mon man, ain't nobody got time for that.";
+    			cout<<"Negative bases? C'mon man, ain't nobody got time for that."<<endl;
     			return this;
     		}	
     	}
     	if(rN1){
     		if(rN1->getNumValue() < 0){
-    			cout<<"Negative bases? C'mon man, ain't nobody got time for that.";
+    			cout<<"Negative bases? C'mon man, ain't nobody got time for that."<<endl;
     			return this;
     		}
     	}
