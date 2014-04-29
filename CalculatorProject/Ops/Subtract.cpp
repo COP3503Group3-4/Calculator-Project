@@ -109,11 +109,17 @@ Subtract::~Subtract() {}
                     else{
                         int coeff1 = rNIV1->getNumValue();
                         int coeff2 = rNIV2->getNumValue();
-                        RationalFraction* coeffRTF = new RationalFraction(coeff1, coeff2);
+                        Value* coeffRTF = new RationalFraction(coeff1, coeff2);
                         coeffRTF = coeffRTF->simplify();
-                        if(coeffRTF->getNumerator == 0){
-                        	Value* simpZero = new RationalNumber(0);
-                        	return simpZero;
+                        RationalFraction* zeroCheck1 = dynamic_cast<RationalFraction*>(coeffRTF);
+                        RationalNumber* zeroCheck2;
+                        if(zeroCheck1) zeroCheck2 = new RationalNumber(zeroCheck1->getNumerator());
+                        else zeroCheck2 = dynamic_cast<RationalNumber*>(coeffRTF);
+                        if(zeroCheck2) {
+                        	if (zeroCheck2->getNumValue() == 0) {
+                            	Value* simpZero = new RationalNumber(0);
+                            	return simpZero;
+                        	}
                         }
                         else{
                         	Value* logSimp = new Log(lB1, coeffRTF);
