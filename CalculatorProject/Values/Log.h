@@ -32,6 +32,7 @@ class Log : public Value
         Value* createSimpExpression(vector<int> a, Value* b);
         Value* addToCombine(vector<Value*> &a);
         bool isWholeLog(int b, int c);
+        bool isPerfectLogRTF(int b, int c);
     protected:
     private:
         int perfectLog;
